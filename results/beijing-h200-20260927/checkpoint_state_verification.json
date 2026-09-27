@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "ranks": [
+    {
+      "rank": 0,
+      "scheduler_step": 1739,
+      "next_lr": 0.0,
+      "rng_present": true
+    },
+    {
+      "rank": 1,
+      "scheduler_step": 1739,
+      "next_lr": 0.0,
+      "rng_present": true
+    },
+    {
+      "rank": 2,
+      "scheduler_step": 1739,
+      "next_lr": 0.0,
+      "rng_present": true
+    },
+    {
+      "rank": 3,
+      "scheduler_step": 1739,
+      "next_lr": 0.0,
+      "rng_present": true
+    }
+  ],
+  "data_step": 1739,
+  "prompts_yielded": 13912,
+  "checkpoint_directory": "/volume/pt-train/users/zhaoye/OPSD-runtime/runs/tip-20260924T174814Z-1211426/train-output/Qwen3-4B-beijing-tip-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/global_step_1739"
+}

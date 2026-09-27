@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
@@ -7,7 +7,7 @@ SRC_ROOT="${REPO_ROOT}/src"
 
 ulimit -n 65535
 
-export PYTHONPATH="${SRC_ROOT}:$PYTHONPATH"
+export PYTHONPATH="${SRC_ROOT}:${PYTHONPATH:-}"
 export PYTORCH_ALLOC_CONF=expandable_segments:True
 export MASTER_PORT=${MASTER_PORT:-$(shuf -i 29500-39999 -n 1)}
 
@@ -23,47 +23,54 @@ MODEL_NAME=${MODEL_NAME:-$(basename "$MODEL_PATH")}
 TEACHER_MODEL_PATH=${TEACHER_MODEL_PATH:?TEACHER_MODEL_PATH environment variable is required}
 
 # Training hyperparameters
-train_batch_size=${TRAIN_BATCH_SIZE:-256}
-ppo_mini_batch_size=${PPO_MINI_BATCH_SIZE:-64}
-ppo_micro_batch_size_per_gpu=${PPO_MICRO_BATCH_SIZE_PER_GPU:-4}
+train_batch_size=${TRAIN_BATCH_SIZE:-8}
+ppo_mini_batch_size=${PPO_MINI_BATCH_SIZE:-8}
+ppo_micro_batch_size_per_gpu=${PPO_MICRO_BATCH_SIZE_PER_GPU:-1}
 learning_rate=${LEARNING_RATE:-1e-6}
-total_epochs=${TOTAL_EPOCHS:-15}
-save_freq=${SAVE_FREQ:-20}
-test_freq=${TEST_FREQ:-5}
+total_epochs=${TOTAL_EPOCHS:-1}
+save_freq=${SAVE_FREQ:-50}
+test_freq=${TEST_FREQ:-50}
 max_prompt_length=${MAX_PROMPT_LENGTH:-2048}
 max_response_length=${MAX_RESPONSE_LENGTH:-8192}
-rollout_n=${ROLLOUT_N:-1}
-tp_size=${TP_SIZE:-1}
-gpu_memory_util=${GPU_MEMORY_UTIL:-0.7}
+rollout_n=${ROLLOUT_N:-16}
+tp_size=${TP_SIZE:-2}
+gpu_memory_util=${GPU_MEMORY_UTIL:-0.6}
 
 # OPD-specific: divergence type and chunk size
 opd_loss_type=${OPD_LOSS_TYPE:-reverse_kl}
-opd_chunk_size=${OPD_CHUNK_SIZE:-256}
+opd_chunk_size=${OPD_CHUNK_SIZE:-512}
 opd_max_length=${OPD_MAX_LENGTH:-16384}
 # Reward-weighted distillation: set to a positive float to enable (e.g., 0.1, 0.5, 1.0)
 opd_reward_beta=${OPD_REWARD_BETA:-}
+tip_enabled=${TIP_ENABLED:-True}
+tip_keep_ratio=${TIP_KEEP_RATIO:-0.5}
+tip_entropy_clip_quantile=${TIP_ENTROPY_CLIP_QUANTILE:-0.98}
+if [[ "$tip_enabled" == True && -n "$opd_reward_beta" ]]; then
+    echo "TIP uses unweighted reverse KL; unset OPD_REWARD_BETA" >&2
+    exit 2
+fi
+if [[ "$tip_enabled" == True && "$opd_loss_type" != reverse_kl ]]; then
+    echo "TIP requires OPD_LOSS_TYPE=reverse_kl" >&2
+    exit 2
+fi
 
 # Sampling: high temperature for exploration during student rollout
 temperature=${TEMPERATURE:-1.0}
 top_p=${TOP_P:-1.0}
 top_k=${TOP_K:--1}
 
-# Qwen3 recommended params for validation
-# Default: 0.6 with thinking enabled, 0.7 without
-ENABLE_THINKING=${ENABLE_THINKING:-True}
-if [ "$ENABLE_THINKING" = "True" ]; then
-    val_temperature=${VAL_TEMPERATURE:-0.6}
-else
-    val_temperature=${VAL_TEMPERATURE:-0.7}
-fi
-val_top_p=${VAL_TOP_P:-0.8}
-val_top_k=${VAL_TOP_K:-20}
+# TIP math: match upstream non-thinking template; paper evaluates at temperature 1.
+ENABLE_THINKING=${ENABLE_THINKING:-False}
+val_temperature=${VAL_TEMPERATURE:-1.0}
+val_top_p=${VAL_TOP_P:-1.0}
+val_top_k=${VAL_TOP_K:--1}
+val_n=${VAL_N:-16}
 
 # Data split ratio
 dapo_train_ratio=${DAPO_TRAIN_RATIO:-0.8}
 val_before_train=${VAL_BEFORE_TRAIN:-False}
 
-GPUS_PER_NODE=$(nvidia-smi --list-gpus | wc -l)
+GPUS_PER_NODE=${GPUS_PER_NODE:-$(nvidia-smi --list-gpus | wc -l)}
 echo "GPUS_PER_NODE: $GPUS_PER_NODE"
 
 # ============================================================================
@@ -73,17 +80,21 @@ echo "GPUS_PER_NODE: $GPUS_PER_NODE"
 DATA_DIR=${DATA_DIR:-"${REPO_ROOT}/data"}
 OUTPUT_DIR=${DATA_DIR}/grpo_processed
 
-echo "Preparing data (DAPO ${dapo_train_ratio} train split)..."
-python "${SRC_ROOT}/data/prepare_grpo_data.py" \
-    --data-dir "$DATA_DIR" \
-    --output-dir "$OUTPUT_DIR" \
-    --train-ratio "$dapo_train_ratio"
+if [ "${SKIP_DATA_PREP:-0}" != 1 ]; then
+    echo "Preparing data (DAPO ${dapo_train_ratio} train split)..."
+    python "${SRC_ROOT}/data/prepare_grpo_data.py" \
+        --data-dir "$DATA_DIR" \
+        --output-dir "$OUTPUT_DIR" \
+        --train-ratio "$dapo_train_ratio"
+fi
 
 TRAIN_FILE=${OUTPUT_DIR}/train.parquet
 VAL_DAPO=${OUTPUT_DIR}/val_dapo.parquet
 VAL_AIME24=${OUTPUT_DIR}/val_aime24.parquet
 VAL_AIME25=${OUTPUT_DIR}/val_aime25.parquet
 VAL_MATH500=${OUTPUT_DIR}/val_math500.parquet
+TRAIN_FILE=${TRAIN_FILE_OVERRIDE:-$TRAIN_FILE}
+VAL_FILES=${VAL_FILES_OVERRIDE:-"['$VAL_MATH500','$VAL_AIME24','$VAL_AIME25']"}
 
 # Verify data files exist
 for f in "$TRAIN_FILE" "$VAL_DAPO" "$VAL_AIME24" "$VAL_AIME25" "$VAL_MATH500"; do
@@ -111,9 +122,9 @@ REWARD_TAG=""
 if [ -n "$opd_reward_beta" ]; then
     REWARD_TAG="-rwbeta${opd_reward_beta}"
 fi
-TEACHER_NAME=$(basename "$(dirname "$TEACHER_MODEL_PATH")")
+TEACHER_NAME=$(basename "$TEACHER_MODEL_PATH")
 TEACHER_TAG="-teacher-${TEACHER_NAME}"
-EXP_NAME=${MODEL_NAME_SAFE}-${RUN_ID}-OPD-${opd_loss_type}${REWARD_TAG}${TEACHER_TAG}-${THINK_TAG}-lr${learning_rate}-bs${train_batch_size}-n${rollout_n}
+EXP_NAME=${MODEL_NAME_SAFE}-${RUN_ID}-TIP-rho${tip_keep_ratio}-${opd_loss_type}${REWARD_TAG}${TEACHER_TAG}-${THINK_TAG}-lr${learning_rate}-bs${train_batch_size}-n${rollout_n}
 
 OUTPUT_ROOT=${OUTPUT_ROOT:-"${REPO_ROOT}/outputs"}
 output_dir="${OUTPUT_ROOT}/${EXP_NAME}"
@@ -143,6 +154,9 @@ echo "opd_loss_type: $opd_loss_type"
 echo "opd_chunk_size: $opd_chunk_size"
 echo "opd_max_length: $opd_max_length"
 echo "opd_reward_beta: ${opd_reward_beta:-disabled}"
+echo "tip_enabled: $tip_enabled"
+echo "tip_keep_ratio: $tip_keep_ratio"
+echo "tip_entropy_clip_quantile: $tip_entropy_clip_quantile"
 echo "temperature: $temperature"
 echo "val_temperature: $val_temperature"
 echo "val_top_p: $val_top_p"
@@ -161,9 +175,9 @@ python -m opd.main_opd \
     --config-path "${SRC_ROOT}/opd/config" \
     --config-name opd_trainer \
     data.train_files=$TRAIN_FILE \
-    data.val_files="['$VAL_MATH500','$VAL_AIME24','$VAL_AIME25']" \
+    data.val_files="$VAL_FILES" \
     data.return_raw_chat=True \
-    $(if [[ "$MODEL_NAME" == *"Qwen"* || "$MODEL_NAME" == *"qwen"* ]]; then echo "+data.apply_chat_template_kwargs.enable_thinking=False"; fi) \
+    $(if [[ "$MODEL_NAME" == *"Qwen"* || "$MODEL_NAME" == *"qwen"* ]]; then echo "+data.apply_chat_template_kwargs.enable_thinking=$ENABLE_THINKING"; fi) \
     data.train_batch_size=$train_batch_size \
     data.max_prompt_length=$max_prompt_length \
     data.max_response_length=$max_response_length \
@@ -174,6 +188,7 @@ python -m opd.main_opd \
     actor_rollout_ref.model.enable_gradient_checkpointing=True \
     actor_rollout_ref.actor.optim.lr=$learning_rate \
     actor_rollout_ref.actor.optim.lr_warmup_steps=0 \
+    actor_rollout_ref.actor.optim.lr_scheduler_type=${LR_SCHEDULER_TYPE:-cosine} \
     actor_rollout_ref.actor.optim.weight_decay=0.1 \
     actor_rollout_ref.actor.ppo_mini_batch_size=$ppo_mini_batch_size \
     actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=$ppo_micro_batch_size_per_gpu \
@@ -188,6 +203,7 @@ python -m opd.main_opd \
     actor_rollout_ref.rollout.free_cache_engine=True \
     actor_rollout_ref.rollout.gpu_memory_utilization=$gpu_memory_util \
     actor_rollout_ref.rollout.n=$rollout_n \
+    actor_rollout_ref.rollout.agent.num_workers=${AGENT_NUM_WORKERS:-8} \
     actor_rollout_ref.rollout.temperature=${temperature} \
     actor_rollout_ref.rollout.top_p=${top_p} \
     actor_rollout_ref.rollout.top_k=${top_k} \
@@ -195,7 +211,10 @@ python -m opd.main_opd \
     actor_rollout_ref.rollout.val_kwargs.top_p=${val_top_p} \
     actor_rollout_ref.rollout.val_kwargs.top_k=${val_top_k} \
     actor_rollout_ref.rollout.val_kwargs.do_sample=True \
-    actor_rollout_ref.rollout.val_kwargs.n=16 \
+    actor_rollout_ref.rollout.val_kwargs.n=${val_n} \
+    actor_rollout_ref.tip.enabled=${tip_enabled} \
+    actor_rollout_ref.tip.keep_ratio=${tip_keep_ratio} \
+    actor_rollout_ref.tip.entropy_clip_quantile=${tip_entropy_clip_quantile} \
     opd.loss_type=${opd_loss_type} \
     opd.chunk_size=${opd_chunk_size} \
     opd.max_length=${opd_max_length} \
@@ -213,6 +232,10 @@ python -m opd.main_opd \
     trainer.log_val_generations=10 \
     trainer.save_freq=$save_freq \
     trainer.test_freq=$test_freq \
+    trainer.total_training_steps=${TOTAL_TRAINING_STEPS:-null} \
+    trainer.stop_after_steps=${STOP_AFTER_STEPS:-0} \
+    trainer.resume_mode=${RESUME_MODE:-disable} \
+    trainer.resume_from_path="${RESUME_FROM_PATH:-null}" \
     trainer.total_epochs=$total_epochs
 
 echo ""

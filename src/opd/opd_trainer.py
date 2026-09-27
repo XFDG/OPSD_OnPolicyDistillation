@@ -26,9 +26,20 @@ from verl.trainer.ppo.ray_trainer import RayPPOTrainer, ResourcePoolManager, Rol
 from verl.trainer.ppo.reward import get_custom_reward_fn
 from verl.utils.metric import reduce_metrics
 
+from rewards.math_reward import last_boxed_only_string, remove_boxed, strip_string
+
 from .batch_builder import build_opd_batch
 
 py_logger = logging.getLogger(__name__)
+
+
+def _boxed_prediction(response: str) -> str:
+    """Extract a normalized boxed answer for majority-vote validation."""
+    try:
+        boxed = last_boxed_only_string(response)
+        return strip_string(remove_boxed(boxed)) if boxed is not None else ""
+    except (AssertionError, IndexError, TypeError, ValueError):
+        return ""
 
 
 class OPDTrainer(RayPPOTrainer):
@@ -188,7 +199,7 @@ class OPDTrainer(RayPPOTrainer):
                         pred = result.get("pred", "")
                     else:
                         acc = float(result)
-                        pred = ""
+                        pred = _boxed_prediction(response)
                 else:
                     acc = 0.0
                     pred = ""
@@ -244,6 +255,11 @@ class OPDTrainer(RayPPOTrainer):
 
         self.global_steps = 0
         self._load_checkpoint()
+        initial_step = self.global_steps
+        stop_after = self.config.trainer.get("stop_after_steps", 0)
+        stop_step = initial_step + stop_after if stop_after else self.total_training_steps
+        py_logger.info("Resume state: step=%d, schedule_horizon=%d, stop_step=%d",
+                       initial_step, self.total_training_steps, stop_step)
         self.checkpoint_manager.update_weights()
         progress = tqdm(total=self.total_training_steps, initial=self.global_steps, desc="OPD Training")
 
@@ -255,7 +271,7 @@ class OPDTrainer(RayPPOTrainer):
                 progress.close()
                 return
 
-        for epoch in range(self.config.trainer.total_epochs):
+        for epoch in range(initial_step // len(self.train_dataloader), self.config.trainer.total_epochs):
             for batch_dict in self.train_dataloader:
                 if self.global_steps >= self.total_training_steps:
                     progress.close()
@@ -271,9 +287,18 @@ class OPDTrainer(RayPPOTrainer):
                     [str(uuid.uuid4()) for _ in range(len(batch.batch))], dtype=object
                 )
 
+                # The pinned Verl agent loop emits one response for each input row.
+                # Repeat prompt rows here so rollout.n produces n independent samples.
+                rollout_n = self.config.actor_rollout_ref.rollout.n
+                if rollout_n > 1:
+                    batch = batch.repeat(repeat_times=rollout_n, interleave=True)
+
                 # Save raw_prompt before _get_gen_batch pops it from non_tensor_batch
                 saved_raw_prompt = batch.non_tensor_batch.get("raw_prompt")
 
+                expected_rollouts = len(batch)
+                metrics["rollout/prompts"] = expected_rollouts // rollout_n
+                metrics["rollout/samples_per_prompt"] = rollout_n
                 gen_batch = self._get_gen_batch(batch)
                 gen_batch.meta_info = {
                     "eos_token_id": self.tokenizer.eos_token_id,
@@ -288,6 +313,9 @@ class OPDTrainer(RayPPOTrainer):
                 self.checkpoint_manager.sleep_replicas()
                 metrics["timing/generate_s"] = time.time() - gen_t0
 
+                if len(gen_output) != expected_rollouts:
+                    raise RuntimeError(f"rollout count mismatch: {len(gen_output)} != {expected_rollouts}")
+                metrics["rollout/generated_sequences"] = len(gen_output)
                 batch = batch.union(gen_output)
 
                 # Restore raw_prompt (popped by _get_gen_batch since it's not in reward_model_keys)
@@ -373,14 +401,13 @@ class OPDTrainer(RayPPOTrainer):
                 self.checkpoint_manager.update_weights()
                 metrics["timing/train_s"] = time.time() - train_t0
 
-                is_last = self.global_steps >= self.total_training_steps
+                is_last = self.global_steps >= min(self.total_training_steps, stop_step)
                 is_val = self.test_freq > 0 and self.global_steps % self.test_freq == 0
-                if is_val or is_last:
-                    metrics.update(self._validate())
-
                 save_freq = self.config.trainer.save_freq
                 if save_freq > 0 and (is_last or self.global_steps % save_freq == 0):
                     self._save_checkpoint()
+                if is_val or is_last:
+                    metrics.update(self._validate())
 
                 metrics["training/global_step"] = self.global_steps
                 metrics["training/epoch"] = epoch

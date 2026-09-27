@@ -123,7 +123,10 @@ def process_aime24(data_path):
 
     def process_fn(example, idx):
         question = example["problem"].rstrip() + "\n\n" + BOXED_INSTRUCTION
-        solution = extract_boxed_answer(example["solution"])
+        # Some published AIME 2024 solutions use \framebox or nested TeX rather
+        # than a simple \boxed{...}. Prefer the dataset's explicit answer.
+        answer = example.get("answer")
+        solution = str(answer) if answer is not None else extract_boxed_answer(example["solution"])
         return {
             "data_source": "aime24",
             "prompt": [{"role": "user", "content": question}],

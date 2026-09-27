@@ -30,7 +30,7 @@ from verl.utils.torch_functional import entropy_from_logits_with_chunking
 from verl.utils.ulysses import gather_outputs_and_unpad, ulysses_pad_and_slice_inputs
 from verl.workers.fsdp_workers import AsyncActorRolloutRefWorker
 
-from .losses import LOSS_FN_MAP, compute_teacher_token_stats
+from .losses import LOSS_FN_MAP, compute_teacher_token_stats, compute_tip_token_stats, select_tip_soft_or_indices
 
 logger = logging.getLogger(__name__)
 
@@ -198,7 +198,8 @@ class OPDWorker(AsyncActorRolloutRefWorker):
             _mem("phase2-after-optimizer-load")
 
             use_sample_weights = "sample_weights" in data.batch
-            metrics = self._opd_training_step(
+            train_fn = self._tip_training_step if self.config.get("tip", {}).get("enabled", False) else self._opd_training_step
+            metrics = train_fn(
                 micro_batches, teacher_logits_cache,
                 loss_type=loss_type, beta=beta, chunk_size=chunk_size,
                 use_remove_padding=use_remove_padding, device=device, batch_size=batch_size,
@@ -222,6 +223,127 @@ class OPDWorker(AsyncActorRolloutRefWorker):
             offload_fsdp_optimizer(optimizer=self.actor_optimizer)
 
         return output
+
+    def _tip_training_step(
+        self, micro_batches, teacher_logits_cache, loss_type="reverse_kl", beta=0.5,
+        chunk_size=512, use_remove_padding=False, device=0, batch_size=0,
+        use_sample_weights=False,
+    ):
+        """Global-batch Soft-OR ranking, then selected-token reverse-KL update.
+
+        A detached scoring pass keeps the whole batch's normalization independent
+        of GPU count and microbatch size. Only small score vectors are gathered.
+        The second forward rebuilds the graph at selected response positions.
+        """
+        import torch.distributed as dist
+        if loss_type != "reverse_kl" or use_sample_weights:
+            raise ValueError("TIP requires unweighted reverse KL")
+        if self.ulysses_sequence_parallel_size != 1:
+            raise ValueError("This TIP implementation requires sequence parallel size 1")
+        forward = self._forward_logits_unpadded if use_remove_padding else self._forward_logits_padded
+        self.actor_module_fsdp.train()
+        # Qwen3 dropout is zero. Reject stochastic dropout, which would make the
+        # detached scoring pass and differentiated pass use different policies.
+        if any(isinstance(m, torch.nn.Dropout) and m.p for m in self.actor_module_fsdp.modules()):
+            raise ValueError("TIP two-pass scoring requires zero dropout")
+        entropies, divergences, lengths, masks = [], [], [], []
+        for micro, (teacher, valid) in zip(micro_batches, teacher_logits_cache, strict=True):
+            if not valid:
+                raise ValueError("TIP cannot dispatch an entirely invalid microbatch")
+            micro = micro.to(device)
+            rows = micro.batch.get("valid_row_mask")
+            rows = rows.bool() if rows is not None else slice(None)
+            ids, attn, pos, mask = [micro.batch["student_" + k][rows] for k in
+                                  ("input_ids", "attention_mask", "position_ids", "loss_mask")]
+            with torch.no_grad():
+                logits = forward(self.actor_module_fsdp, ids, attn, pos, mask)
+                entropy, divergence = compute_tip_token_stats(logits, teacher, chunk_size)
+            entropies.append(entropy.cpu())
+            divergences.append(divergence.cpu())
+            lengths.extend(mask[:, 1:].sum(-1).long().tolist())
+            masks.append(mask.cpu())
+            del logits, entropy, divergence
+        local_h, local_d = torch.cat(entropies), torch.cat(divergences)
+        world = dist.get_world_size() if dist.is_initialized() else 1
+        rank = dist.get_rank() if dist.is_initialized() else 0
+        gathered = [None] * world
+        payload = (local_h, local_d, lengths)
+        if world > 1:
+            dist.all_gather_object(gathered, payload)
+        else:
+            gathered[0] = payload
+        all_h = torch.cat([x[0] for x in gathered])
+        all_d = torch.cat([x[1] for x in gathered])
+        all_lengths = [n for x in gathered for n in x[2]]
+        chosen, _ = select_tip_soft_or_indices(
+            all_h, all_d, all_lengths, self.config.tip.keep_ratio,
+            self.config.tip.entropy_clip_quantile,
+        )
+        denominator = chosen.numel()
+        start = sum(x[0].numel() for x in gathered[:rank])
+        local_selected = chosen[(chosen >= start) & (chosen < start + local_h.numel())] - start
+        del gathered, all_d
+        if denominator == 0:
+            raise ValueError("TIP selected no tokens in the global batch")
+        self.actor_optimizer.zero_grad()
+        offset, loss_sum, selected_count = 0, 0.0, 0
+        for micro, (teacher, _), mask in zip(micro_batches, teacher_logits_cache, masks, strict=True):
+            n_response = int(mask[:, 1:].sum())
+            selected = local_selected[(local_selected >= offset) & (local_selected < offset + n_response)] - offset
+            offset += n_response
+            # Flat response logits follow row order, with each label mask shifted
+            # to its preceding logit position by the forward helpers.
+            selected_mask = torch.zeros_like(mask)
+            positions = mask[:, 1:].nonzero()
+            selected_positions = positions[selected]
+            selected_mask[selected_positions[:, 0], selected_positions[:, 1] + 1] = 1
+            micro = micro.to(device)
+            rows = micro.batch.get("valid_row_mask")
+            rows = rows.bool() if rows is not None else slice(None)
+            ids, attn, pos = [micro.batch["student_" + k][rows] for k in
+                             ("input_ids", "attention_mask", "position_ids")]
+            logits = forward(self.actor_module_fsdp, ids, attn, pos, selected_mask.to(device))
+            n = selected.numel()
+            if n:
+                teacher_selected = teacher[selected].to(device)
+                loss, _ = LOSS_FN_MAP["reverse_kl"](teacher_selected, logits, chunk_size=chunk_size)
+                # FSDP averages gradients across ranks; undo that average to
+                # obtain the global selected-token mean, including all microbatches.
+                scaled_loss = loss * (n * world / denominator)
+                loss_sum += float(loss.detach()) * n
+                selected_count += n
+                del teacher_selected
+            else:
+                scaled_loss = logits.sum() * 0.0
+            scaled_loss.backward()
+            del logits, scaled_loss
+        if isinstance(self.actor_module_fsdp, FSDP):
+            norm = self.actor_module_fsdp.clip_grad_norm_(self.config.actor.get("grad_clip", 1.0))
+        else:
+            norm = torch.nn.utils.clip_grad_norm_(self.actor_module_fsdp.parameters(), self.config.actor.get("grad_clip", 1.0))
+        if hasattr(norm, "full_tensor"):
+            norm = norm.full_tensor()
+        if not torch.isfinite(norm):
+            self.actor_optimizer.zero_grad()
+            raise FloatingPointError("TIP gradient norm is not finite")
+        self.actor_optimizer.step()
+        totals = torch.tensor([loss_sum, selected_count], dtype=torch.float64, device=device)
+        if world > 1:
+            dist.all_reduce(totals)
+        return {
+            "opd/loss": float(totals[0] / totals[1]),
+            "opd/entropy": float(all_h.mean()),
+            "opd/grad_norm": float(norm),
+            "opd/num_tokens": selected_count,
+            "opd/batch_size": batch_size,
+            "opd/valid_rows": len(lengths),
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": all_h.numel(),
+            "tip/global_selected_tokens": denominator,
+            "tip/selected_fraction": denominator / max(1, all_h.numel()),
+            "tip/global_rollouts": len(all_lengths),
+            "tip/global_normalization": 1.0,
+        }
 
     def _opd_training_step(
         self,

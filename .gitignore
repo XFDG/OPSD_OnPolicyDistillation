@@ -1,0 +1,8 @@
+data/*
+!data/PROVENANCE.md
+models/
+outputs/
+artifacts/
+__pycache__/
+*.py[cod]
+.pytest_cache/

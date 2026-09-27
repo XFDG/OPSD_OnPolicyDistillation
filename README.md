@@ -12,6 +12,18 @@ top of `verl`. It is the shared training base for three papers on token-,
 problem-, and reward-level efficiency in OPD — see **Papers & Results**
 below for what each one measures and how to cite it.
 
+## Beijing H200 reproduction result — 2026-09-27
+
+Training completed **1739 steps** on **4×H200**, using original Qwen3-8B → Qwen3-4B,
+TIP Soft-OR 50%. Final mean@16: **MATH-500 79.0375%, AIME24 13.1250%, AIME25 19.1667%**.
+The wrapper returned **exit=5** from its post-training overlay-growth guard;
+training artifacts completed and keepalive was restored. The original teacher
+and other documented differences prevent claiming a full paper reproduction.
+
+See the [audited results and full evaluation curve](results/beijing-h200-20260927/RESULTS.md)
+and [experiment settings](BEIJING_TIP_REPRO.md). This branch includes the local
+TIP implementation, Beijing launch/recovery scripts and numerical smoke checks.
+
 ## Papers & Results
 
 ### TIP: Token Importance in On-Policy Distillation

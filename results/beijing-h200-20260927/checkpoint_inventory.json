@@ -1,0 +1,94 @@
+[
+  {
+    "file": "actor/extra_state_world_size_4_rank_0.pt",
+    "bytes": 15141
+  },
+  {
+    "file": "actor/extra_state_world_size_4_rank_1.pt",
+    "bytes": 15141
+  },
+  {
+    "file": "actor/extra_state_world_size_4_rank_2.pt",
+    "bytes": 15141
+  },
+  {
+    "file": "actor/extra_state_world_size_4_rank_3.pt",
+    "bytes": 15141
+  },
+  {
+    "file": "actor/fsdp_config.json",
+    "bytes": 46
+  },
+  {
+    "file": "actor/huggingface/added_tokens.json",
+    "bytes": 707
+  },
+  {
+    "file": "actor/huggingface/chat_template.jinja",
+    "bytes": 4168
+  },
+  {
+    "file": "actor/huggingface/config.json",
+    "bytes": 1535
+  },
+  {
+    "file": "actor/huggingface/generation_config.json",
+    "bytes": 214
+  },
+  {
+    "file": "actor/huggingface/merges.txt",
+    "bytes": 1671853
+  },
+  {
+    "file": "actor/huggingface/special_tokens_map.json",
+    "bytes": 613
+  },
+  {
+    "file": "actor/huggingface/tokenizer.json",
+    "bytes": 11422654
+  },
+  {
+    "file": "actor/huggingface/tokenizer_config.json",
+    "bytes": 5404
+  },
+  {
+    "file": "actor/huggingface/vocab.json",
+    "bytes": 2776833
+  },
+  {
+    "file": "actor/model_world_size_4_rank_0.pt",
+    "bytes": 4411655819
+  },
+  {
+    "file": "actor/model_world_size_4_rank_1.pt",
+    "bytes": 4411655819
+  },
+  {
+    "file": "actor/model_world_size_4_rank_2.pt",
+    "bytes": 4411655819
+  },
+  {
+    "file": "actor/model_world_size_4_rank_3.pt",
+    "bytes": 4411655819
+  },
+  {
+    "file": "actor/optim_world_size_4_rank_0.pt",
+    "bytes": 8045088399
+  },
+  {
+    "file": "actor/optim_world_size_4_rank_1.pt",
+    "bytes": 8045088399
+  },
+  {
+    "file": "actor/optim_world_size_4_rank_2.pt",
+    "bytes": 8045088399
+  },
+  {
+    "file": "actor/optim_world_size_4_rank_3.pt",
+    "bytes": 8045088399
+  },
+  {
+    "file": "data.pt",
+    "bytes": 7316
+  }
+]

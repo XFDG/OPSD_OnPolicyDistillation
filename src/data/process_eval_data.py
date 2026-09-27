@@ -63,7 +63,9 @@ def process_aime24(data_path: str, instruction_variant: str):
             "ability": "math",
             "reward_model": {
                 "style": "rule",
-                "ground_truth": extract_boxed_answer(example["solution"]),
+                "ground_truth": str(example["answer"])
+                if example.get("answer") is not None
+                else extract_boxed_answer(example["solution"]),
             },
             "extra_info": {"split": "test", "index": idx},
         }

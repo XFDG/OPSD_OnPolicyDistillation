@@ -67,6 +67,102 @@ def compute_reverse_kl_loss(
     return kl_sum / n_tokens, n_tokens
 
 
+@torch.no_grad()
+def compute_tip_token_stats(
+    student_logits: torch.Tensor,
+    teacher_logits: torch.Tensor,
+    chunk_size: int = 512,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """TIP's two token axes: normalized student entropy and reverse KL.
+
+    The scores are detached because token selection must not contribute a
+    gradient. Callers may stream chunks of teacher logits from CPU to keep the
+    full teacher vocabulary distribution off the student GPU.
+    """
+    if student_logits.shape != teacher_logits.shape or student_logits.ndim != 2:
+        raise ValueError("TIP logits must have matching (tokens, vocab) shapes")
+    if chunk_size <= 0:
+        raise ValueError("TIP chunk_size must be positive")
+    if student_logits.shape[1] <= 1:
+        raise ValueError("TIP requires a vocabulary with at least two tokens")
+
+    entropy_parts = []
+    divergence_parts = []
+    ln_vocab = math.log(student_logits.shape[1])
+    for start in range(0, student_logits.shape[0], chunk_size):
+        stop = start + chunk_size
+        student_logp = F.log_softmax(student_logits[start:stop].float(), dim=-1)
+        teacher_logp = F.log_softmax(teacher_logits[start:stop].to(student_logits.device).float(), dim=-1)
+        student_p = student_logp.exp()
+        entropy_parts.append(-(student_p * student_logp).sum(dim=-1) / ln_vocab)
+        divergence_parts.append(
+            (student_p * (student_logp - teacher_logp)).sum(dim=-1).clamp_min(0.0)
+        )
+
+    if not entropy_parts:
+        empty = student_logits.new_empty((0,), dtype=torch.float32)
+        return empty, empty
+    return torch.cat(entropy_parts), torch.cat(divergence_parts)
+
+
+@torch.no_grad()
+def select_tip_soft_or_indices(
+    entropy: torch.Tensor,
+    reverse_kl: torch.Tensor,
+    response_lengths: list[int],
+    keep_ratio: float = 0.5,
+    entropy_clip_quantile: float = 0.98,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Select top TIP Soft-OR tokens within *each* rollout.
+
+    Normalization uses all tokens supplied by the caller. The worker supplies
+    the entire global batch gathered across ranks and microbatches.
+
+    Returns (selected flat indices in token order, Soft-OR scores). Stable
+    ranking breaks equal-score ties in favor of earlier response positions.
+    A one-token rollout selects zero tokens when keep_ratio=0.5, as in the
+    paper's floor(rho * response_length) rule.
+    """
+    if entropy.ndim != 1 or reverse_kl.ndim != 1 or entropy.shape != reverse_kl.shape:
+        raise ValueError("TIP entropy and reverse KL must be equal-length vectors")
+    if not 0.0 < keep_ratio <= 1.0:
+        raise ValueError("TIP keep_ratio must be in (0, 1]")
+    if not 0.0 <= entropy_clip_quantile <= 1.0:
+        raise ValueError("TIP entropy_clip_quantile must be in [0, 1]")
+    if any(length < 0 for length in response_lengths) or sum(response_lengths) != entropy.numel():
+        raise ValueError("TIP response lengths must cover exactly the scored tokens")
+    if not torch.isfinite(entropy).all() or not torch.isfinite(reverse_kl).all():
+        raise ValueError("TIP scores must be finite")
+    if entropy.numel() == 0:
+        return torch.empty(0, dtype=torch.long, device=entropy.device), entropy.clone()
+
+    clipped_entropy = entropy.clamp(max=torch.quantile(entropy.float(), entropy_clip_quantile))
+
+    def min_max(values: torch.Tensor) -> torch.Tensor:
+        low, high = values.min(), values.max()
+        if high <= low:
+            return torch.zeros_like(values)
+        return (values - low) / (high - low)
+
+    norm_entropy = min_max(clipped_entropy)
+    norm_divergence = min_max(reverse_kl)
+    scores = norm_entropy + norm_divergence - norm_entropy * norm_divergence
+
+    selected = []
+    offset = 0
+    for length in response_lengths:
+        count = math.floor(keep_ratio * length)
+        if count:
+            # Stable descending order gives deterministic, token-order tie breaks.
+            top = torch.argsort(scores[offset : offset + length], descending=True, stable=True)[:count]
+            selected.append(top.sort().values + offset)
+        offset += length
+
+    if not selected:
+        return torch.empty(0, dtype=torch.long, device=entropy.device), scores
+    return torch.cat(selected), scores
+
+
 def compute_forward_kl_loss(
     teacher_logits: torch.Tensor,
     student_logits: torch.Tensor,

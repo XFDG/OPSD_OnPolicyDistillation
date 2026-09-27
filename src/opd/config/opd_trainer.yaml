@@ -35,6 +35,14 @@ actor_rollout_ref:
   hybrid_engine: true
   nccl_timeout: 600
 
+  # TIP Soft-OR token selection. The worker receives actor_rollout_ref only,
+  # so this configuration lives here instead of under the top-level opd key.
+  # Normalization spans the global batch across microbatches and all GPU ranks.
+  tip:
+    enabled: false
+    keep_ratio: 0.5
+    entropy_clip_quantile: 0.98
+
   rollout:
     name: sglang
     mode: async
@@ -112,6 +120,8 @@ trainer:
   balance_batch: false
   total_epochs: 15
   total_training_steps: null
+  # Test-only early stop; leaves the original cosine schedule horizon intact.
+  stop_after_steps: 0
   project_name: opd
   experiment_name: opd_training
   logger: ["console"]

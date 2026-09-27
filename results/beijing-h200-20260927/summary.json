@@ -1,0 +1,104 @@
+{
+  "training_completed": true,
+  "final_step": 1739,
+  "rollouts_per_step": 128,
+  "total_training_rollouts": 222592,
+  "full_launcher_success": false,
+  "gpu_wrapper_exit_code": 5,
+  "exit_reason": "Node-wide /root and /tmp growth exceeded 64 MiB cleanup guard after successful training",
+  "overlay_growth_bytes": {
+    "root": 77902806,
+    "tmp": 109314414
+  },
+  "keepalive_restored_in_log": true,
+  "original_run": "/volume/pt-train/users/zhaoye/OPSD-runtime/runs/tip-20260924T153731Z-542930",
+  "resumed_run": "/volume/pt-train/users/zhaoye/OPSD-runtime/runs/tip-20260924T174814Z-1211426",
+  "authoritative_resumed_log": "/volume/pt-train/users/zhaoye/ray/ray/session_2026-09-25_01-48-46_484378_1212905/logs/worker-af8f1e7f571a5aea477ecf937f6ef46c30d9692020ca3151ac867b58-01000000-1218923.out",
+  "final_checkpoint": "/volume/pt-train/users/zhaoye/OPSD-runtime/runs/tip-20260924T174814Z-1211426/train-output/Qwen3-4B-beijing-tip-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/global_step_1739",
+  "final_evaluation": {
+    "step": 1739,
+    "math_mean_at_16": 0.790375,
+    "aime24_mean_at_16": 0.13125,
+    "aime25_mean_at_16": 0.19166666666666668,
+    "macro_mean": 0.37109722222222224
+  },
+  "per_benchmark_best": {
+    "math": {
+      "step": 1300,
+      "math_mean_at_16": 0.79525,
+      "aime24_mean_at_16": 0.14375,
+      "aime25_mean_at_16": 0.19583333333333333,
+      "macro_mean": 0.37827777777777777
+    },
+    "aime24": {
+      "step": 1050,
+      "math_mean_at_16": 0.792375,
+      "aime24_mean_at_16": 0.15208333333333332,
+      "aime25_mean_at_16": 0.19375,
+      "macro_mean": 0.3794027777777778
+    },
+    "aime25": {
+      "step": 700,
+      "math_mean_at_16": 0.7905,
+      "aime24_mean_at_16": 0.12291666666666666,
+      "aime25_mean_at_16": 0.22291666666666668,
+      "macro_mean": 0.37877777777777777
+    }
+  },
+  "best_macro_checkpoint": {
+    "step": 100,
+    "math_mean_at_16": 0.7915,
+    "aime24_mean_at_16": 0.14166666666666666,
+    "aime25_mean_at_16": 0.22083333333333333,
+    "macro_mean": 0.38466666666666666
+  },
+  "evaluation_count": 35,
+  "outputs_per_evaluation": 8960,
+  "normal_step_mean_s": 105.5753931936244,
+  "normal_step_median_s": 104.97268974781036,
+  "normal_generate_mean_s": 27.884004952482215,
+  "normal_update_mean_s": 77.62640015871872,
+  "summed_retained_step_hours": 54.139575250082544,
+  "resumed_step_hours": 52.55351175645987,
+  "peak_reported_torch_allocated_gib": 29.911922931671143,
+  "final_training_metrics": {
+    "step": 1739.0,
+    "rollout/prompts": 8.0,
+    "rollout/samples_per_prompt": 16.0,
+    "timing/generate_s": 35.11399459838867,
+    "rollout/generated_sequences": 128.0,
+    "opd/tool_mask/has_agent_mask": 1.0,
+    "opd/tool_mask/llm_tokens": 291014.0,
+    "opd/tool_mask/tool_tokens": 757562.0,
+    "opd/tool_mask/tool_ratio": 0.7224674224853516,
+    "opd/num_turns/min": 2.0,
+    "opd/num_turns/max": 2.0,
+    "opd/num_turns/mean": 2.0,
+    "opd/accuracy": 0.3515625,
+    "opd/batch_size": 32.0,
+    "opd/loss": 0.060268877652575464,
+    "opd/entropy": 0.03263073414564133,
+    "opd/grad_norm": 0.3961813151836395,
+    "opd/num_tokens": 36368.0,
+    "opd/valid_rows": 32.0,
+    "tip/enabled": 1.0,
+    "tip/global_response_tokens": 291014.0,
+    "tip/global_selected_tokens": 145472.0,
+    "tip/selected_fraction": 0.4998797308720543,
+    "tip/global_rollouts": 128.0,
+    "tip/global_normalization": 1.0,
+    "opd/lr": 8.159066482993359e-13,
+    "perf/max_memory_allocated_gb": 29.911922931671143,
+    "timing/train_s": 92.14973878860474,
+    "training/global_step": 1739.0,
+    "training/epoch": 0.0,
+    "timing/step_s": 441.74920296669006
+  },
+  "limitations": [
+    "Original non-GRPO teacher differs from paper",
+    "No step-0 evaluation or teacher evaluation",
+    "One run only; best checkpoint selection uses the reported evaluation benchmarks",
+    "Torch allocated-memory metric excludes SGLang and total device reservation",
+    "Checkpoint weights checked for existence/size; no final inference reload performed"
+  ]
+}

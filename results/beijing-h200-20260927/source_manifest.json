@@ -1,0 +1,109 @@
+{
+  "recorded_at_utc": "2026-09-27T00:15:53.369676+00:00",
+  "upstream_base_commit": "39b3b0a5dccbc02b8f1908468bb685d2ea386d9a",
+  "scope": "Current reporting checkout sources and retained original logs. Source hashes are not proof of byte-identical source at historical launch; old.sh has since been updated.",
+  "sources": [
+    {
+      "path": "old.sh",
+      "bytes": 24273,
+      "sha256": "5a7564a98e5801817ef42e992fcac74699180e49b36d5143921a12585b74583d"
+    },
+    {
+      "path": "run_beijing_tip_full.sh",
+      "bytes": 24225,
+      "sha256": "33fe7c61a2cde398fbcb057390ac1e50ff918722ad2942620a714a7abcd3952e"
+    },
+    {
+      "path": "scripts/opd/train_opd.sh",
+      "bytes": 10081,
+      "sha256": "5e24bd9879b5ee54ad77e2895a82909305e5fc47bf150c01d8b8a194c1f29da6"
+    },
+    {
+      "path": "scripts/launcher_status_v2.py",
+      "bytes": 3745,
+      "sha256": "f0290dfd26c76678e04642a2f3b4175c051ab4e0816e62dab811cdb6028714c3"
+    },
+    {
+      "path": "scripts/summarize_h200_run.py",
+      "bytes": 6736,
+      "sha256": "91cd98335e3eedb69f9f613bcfaa78b9ec264f29127d8df4182863fa11fc0c06"
+    },
+    {
+      "path": "scripts/verify_resume.py",
+      "bytes": 1163,
+      "sha256": "e959cccfcd4910340159b84071f10b9eb94609b7227278202fde6c2381626964"
+    },
+    {
+      "path": "scripts/verify_resume_smoke.py",
+      "bytes": 2523,
+      "sha256": "51fd20ae846bb5b54fb1cb24ab1cecda1deb7ed65c087d8190300850a28d8022"
+    },
+    {
+      "path": "scripts/verify_tip_smoke.py",
+      "bytes": 2360,
+      "sha256": "aa77276187a76d115e9c7d254aab522ddbdc1fe339c314f407e9d12822174661"
+    },
+    {
+      "path": "src/opd/config/opd_trainer.yaml",
+      "bytes": 5246,
+      "sha256": "f49976ac5e4c3f2d1d9bcd28f14d6f15e460080c66da3981193cf7d65f801835"
+    },
+    {
+      "path": "src/opd/losses.py",
+      "bytes": 17171,
+      "sha256": "cd38d10ca17e1add96bca9d54889cbb3f9f01428d8e893fb91d6ba89d9c5b8f0"
+    },
+    {
+      "path": "src/opd/opd_trainer.py",
+      "bytes": 20008,
+      "sha256": "e0cb18ec75b6396af94e2d34a841c6c9d5d4afba1ce039cc03ce90f5867a4fad"
+    },
+    {
+      "path": "src/opd/opd_worker.py",
+      "bytes": 29216,
+      "sha256": "f17c117e43fd9eee3f246c6eb95f7b2c75994211e1f5045fe197608d1d5e8a7a"
+    },
+    {
+      "path": "src/data/prepare_grpo_data.py",
+      "bytes": 9902,
+      "sha256": "5881d3a89be9b07065b5212742a55da0ea6e36f4dd20787d2b43b7ab66376fbf"
+    },
+    {
+      "path": "src/data/process_eval_data.py",
+      "bytes": 5597,
+      "sha256": "625d17d221937a6b68913720e6ff9ef25d5ce82477a699521b52179872acde65"
+    },
+    {
+      "path": "scripts/beijing/keepalive.sh",
+      "bytes": 503,
+      "sha256": "6ad466b25dc1f826b4b6aedf0e8b915a7a49a60cb90d5c3764560e8c033a6222"
+    },
+    {
+      "path": "scripts/beijing/keepalive_ctl.py",
+      "bytes": 17571,
+      "sha256": "cbb4d09d387cdb53f3c21fd86c7c237ff9622cb9df040d16bc77724c3d406a3c"
+    },
+    {
+      "path": "tests/test_tip.py",
+      "bytes": 3587,
+      "sha256": "a3f5519078203dd3e9b1856a595c672ad05263fe54c5e88e25f6036816ead243"
+    }
+  ],
+  "logs": [
+    {
+      "path": "/volume/pt-train/users/zhaoye/ray/ray/session_2026-09-25_01-48-46_484378_1212905/logs/worker-af8f1e7f571a5aea477ecf937f6ef46c30d9692020ca3151ac867b58-01000000-1218923.out",
+      "bytes": 1874901,
+      "sha256": "7facfba76afdd49cac15a848704ebe0551f0562e5a17543713f1c83f9595f5f7"
+    },
+    {
+      "path": "/volume/pt-train/users/zhaoye/OPSD-runtime/runs/tip-20260924T153731Z-542930/train-train.log",
+      "bytes": 154521,
+      "sha256": "cf9d9380fad0e484554203f761c1f9bfd66505dbc2a5ee0fc1c5a0b45c799285"
+    },
+    {
+      "path": "/volume/pt-train/users/zhaoye/OPSD-runtime/runs/tip-20260924T174814Z-1211426/gpu-resume.log",
+      "bytes": 23857869,
+      "sha256": "feed7e88414782bdc4c03c77102103f65be487bef6e8e9876d2f7117a67842de"
+    }
+  ]
+}
