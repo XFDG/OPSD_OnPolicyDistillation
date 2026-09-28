@@ -1,0 +1,27 @@
+{
+  "base_sglang": "0.5.6",
+  "patch_scope": "FA4 decode admission, official-kernel API bridge, Cutlass dependency",
+  "reference": "https://github.com/sgl-project/sglang/tree/v0.5.8",
+  "files": [
+    {
+      "path": "sglang/srt/server_args.py",
+      "original_sha256": "90ed704ebe01b813446cceb83f3d0da4790a4172e736067f732cc0a369613ebb",
+      "patched_sha256": "4190fd53d426af4059c04b52affe5db73c3ecbc960ff783ca4e740b5f39adaa1"
+    },
+    {
+      "path": "sglang/srt/layers/attention/flashattention_backend.py",
+      "original_sha256": "2d9ff706d3801481b72c6143b581bfc3e58f3b7f888da1ca797c9a72c93b7d05",
+      "patched_sha256": "5161c5e0c944272f1df1a4ee99aa5df1dda0683aeadc759beaf1587ec7a034e1"
+    },
+    {
+      "path": "sgl_kernel/flash_attn.py",
+      "original_sha256": "918876c18fdddda2f3cbd23ef1c0f0803b8c4c07eea13ad113a0a44ee1013513",
+      "patched_sha256": "6ae1ab52a477179a9e0017e8f01411e605dda0a205587f592f6bbcc38b6380f8"
+    },
+    {
+      "path": "sglang-0.5.6.dist-info/METADATA",
+      "original_sha256": "23746d16b0368a8e6c73bb5a5c5d0d4ca32b90fdc7d65d5090e13f20ba95d1c0",
+      "patched_sha256": "6bf189499a9c464ff5f17a7e0d28aebbc4b565d706b95e4cbadd82bdab4f4a4a"
+    }
+  ]
+}

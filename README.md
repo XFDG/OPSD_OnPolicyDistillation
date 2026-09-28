@@ -12,6 +12,14 @@ top of `verl`. It is the shared training base for three papers on token-,
 problem-, and reward-level efficiency in OPD — see **Papers & Results**
 below for what each one measures and how to cite it.
 
+## Taihua 8×B200 migration
+
+This branch adds an independent eight-GPU TIP profile, pinned migrated inputs,
+automatic keepalive handling and live phase/Ray progress. Official FA4 rollout
+passed the two-update end-to-end smoke on 2026-09-28; training attention remains FA2. See
+[B200 migration and smoke evidence](B200_MIGRATION.md). Full training is a manual
+operation; smoke acceptance and exact launch commands are recorded in that document.
+
 ## Beijing H200 reproduction result — 2026-09-27
 
 Training completed **1739 steps** on **4×H200**, using original Qwen3-8B → Qwen3-4B,

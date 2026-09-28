@@ -143,6 +143,7 @@ class OPDTrainer(RayPPOTrainer):
         aggregation (pass@k, maj@k, mean, std) to verl's process_validation_metrics
         so that val.n > 1 produces proper per-prompt statistics.
         """
+        print(f"[progress] step={self.global_steps} validation: generating and scoring", flush=True)
         data_source_lst = []
         reward_extra_infos_dict: dict[str, list] = defaultdict(list)
         sample_inputs = []
@@ -308,6 +309,7 @@ class OPDTrainer(RayPPOTrainer):
                     "global_steps": self.global_steps,
                 }
 
+                print(f"[progress] step={self.global_steps}/{self.total_training_steps} rollout: {expected_rollouts} responses", flush=True)
                 gen_t0 = time.time()
                 gen_output = self.async_rollout_manager.generate_sequences(gen_batch)
                 self.checkpoint_manager.sleep_replicas()
@@ -347,6 +349,7 @@ class OPDTrainer(RayPPOTrainer):
                     metrics["opd/num_turns/max"] = int(max(turns))
                     metrics["opd/num_turns/mean"] = float(sum(turns)) / len(turns)
 
+                print(f"[progress] step={self.global_steps} rollout complete; scoring and building distillation batch", flush=True)
                 responses = self._decode_response_texts(batch)
                 ground_truths = [
                     item.non_tensor_batch.get("reward_model", {}).get("ground_truth", None) for item in batch
@@ -391,6 +394,7 @@ class OPDTrainer(RayPPOTrainer):
                     if self.reward_beta is not None:
                         opd_batch.meta_info["opd_reward_beta"] = self.reward_beta
 
+                    print(f"[progress] step={self.global_steps} teacher forward + global TIP selection + student update", flush=True)
                     opd_output = self.actor_rollout_wg.update_opd(opd_batch)
                     opd_metrics = reduce_metrics(opd_output.meta_info["metrics"])
                     metrics.update(opd_metrics)
@@ -398,6 +402,7 @@ class OPDTrainer(RayPPOTrainer):
                     metrics["opd/skipped"] = 1.0
 
                 # Reload SGLang with updated actor weights for next rollout
+                print(f"[progress] step={self.global_steps} synchronizing updated weights to rollout engines", flush=True)
                 self.checkpoint_manager.update_weights()
                 metrics["timing/train_s"] = time.time() - train_t0
 
@@ -405,6 +410,7 @@ class OPDTrainer(RayPPOTrainer):
                 is_val = self.test_freq > 0 and self.global_steps % self.test_freq == 0
                 save_freq = self.config.trainer.save_freq
                 if save_freq > 0 and (is_last or self.global_steps % save_freq == 0):
+                    print(f"[progress] step={self.global_steps} saving checkpoint", flush=True)
                     self._save_checkpoint()
                 if is_val or is_last:
                     metrics.update(self._validate())

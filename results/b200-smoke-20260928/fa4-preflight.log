@@ -1,0 +1,38 @@
+[opsd] 2026-09-28T05:27:16Z mode=preflight; run root=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T052716Z-1096989; host=zhaoye-taihua-gpu-0
+[b200-keepalive] parent=(1079738, 62529678) GPU_workers=8
+[opsd] 2026-09-28T05:27:17Z GPU keep-alive active
+[opsd] 2026-09-28T05:27:17Z [1/4] verifying migrated Python environment
+FA4 backport: sglang/srt/server_args.py
+FA4 backport: sglang/srt/layers/attention/flashattention_backend.py
+FA4 backport: sgl_kernel/flash_attn.py
+FA4 backport: sglang-0.5.6.dist-info/METADATA
+/volume/pt-test/users/zhaoye/envs/opsd-py312-cu128/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+venv versions, verl source, CUDA ABI: PASS
+No broken requirements found.
+[b200-keepalive] parent=(1079738, 62529678) GPU_workers=8
+[b200-keepalive] stopped, GPUs idle
+/volume/pt-test/users/zhaoye/envs/opsd-py312-cu128/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+GPU Python gate: torch=2.9.1+cu128, CUDA=12.8, visible=8, verl=/volume/pt-test/users/zhaoye/OPSD-runtime/src/verl-0ddd289/verl/__init__.py
+[kernel gate] GPU 0 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 1 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 2 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 3 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 4 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 5 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 6 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 7 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+/volume/pt-test/users/zhaoye/envs/opsd-py312-cu128/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/dsl.py:2463: UserWarning: Argument aux_data (position 18) cannot be converted to a JitArgument for function 'cutlass___call___flash_attncuteflash_fwd_sm100FlashAttentionForwardSm100_object_at__Tensorgmemoi64i641_Tensorgmemoi64i64i641_Tensorgmemoi64i64i641_Tensorgmemoi64i641_None_008838834'. Its type `<class 'flash_attn.cute.utils.AuxData'>` is not supported. If the value is known at compile time, annotate it: `aux_data: Constexpr`. Otherwise, implement the `JitArgument` or `DynamicExpression` protocol for type `<class 'flash_attn.cute.utils.AuxData'>`, or register a custom argument adapter.
+  exe_args, func_types, adapted_args = self.generate_mlir_function_types(
+[FA4 gate] paged_prefill_with_prefix PASS relative_L2=0.00219515 max_abs=0.00261128
+[FA4 gate] paged_decode PASS relative_L2=0.00218118 max_abs=0.00167003
+[FA4 gate] cuda_graph_changed_lengths_and_queries PASS relative_L2=0.00226174 max_abs=0.00203508
+[opsd] 2026-09-28T05:28:23Z B200 eight-GPU kernel preflight PASS
+[keep-alive] started pid=1099141 log=/volume/pt-test/users/zhaoye/gpu-workspace/keep_alive/logs/keep-alive-20260928T052833Z.log
+[b200-keepalive] active parent=(1099141, 62606079), 8 GPU workers
+[opsd] 2026-09-28T05:28:50Z overlay growth: /root=0 bytes; /tmp=0 bytes
+[opsd] 2026-09-28T05:28:50Z GPU preflight finished with exit=0; log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T052716Z-1096989/gpu-preflight.log
+[b200-keepalive] parent=(1099141, 62606079) GPU_workers=8
+[opsd] 2026-09-28T05:28:50Z driver fallback: keep-alive already active
+[opsd] 2026-09-28T05:28:50Z launcher exit=0; log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T052716Z-1096989/driver.log

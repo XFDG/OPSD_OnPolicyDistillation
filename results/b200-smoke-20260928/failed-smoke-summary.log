@@ -1,0 +1,70 @@
+[opsd] 2026-09-28T05:07:20Z mode=smoke; run root=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T050720Z-1037639; host=zhaoye-taihua-gpu-0
+[b200-keepalive] parent=(1032545, 62460768) GPU_workers=8
+[opsd] 2026-09-28T05:07:20Z GPU keep-alive active
+[opsd] 2026-09-28T05:07:20Z [1/4] verifying migrated Python environment
+[opsd] 2026-09-28T05:07:36Z [2/4] verifying pinned migrated assets and preparing smoke data
+[b200-keepalive] parent=(1032545, 62460768) GPU_workers=8
+[opsd] 2026-09-28T05:07:51Z GPU keep-alive active
+[opsd] 2026-09-28T05:07:57Z [3/4] checking pinned model Qwen/Qwen3-4B
+[opsd] 2026-09-28T05:07:59Z [3/4] checking pinned model Qwen/Qwen3-8B
+[b200-keepalive] parent=(1032545, 62460768) GPU_workers=8
+[opsd] 2026-09-28T05:08:06Z GPU keep-alive active
+[opsd] 2026-09-28T05:08:06Z asset preparation and pinned assets PASS
+[b200-keepalive] parent=(1032545, 62460768) GPU_workers=8
+[b200-keepalive] stopped, GPUs idle
+[opsd] 2026-09-28T05:08:45Z [4/4] starting smoke via /volume/pt-test/users/zhaoye/OPSD_B200/scripts/opd/train_opd.sh; training log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T050720Z-1037639/smoke-train.log
+[opsd] 2026-09-28T05:08:45Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:08:56Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:09:07Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:09:17Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:09:28Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:09:38Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:09:48Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:09:59Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:10:10Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:10:20Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:10:30Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:10:41Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:10:51Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:11:01Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:11:11Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:11:22Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:11:33Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:11:43Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:11:53Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:12:03Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:12:13Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:12:24Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:12:34Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:12:44Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:12:54Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:13:04Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:13:15Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:13:25Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:13:35Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:13:45Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:13:56Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:14:06Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:14:16Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:14:26Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:14:36Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:14:47Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:14:57Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:15:07Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:15:17Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:15:29Z GPU smoke running; latest training progress:
+[36m(SGLangHttpServer pid=1075614)[0m AssertionError: FlashAttention v3 Backend requires SM>=80 and SM<=90. Please use `--attention-backend flashinfer`.
+[36m(SGLangHttpServer pid=1075614)[0m AssertionError: FlashAttention v3 Backend requires SM>=80 and SM<=90. Please use `--attention-backend flashinfer`.
+[36m(SGLangHttpServer pid=1075612)[0m AssertionError: FlashAttention v3 Backend requires SM>=80 and SM<=90. Please use `--attention-backend flashinfer`.
+[36m(SGLangHttpServer pid=1075613)[0m AssertionError: FlashAttention v3 Backend requires SM>=80 and SM<=90. Please use `--attention-backend flashinfer`.
+[36m(SGLangHttpServer pid=1075615)[0m AssertionError: FlashAttention v3 Backend requires SM>=80 and SM<=90. Please use `--attention-backend flashinfer`.
+[36m(SGLangHttpServer pid=1075615)[0m AssertionError: FlashAttention v3 Backend requires SM>=80 and SM<=90. Please use `--attention-backend flashinfer`.
+[36m(SGLangHttpServer pid=1075612)[0m AssertionError: FlashAttention v3 Backend requires SM>=80 and SM<=90. Please use `--attention-backend flashinfer`.
+[36m(SGLangHttpServer pid=1075613)[0m AssertionError: FlashAttention v3 Backend requires SM>=80 and SM<=90. Please use `--attention-backend flashinfer`.
+[opsd] ERROR: smoke training returned 1
+[b200-keepalive] active parent=(1079738, 62529678), 8 GPU workers
+[opsd] 2026-09-28T05:16:06Z overlay growth: /root=0 bytes; /tmp=0 bytes
+[opsd] 2026-09-28T05:16:06Z GPU smoke finished with exit=1; log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T050720Z-1037639/gpu-smoke.log
+[b200-keepalive] parent=(1079738, 62529678) GPU_workers=8
+[opsd] 2026-09-28T05:16:07Z driver fallback: keep-alive already active
+[opsd] 2026-09-28T05:16:07Z launcher exit=1; log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T050720Z-1037639/driver.log

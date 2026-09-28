@@ -1,0 +1,42 @@
+[opsd] 2026-09-28T05:29:59Z mode=smoke; run root=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T052959Z-1101836; host=zhaoye-taihua-gpu-0
+[b200-keepalive] parent=(1099141, 62606079) GPU_workers=8
+[opsd] 2026-09-28T05:29:59Z GPU keep-alive active
+[opsd] 2026-09-28T05:29:59Z [1/4] verifying migrated Python environment
+[opsd] 2026-09-28T05:30:12Z [2/4] verifying pinned migrated assets and preparing smoke data
+[b200-keepalive] parent=(1099141, 62606079) GPU_workers=8
+[opsd] 2026-09-28T05:30:29Z GPU keep-alive active
+[opsd] 2026-09-28T05:30:34Z [3/4] checking pinned model Qwen/Qwen3-4B
+[opsd] 2026-09-28T05:30:36Z [3/4] checking pinned model Qwen/Qwen3-8B
+[b200-keepalive] parent=(1099141, 62606079) GPU_workers=8
+[opsd] 2026-09-28T05:30:39Z GPU keep-alive active
+[opsd] 2026-09-28T05:30:39Z asset preparation and pinned assets PASS
+[b200-keepalive] parent=(1099141, 62606079) GPU_workers=8
+[b200-keepalive] stopped, GPUs idle
+[opsd] 2026-09-28T05:31:31Z [4/4] starting smoke via /volume/pt-test/users/zhaoye/OPSD_B200/scripts/opd/train_opd.sh; training log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T052959Z-1101836/smoke-train.log
+[opsd] 2026-09-28T05:31:32Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:31:42Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:31:52Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:32:03Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:32:13Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:32:25Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:32:35Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:32:46Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:32:56Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:33:06Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:33:16Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:33:27Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:33:37Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:33:47Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:33:58Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:34:08Z GPU smoke running; latest training progress:
+[opsd] 2026-09-28T05:34:18Z GPU smoke running; latest training progress:
+ray.exceptions.RayTaskError(NameError): ray::OPDTaskRunner.run() (pid=1121684, ip=172.16.199.165, actor_id=8065f1ecd9aa8bdd12d2984201000000, repr=<main_opd.OPDTaskRunner object at 0x150011aee840>)
+ray.exceptions.RayTaskError(NameError): ray::SGLangHttpServer.launch_server() (pid=1130258, ip=172.16.199.165, actor_id=a600d9ad56621f42043cfa1a01000000, repr=<verl.workers.rollout.sglang_rollout.async_sglang_server.SGLangHttpServer object at 0x14471828f6e0>)
+NameError: name 'torch' is not defined
+[opsd] ERROR: smoke training returned 1
+[b200-keepalive] active parent=(1132057, 62642406), 8 GPU workers
+[opsd] 2026-09-28T05:34:54Z overlay growth: /root=-4 bytes; /tmp=0 bytes
+[opsd] 2026-09-28T05:34:54Z GPU smoke finished with exit=1; log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T052959Z-1101836/gpu-smoke.log
+[b200-keepalive] parent=(1132057, 62642406) GPU_workers=8
+[opsd] 2026-09-28T05:34:54Z driver fallback: keep-alive already active
+[opsd] 2026-09-28T05:34:54Z launcher exit=1; log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T052959Z-1101836/driver.log

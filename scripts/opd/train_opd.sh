@@ -199,6 +199,7 @@ python -m opd.main_opd \
     +actor_rollout_ref.ref.model.path=$TEACHER_MODEL_PATH \
     actor_rollout_ref.rollout.tensor_model_parallel_size=$tp_size \
     actor_rollout_ref.rollout.name=sglang \
+    +actor_rollout_ref.rollout.engine_kwargs.sglang.attention_backend=${SGLANG_ATTENTION_BACKEND:-fa3} \
     actor_rollout_ref.rollout.mode=async \
     actor_rollout_ref.rollout.free_cache_engine=True \
     actor_rollout_ref.rollout.gpu_memory_utilization=$gpu_memory_util \

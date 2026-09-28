@@ -1,0 +1,24 @@
+[opsd] 2026-09-28T05:01:47Z mode=preflight; run root=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T050147Z-1027400; host=zhaoye-taihua-gpu-0
+[b200-keepalive] parent=(2297642, 39933566) GPU_workers=8
+[opsd] 2026-09-28T05:01:48Z GPU keep-alive active
+[opsd] 2026-09-28T05:01:48Z [1/4] verifying migrated Python environment
+venv versions, verl source, CUDA ABI: PASS
+No broken requirements found.
+[b200-keepalive] parent=(2297642, 39933566) GPU_workers=8
+[b200-keepalive] stopped, GPUs idle
+GPU Python gate: torch=2.9.1+cu128, CUDA=12.8, visible=8, verl=/volume/pt-test/users/zhaoye/OPSD-runtime/src/verl-0ddd289/verl/__init__.py
+[kernel gate] GPU 0 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 1 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 2 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 3 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 4 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 5 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 6 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[kernel gate] GPU 7 BF16 FA2 forward/backward PASS relative_L2=0.00189861
+[opsd] 2026-09-28T05:03:35Z B200 eight-GPU kernel preflight PASS
+[b200-keepalive] active parent=(1032545, 62460768), 8 GPU workers
+[opsd] 2026-09-28T05:04:36Z overlay growth: /root=208024 bytes; /tmp=0 bytes
+[opsd] 2026-09-28T05:04:36Z GPU preflight finished with exit=0; log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T050147Z-1027400/gpu-preflight.log
+[b200-keepalive] parent=(1032545, 62460768) GPU_workers=8
+[opsd] 2026-09-28T05:04:37Z driver fallback: keep-alive already active
+[opsd] 2026-09-28T05:04:37Z launcher exit=0; log=/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T050147Z-1027400/driver.log

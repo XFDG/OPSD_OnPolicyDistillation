@@ -1,0 +1,24 @@
+{
+  "official_repository": "https://github.com/Dao-AILab/flash-attention",
+  "commit": "e9cf2c1651d2303191eb40a739a3c135fda00999",
+  "beijing_source": "/volume/pt-train/users/zhaoye/OPSD-B200-migration/flash-attention-official",
+  "b200_source": "/volume/pt-test/users/zhaoye/OPSD-B200-runtime/src/flash-attention-official",
+  "submodules_initialized": false,
+  "compiled_or_installed": false,
+  "fa3_config_retained": true,
+  "full_smoke_passed": false,
+  "failed_smoke_run": "tip-20260928T050720Z-1037639",
+  "failure": "SGLang FA3 requires SM>=80 and SM<=90; B200 SM100 fails initialization before updates",
+  "findings": [
+    "Official README FA3 requirements H100/H800; FA4 explicitly supports B200",
+    "hopper/setup.py defines generic sm100 build rule but enumerates forward/backward kernels only for sm80 and sm90",
+    "hopper/static_switch.h routes architecture >=90 to Arch90",
+    "Pinned SGLang imports FA3 from sgl_kernel.flash_attn, not standalone flash_attn_3"
+  ],
+  "sha256": {
+    "README.md": "0dbaba56da1c8372d460956e2609bfb89acf8f3aadd65d132b1697d221069619",
+    "hopper/setup.py": "e3d9e67d1ec2bc61e4dec5591b46072f1b86ca7a185bd5dac7ec5e3cdce0933a",
+    "hopper/static_switch.h": "b06397c795df2241ff4aa06d788d340523fa9d500ea3cd32e1623d2897788aa6",
+    "hopper/flash_api_stable.cpp": "f4a452ccfb5237abd4288304d6daeab56b818729f7366a8ff037e8227fe41358"
+  }
+}
