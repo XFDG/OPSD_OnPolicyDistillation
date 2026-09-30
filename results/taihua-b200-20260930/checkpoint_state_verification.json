@@ -1,0 +1,71 @@
+{
+  "ranks": [
+    {
+      "rank": 0,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true
+    },
+    {
+      "rank": 1,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true
+    },
+    {
+      "rank": 2,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true
+    },
+    {
+      "rank": 3,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true
+    },
+    {
+      "rank": 4,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true
+    },
+    {
+      "rank": 5,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true
+    },
+    {
+      "rank": 6,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true
+    },
+    {
+      "rank": 7,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true
+    }
+  ],
+  "data_cursor": 1739,
+  "prompts_yielded": 13912,
+  "passed": true
+}

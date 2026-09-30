@@ -1,0 +1,42 @@
+[
+  {
+    "file": "/volume/pt-test/users/zhaoye/bray/ray/session_2026-09-28_14-26-32_336070_1415963/logs/worker-ae07eba7e99dc5a28983b3d5dc63f6e4213bb5c7542e3f0bb9974301-01000000-1433280.out",
+    "sha256": "f1d71f16227ac99394820e24bec775d11521969c6359c65b44907cf1c05e28b7"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T061500Z-1228422/driver.log",
+    "sha256": "a487443e670753ffafcf116bae1000b326b9c445999f8a6d65ad2be109a28d46"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T061500Z-1228422/gpu-train.log",
+    "sha256": "8239731a6c71e44c9dd48e94e1ff3041a6f2f7f6c4b1e9b08f99821868c4b520"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD_B200/src/opd/__init__.py",
+    "sha256": "62b163d63ef36baf164c368db221ec9fabc1a936b1bbfc9eb822093c1878a3f3"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD_B200/src/opd/batch_builder.py",
+    "sha256": "82039c2ddc788764a7f9d132508fba79472e0f12f6132bc68761a636abecae28"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD_B200/src/opd/fa4_adapter.py",
+    "sha256": "20f5a12d5857d068b5d2b3f3f2f7ae4e2c268c21ca6c1eeabc0cf01442dd184b"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD_B200/src/opd/losses.py",
+    "sha256": "cd38d10ca17e1add96bca9d54889cbb3f9f01428d8e893fb91d6ba89d9c5b8f0"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD_B200/src/opd/main_opd.py",
+    "sha256": "e696c38374ed125341333f9c8690e9e4f7826f9fdb16987c093ef60e7b9cf1f3"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD_B200/src/opd/opd_trainer.py",
+    "sha256": "8fe29db173e43fd105bb29c9b648f8096246fba790c22b5e39ebed0d9cb1ed38"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD_B200/src/opd/opd_worker.py",
+    "sha256": "f17c117e43fd9eee3f246c6eb95f7b2c75994211e1f5045fe197608d1d5e8a7a"
+  }
+]

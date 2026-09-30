@@ -12,6 +12,15 @@ top of `verl`. It is the shared training base for three papers on token-,
 problem-, and reward-level efficiency in OPD — see **Papers & Results**
 below for what each one measures and how to cite it.
 
+## Taihua 8×B200 full training result — 2026-09-30
+
+**Full training and launcher completed successfully (exit=0): 1739 steps, 35 evaluations.**
+Final mean@16: MATH-500 **79.5375%**, AIME24 **14.1667%**, AIME25 **17.9167%**.
+See [B200 results and audit evidence](results/taihua-b200-20260930/RESULTS.md)
+and [8×B200 vs 4×H200 comparison](results/taihua-b200-20260930/B200_VS_H200.md).
+Summed step time: 51.56h vs H20054.14h (4.76% shorter, with twice the GPUs).
+This remains an original-teacher reproduction, not a full paper-accuracy replication.
+
 ## Taihua 8×B200 migration
 
 This branch adds an independent eight-GPU TIP profile, pinned migrated inputs,

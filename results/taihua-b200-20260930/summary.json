@@ -1,0 +1,104 @@
+{
+  "training_completed": true,
+  "final_step": 1739,
+  "rollouts_per_step": 128,
+  "total_training_rollouts": 222592,
+  "full_launcher_success": true,
+  "gpu_wrapper_exit_code": 0,
+  "exit_reason": "Training, evaluation and cleanup completed successfully",
+  "overlay_growth_bytes": {
+    "root": 31823,
+    "tmp": 0
+  },
+  "keepalive_restored_in_log": true,
+  "run": "/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T061500Z-1228422",
+  "authoritative_log": "/volume/pt-test/users/zhaoye/bray/ray/session_2026-09-28_14-26-32_336070_1415963/logs/worker-ae07eba7e99dc5a28983b3d5dc63f6e4213bb5c7542e3f0bb9974301-01000000-1433280.out",
+  "final_checkpoint": "/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T061500Z-1228422/train-output/Qwen3-4B-b200-tip-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/global_step_1739",
+  "final_evaluation": {
+    "step": 1739,
+    "math_mean_at_16": 0.795375,
+    "aime24_mean_at_16": 0.14166666666666666,
+    "aime25_mean_at_16": 0.17916666666666667,
+    "macro_mean": 0.37206944444444445
+  },
+  "per_benchmark_best": {
+    "math": {
+      "step": 1050,
+      "math_mean_at_16": 0.801125,
+      "aime24_mean_at_16": 0.125,
+      "aime25_mean_at_16": 0.20416666666666666,
+      "macro_mean": 0.3767638888888889
+    },
+    "aime24": {
+      "step": 550,
+      "math_mean_at_16": 0.7945,
+      "aime24_mean_at_16": 0.15625,
+      "aime25_mean_at_16": 0.19791666666666666,
+      "macro_mean": 0.3828888888888889
+    },
+    "aime25": {
+      "step": 1650,
+      "math_mean_at_16": 0.7885,
+      "aime24_mean_at_16": 0.1375,
+      "aime25_mean_at_16": 0.22916666666666666,
+      "macro_mean": 0.38505555555555554
+    }
+  },
+  "best_macro_checkpoint": {
+    "step": 1450,
+    "math_mean_at_16": 0.796625,
+    "aime24_mean_at_16": 0.13541666666666666,
+    "aime25_mean_at_16": 0.225,
+    "macro_mean": 0.3856805555555556
+  },
+  "checkpoint_count": 35,
+  "launcher_wall_hours_including_smoke": 51.83861111111111,
+  "evaluation_count": 35,
+  "outputs_per_evaluation": 8960,
+  "normal_step_mean_s": 102.19824193019262,
+  "normal_step_median_s": 102.28733503818512,
+  "normal_generate_mean_s": 30.84741199688173,
+  "normal_update_mean_s": 71.27990239900602,
+  "summed_retained_step_hours": 51.563192270861734,
+  "peak_reported_torch_allocated_gib": 22.215771198272705,
+  "final_training_metrics": {
+    "step": 1739.0,
+    "rollout/prompts": 8.0,
+    "rollout/samples_per_prompt": 16.0,
+    "timing/generate_s": 36.181594371795654,
+    "rollout/generated_sequences": 128.0,
+    "opd/tool_mask/has_agent_mask": 1.0,
+    "opd/tool_mask/llm_tokens": 274475.0,
+    "opd/tool_mask/tool_tokens": 774101.0,
+    "opd/tool_mask/tool_ratio": 0.7382402420043945,
+    "opd/num_turns/min": 2.0,
+    "opd/num_turns/max": 2.0,
+    "opd/num_turns/mean": 2.0,
+    "opd/accuracy": 0.375,
+    "opd/batch_size": 16.0,
+    "opd/loss": 0.06330586906430254,
+    "opd/entropy": 0.0340692512691021,
+    "opd/grad_norm": 0.40243828296661377,
+    "opd/num_tokens": 17150.75,
+    "opd/valid_rows": 16.0,
+    "tip/enabled": 1.0,
+    "tip/global_response_tokens": 274475.0,
+    "tip/global_selected_tokens": 137206.0,
+    "tip/selected_fraction": 0.4998852354494945,
+    "tip/global_rollouts": 128.0,
+    "tip/global_normalization": 1.0,
+    "opd/lr": 8.159066482993359e-13,
+    "perf/max_memory_allocated_gb": 22.215771198272705,
+    "timing/train_s": 75.4563364982605,
+    "training/global_step": 1739.0,
+    "training/epoch": 0.0,
+    "timing/step_s": 343.3298006057739
+  },
+  "limitations": [
+    "Original non-GRPO teacher differs from paper",
+    "No step-0 evaluation or teacher evaluation",
+    "One run only; best checkpoint selection uses the reported evaluation benchmarks",
+    "Torch allocated-memory metric excludes SGLang and total device reservation",
+    "Checkpoint weights checked for existence/size; no final inference reload performed"
+  ]
+}

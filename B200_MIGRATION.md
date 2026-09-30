@@ -2,7 +2,9 @@
 
 Branch: `experiments/taihua-b200x8-tip`; baseline: H200 results commit `4abc896`.
 
-**Status: official FA4 end-to-end smoke PASS, 2026-09-28 05:46 UTC. Full training has not been started.**
+**Status: full training completed successfully (1739 steps, exit=0), 2026-09-30.**
+See [full results](results/taihua-b200-20260930/RESULTS.md) and [H200 comparison](results/taihua-b200-20260930/B200_VS_H200.md).
+The smoke sections below describe the historical migration acceptance on September28; full training was subsequently started manually by the user.
 
 ## Scope
 
