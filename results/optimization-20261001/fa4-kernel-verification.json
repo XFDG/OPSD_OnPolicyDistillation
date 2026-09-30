@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "official_source": "e9cf2c1651d2303191eb40a739a3c135fda00999",
+  "implementation": "/volume/pt-test/users/zhaoye/envs/opsd-py312-cu128/lib/python3.12/site-packages/flash_attn/cute/interface.py",
+  "dtype": "bfloat16",
+  "cases": [
+    {
+      "case": "paged_prefill_with_prefix",
+      "relative_l2": 0.002195145469158888,
+      "max_abs": 0.0026112794876098633,
+      "passed": true
+    },
+    {
+      "case": "paged_decode",
+      "relative_l2": 0.0021811805199831724,
+      "max_abs": 0.0016700327396392822,
+      "passed": true
+    },
+    {
+      "case": "cuda_graph_changed_lengths_and_queries",
+      "relative_l2": 0.0022617443464696407,
+      "max_abs": 0.002035081386566162,
+      "passed": true
+    }
+  ]
+}

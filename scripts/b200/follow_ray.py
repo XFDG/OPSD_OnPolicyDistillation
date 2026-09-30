@@ -16,7 +16,8 @@ with (run / 'ray-live.log').open('a', buffering=1) as evidence:
                     continue
                 with path.open('rb') as f:
                     header = f.read(256)
-                    if b':actor_name:OPDTaskRunner' not in header:
+                    if not any(name in header for name in
+                               (b':actor_name:OPDTaskRunner', b':actor_name:LongSequenceTaskRunner')):
                         continue
                     f.seek(positions.get(path, 0))
                     raw = f.read()

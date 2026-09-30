@@ -1,0 +1,141 @@
+{
+  "passed": true,
+  "original_launcher_exit": 1,
+  "original_gpu_wrapper_exit": 1,
+  "cpu_verification_exit": 0,
+  "original_results_preserved": true,
+  "execution_source_sha256": {
+    "scripts/opd/train_opd.sh": "58d095672efb0bd526500963bd8530e7b8e1ff1585116d1edeb24434fbea6148",
+    "src/opd/__init__.py": "62b163d63ef36baf164c368db221ec9fabc1a936b1bbfc9eb822093c1878a3f3",
+    "src/opd/batch_builder.py": "82039c2ddc788764a7f9d132508fba79472e0f12f6132bc68761a636abecae28",
+    "src/opd/fa4_adapter.py": "20f5a12d5857d068b5d2b3f3f2f7ae4e2c268c21ca6c1eeabc0cf01442dd184b",
+    "src/opd/losses.py": "cd38d10ca17e1add96bca9d54889cbb3f9f01428d8e893fb91d6ba89d9c5b8f0",
+    "src/opd/main_opd.py": "e696c38374ed125341333f9c8690e9e4f7826f9fdb16987c093ef60e7b9cf1f3",
+    "src/opd/opd_trainer.py": "8fe29db173e43fd105bb29c9b648f8096246fba790c22b5e39ebed0d9cb1ed38",
+    "src/opd/opd_worker.py": "e399161d43b94f8aa987b584389c690e00fe087fb53e4bd9c5e386f7b578b020",
+    "src/opd/resident_ref.py": "7b16339c34273ea6ee1d5f9e73754afe5c7b8783f8d7ce9c82eea82eb0351d9e",
+    "src/opd/config/opd_trainer.yaml": "f49976ac5e4c3f2d1d9bcd28f14d6f15e460080c66da3981193cf7d65f801835",
+    "scripts/b200/apply_fa4.py": "00d3c88ac0e8f239fab4c5250b512dae74acfea8395c5d9512dddfdb4a9b3a0e",
+    "scripts/b200/fa4_gate.py": "ce06328c06a7360635191ae3011dbdd6f880d49569966628f88b74a23d3bd560",
+    "scripts/b200/follow_ray.py": "27f37f5a3068789093a0f75f6b5b87541dd0c33b2fd6748e9ab10b0588c051de",
+    "scripts/b200/keepalive_ctl.py": "0089a914c440bc77872adc7eb2d0e363098e7556d65f14fa0d2f87dea265f778",
+    "scripts/b200/kernel_gate.py": "c7b438d650a53ad725a30bad2f922ceb57b288cc13526f2e08750e7fdfea8da2",
+    "scripts/b200/launcher_status.py": "ee6402d255e518b86a3033756df5a346dfa8d92b609853f9612f9799c7011a88",
+    "scripts/b200/relocate_env.py": "e50f4b21062ad661aa7a956cc6b8a0e7f16517d38935887a4f566e569b1513b1",
+    "scripts/b200/verify_assets.py": "f1561b89ba22eb7625d0a7ad5d04443a4bdd353c022623f1f1e31be21b9baf24",
+    "scripts/b200/verify_resume.py": "ffd8514d8c635664ee87d338c7d304e04f580419685ad6df207c311cbf83d048",
+    "scripts/b200/verify_resume_smoke.py": "3826318101ee2b7f06a34ed5e1fbc39c3b5f43dbb25d0609c4e34acd84c71408",
+    "scripts/b200/verify_tip_smoke.py": "3f8343324f82e06f19d221a4eeb2442507acdbdfef3fc907df3362bb949d741d",
+    "scripts/b200/keepalive.sh": "c075b699703e14cf3d405f4f924ea3fd29e936e47fec9e9c2e2fea2269635a8b",
+    "src/rewards/math_dapo.py": "3d07ae28c1fd9599f1506812b4f1362fcd277496c6fd08f23140bc16e83d5c29",
+    "src/rewards/math_reward.py": "a52f6928afe61325212c50b228bb90409bbce24aa355879d174903d121123b52",
+    "run_b200_opt.sh": "21cfb8699fe6373fa5c3a5b0c8ba815de9fb9d4353fd2bdafbccef039e72897c"
+  },
+  "original_execution_source_sha256": {
+    "scripts/opd/train_opd.sh": "58d095672efb0bd526500963bd8530e7b8e1ff1585116d1edeb24434fbea6148",
+    "src/opd/__init__.py": "62b163d63ef36baf164c368db221ec9fabc1a936b1bbfc9eb822093c1878a3f3",
+    "src/opd/batch_builder.py": "82039c2ddc788764a7f9d132508fba79472e0f12f6132bc68761a636abecae28",
+    "src/opd/fa4_adapter.py": "20f5a12d5857d068b5d2b3f3f2f7ae4e2c268c21ca6c1eeabc0cf01442dd184b",
+    "src/opd/losses.py": "cd38d10ca17e1add96bca9d54889cbb3f9f01428d8e893fb91d6ba89d9c5b8f0",
+    "src/opd/main_opd.py": "e696c38374ed125341333f9c8690e9e4f7826f9fdb16987c093ef60e7b9cf1f3",
+    "src/opd/opd_trainer.py": "8fe29db173e43fd105bb29c9b648f8096246fba790c22b5e39ebed0d9cb1ed38",
+    "src/opd/opd_worker.py": "e399161d43b94f8aa987b584389c690e00fe087fb53e4bd9c5e386f7b578b020",
+    "src/opd/resident_ref.py": "7b16339c34273ea6ee1d5f9e73754afe5c7b8783f8d7ce9c82eea82eb0351d9e",
+    "src/opd/config/opd_trainer.yaml": "f49976ac5e4c3f2d1d9bcd28f14d6f15e460080c66da3981193cf7d65f801835",
+    "scripts/b200/apply_fa4.py": "00d3c88ac0e8f239fab4c5250b512dae74acfea8395c5d9512dddfdb4a9b3a0e",
+    "scripts/b200/fa4_gate.py": "ce06328c06a7360635191ae3011dbdd6f880d49569966628f88b74a23d3bd560",
+    "scripts/b200/follow_ray.py": "27f37f5a3068789093a0f75f6b5b87541dd0c33b2fd6748e9ab10b0588c051de",
+    "scripts/b200/keepalive_ctl.py": "0089a914c440bc77872adc7eb2d0e363098e7556d65f14fa0d2f87dea265f778",
+    "scripts/b200/kernel_gate.py": "c7b438d650a53ad725a30bad2f922ceb57b288cc13526f2e08750e7fdfea8da2",
+    "scripts/b200/launcher_status.py": "ee6402d255e518b86a3033756df5a346dfa8d92b609853f9612f9799c7011a88",
+    "scripts/b200/relocate_env.py": "e50f4b21062ad661aa7a956cc6b8a0e7f16517d38935887a4f566e569b1513b1",
+    "scripts/b200/verify_assets.py": "f1561b89ba22eb7625d0a7ad5d04443a4bdd353c022623f1f1e31be21b9baf24",
+    "scripts/b200/verify_resume.py": "ffd8514d8c635664ee87d338c7d304e04f580419685ad6df207c311cbf83d048",
+    "scripts/b200/verify_resume_smoke.py": "3826318101ee2b7f06a34ed5e1fbc39c3b5f43dbb25d0609c4e34acd84c71408",
+    "scripts/b200/verify_tip_smoke.py": "3f8343324f82e06f19d221a4eeb2442507acdbdfef3fc907df3362bb949d741d",
+    "scripts/b200/keepalive.sh": "c075b699703e14cf3d405f4f924ea3fd29e936e47fec9e9c2e2fea2269635a8b",
+    "src/rewards/math_dapo.py": "3d07ae28c1fd9599f1506812b4f1362fcd277496c6fd08f23140bc16e83d5c29",
+    "src/rewards/math_reward.py": "a52f6928afe61325212c50b228bb90409bbce24aa355879d174903d121123b52",
+    "run_b200_opt.sh": "21cfb8699fe6373fa5c3a5b0c8ba815de9fb9d4353fd2bdafbccef039e72897c"
+  },
+  "current_execution_source_sha256": {
+    "run_b200_opt.sh": "21cfb8699fe6373fa5c3a5b0c8ba815de9fb9d4353fd2bdafbccef039e72897c",
+    "scripts/opd/train_opd.sh": "58d095672efb0bd526500963bd8530e7b8e1ff1585116d1edeb24434fbea6148",
+    "src/opd/__init__.py": "62b163d63ef36baf164c368db221ec9fabc1a936b1bbfc9eb822093c1878a3f3",
+    "src/opd/batch_builder.py": "82039c2ddc788764a7f9d132508fba79472e0f12f6132bc68761a636abecae28",
+    "src/opd/fa4_adapter.py": "20f5a12d5857d068b5d2b3f3f2f7ae4e2c268c21ca6c1eeabc0cf01442dd184b",
+    "src/opd/losses.py": "cd38d10ca17e1add96bca9d54889cbb3f9f01428d8e893fb91d6ba89d9c5b8f0",
+    "src/opd/main_opd.py": "e696c38374ed125341333f9c8690e9e4f7826f9fdb16987c093ef60e7b9cf1f3",
+    "src/opd/opd_trainer.py": "8fe29db173e43fd105bb29c9b648f8096246fba790c22b5e39ebed0d9cb1ed38",
+    "src/opd/opd_worker.py": "e399161d43b94f8aa987b584389c690e00fe087fb53e4bd9c5e386f7b578b020",
+    "src/opd/resident_ref.py": "7b16339c34273ea6ee1d5f9e73754afe5c7b8783f8d7ce9c82eea82eb0351d9e",
+    "src/opd/config/opd_trainer.yaml": "f49976ac5e4c3f2d1d9bcd28f14d6f15e460080c66da3981193cf7d65f801835",
+    "scripts/b200/apply_fa4.py": "00d3c88ac0e8f239fab4c5250b512dae74acfea8395c5d9512dddfdb4a9b3a0e",
+    "scripts/b200/fa4_gate.py": "ce06328c06a7360635191ae3011dbdd6f880d49569966628f88b74a23d3bd560",
+    "scripts/b200/follow_ray.py": "27f37f5a3068789093a0f75f6b5b87541dd0c33b2fd6748e9ab10b0588c051de",
+    "scripts/b200/keepalive_ctl.py": "0089a914c440bc77872adc7eb2d0e363098e7556d65f14fa0d2f87dea265f778",
+    "scripts/b200/kernel_gate.py": "c7b438d650a53ad725a30bad2f922ceb57b288cc13526f2e08750e7fdfea8da2",
+    "scripts/b200/launcher_status.py": "ee6402d255e518b86a3033756df5a346dfa8d92b609853f9612f9799c7011a88",
+    "scripts/b200/relocate_env.py": "e50f4b21062ad661aa7a956cc6b8a0e7f16517d38935887a4f566e569b1513b1",
+    "scripts/b200/verify_assets.py": "f1561b89ba22eb7625d0a7ad5d04443a4bdd353c022623f1f1e31be21b9baf24",
+    "scripts/b200/verify_resume.py": "ffd8514d8c635664ee87d338c7d304e04f580419685ad6df207c311cbf83d048",
+    "scripts/b200/verify_resume_smoke.py": "3826318101ee2b7f06a34ed5e1fbc39c3b5f43dbb25d0609c4e34acd84c71408",
+    "scripts/b200/verify_tip_smoke.py": "3f8343324f82e06f19d221a4eeb2442507acdbdfef3fc907df3362bb949d741d",
+    "scripts/b200/keepalive.sh": "c075b699703e14cf3d405f4f924ea3fd29e936e47fec9e9c2e2fea2269635a8b",
+    "src/rewards/math_dapo.py": "3d07ae28c1fd9599f1506812b4f1362fcd277496c6fd08f23140bc16e83d5c29",
+    "src/rewards/math_reward.py": "a52f6928afe61325212c50b228bb90409bbce24aa355879d174903d121123b52"
+  },
+  "verification_sources_changed": {
+    "scripts/optimization/launcher_status.py": {
+      "old": "a8011b7c41457f985ae24a831ba418343087bf60888e737914832f25dbf0e53d",
+      "new": "f34852acd016efa5bb0a61bb058a4dc365a8dc6cd01bd50d9a384a591f6a434e"
+    },
+    "scripts/optimization/reverify_baseline.py": {
+      "old": null,
+      "new": "9bf7fe1e51e74e8be6fb23bdc76015ee1b350e441253fbb48fcc08b5b14252f5"
+    },
+    "scripts/optimization/verify_baseline.py": {
+      "old": "6bca1366ff58efe33ac96637ca8c7faa5db50c2c98ac6fcbfe7ecff03841807c",
+      "new": "d6dfadd49e4548804aefe9aed28e7230f57d8dab8dad660fd259dd2f528f5537"
+    },
+    "scripts/optimization/verify_stability.py": {
+      "old": "77b954a2a75b85f2cf38586ccabd54c0e104fd99ce7c5f33a9f9ff24a958c620",
+      "new": "47d6adb5cdf1af187bf7a4e145dd3a159f98c53d7158f3e0f88d73fa40aaf1a3"
+    },
+    "scripts/optimization/verify_stability_resume.py": {
+      "old": "25ba3ae8aa647e80f83381a0092bea7bbe6f3ac2f362d335f4673d3edd20f9e9",
+      "new": "0e39fadfc6ededb931d1b1f86d75c29cf937ee3de7f19ad87bfe44cc678fe242"
+    }
+  },
+  "keepalive_status": "[b200-keepalive] parent=(3079495, 85043143) GPU_workers=8\n",
+  "keepalive_status_before": "[b200-keepalive] parent=(3079495, 85043143) GPU_workers=8\n",
+  "reason": "Only the post-training observer asserted a py_logger.info completion string that default logging suppressed; the original Python training shell returned successfully and six updates, all eight-rank checkpoint/LR/RNG/data states and 32 final validation outputs independently passed CPU re-verification.",
+  "original_failure_tracebacks": {
+    "driver": "Traceback (most recent call last):\n  File \"/volume/pt-test/users/zhaoye/OPSD_B200_Optimize/scripts/optimization/verify_baseline.py\", line 97, in <module>\n    verify_baseline(args[0])\n  File \"/volume/pt-test/users/zhaoye/OPSD_B200_Optimize/scripts/optimization/verify_baseline.py\", line 65, in verify_baseline\n    assert 'OPD training complete at step 6' in log\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+    "gpu": "Traceback (most recent call last):\n  File \"/volume/pt-test/users/zhaoye/OPSD_B200_Optimize/scripts/optimization/verify_baseline.py\", line 97, in <module>\n    verify_baseline(args[0])\n  File \"/volume/pt-test/users/zhaoye/OPSD_B200_Optimize/scripts/optimization/verify_baseline.py\", line 65, in verify_baseline\n    assert 'OPD training complete at step 6' in log\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  "original_evidence_sha256": {
+    "driver": "0946335b9731e6ea8e165327404be3d17bec745827d8da1d7bca81b92331da49",
+    "gpu": "cd59dc365826d80b05148961d121f2fea5ecc643071f4011a722162854df6375",
+    "training": "d3ec59a798353e31770d947314ee7ffd808c4448071aa2c8b1349c6f1bc4a1d0",
+    "ray_live": "ac04a6d3b1b68554ce05cd692e71d3be9398d61d0ef0d4beccc89c0f6a02a8d4",
+    "profile": "1e35c3e1b53221aea7e9ff4409bf6070bcb05cc27d7158d9aada1097ab49b254"
+  },
+  "original_evidence_sha256_after": {
+    "driver": "0946335b9731e6ea8e165327404be3d17bec745827d8da1d7bca81b92331da49",
+    "gpu": "cd59dc365826d80b05148961d121f2fea5ecc643071f4011a722162854df6375",
+    "training": "d3ec59a798353e31770d947314ee7ffd808c4448071aa2c8b1349c6f1bc4a1d0",
+    "ray_live": "ac04a6d3b1b68554ce05cd692e71d3be9398d61d0ef0d4beccc89c0f6a02a8d4",
+    "profile": "1e35c3e1b53221aea7e9ff4409bf6070bcb05cc27d7158d9aada1097ab49b254"
+  },
+  "baseline_verification_sha256": "7a673de89b1c7f639a5f8c5ca28eff5609fb5f68d3ffcc8cc77e75869bb5edca",
+  "nvml_gpu_status": "0, NVIDIA B200, GPU-950c37cc-cca1-4da3-97a3-c86327df00b1, 183359, 2764, 71\n1, NVIDIA B200, GPU-dcb9af4c-1160-a503-0a1d-e6642ef917c3, 183359, 2764, 64\n2, NVIDIA B200, GPU-5a5532ca-6037-035d-af93-9dfdf52fb1b3, 183359, 2764, 66\n3, NVIDIA B200, GPU-4229eea5-a0b7-99a5-bf32-2229b9dd9a30, 183359, 2764, 62\n4, NVIDIA B200, GPU-1de624d8-daeb-8588-c5b2-69080f5ca4b4, 183359, 2764, 62\n5, NVIDIA B200, GPU-604dea14-98af-0212-b4c0-de8933b852cf, 183359, 2764, 71\n6, NVIDIA B200, GPU-47890bb7-63bc-97bf-f8e5-683136459d93, 183359, 2764, 68\n7, NVIDIA B200, GPU-3763cdc5-e842-b1d8-5438-9c0d96ae79bf, 183359, 2764, 66\n",
+  "nvml_compute_pids": "3079576\n3079577\n3079578\n3079579\n3079580\n3079581\n3079582\n3079583\n",
+  "cpu_only": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "cuda_initialized": false
+  },
+  "timestamp_utc": "2026-09-30T20:02:01.431545+00:00",
+  "run_dir": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T192959Z-3030419",
+  "scope": "CPU post-audit of an already completed six-step baseline; original GPU/launcher exit=1 remains recorded; no GPU work, checkpoint writes or keepalive mutations occurred"
+}

@@ -193,11 +193,14 @@ python -m opd.main_opd \
     actor_rollout_ref.actor.ppo_mini_batch_size=$ppo_mini_batch_size \
     actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=$ppo_micro_batch_size_per_gpu \
     actor_rollout_ref.actor.grad_clip=1.0 \
-    actor_rollout_ref.actor.fsdp_config.param_offload=True \
-    actor_rollout_ref.actor.fsdp_config.optimizer_offload=True \
-    actor_rollout_ref.ref.fsdp_config.param_offload=True \
+    actor_rollout_ref.actor.fsdp_config.param_offload=${OPD_ACTOR_PARAM_OFFLOAD:-True} \
+    actor_rollout_ref.actor.fsdp_config.optimizer_offload=${OPD_ACTOR_OPTIM_OFFLOAD:-True} \
+    actor_rollout_ref.ref.fsdp_config.param_offload=${OPD_REF_PARAM_OFFLOAD:-True} \
     +actor_rollout_ref.ref.model.path=$TEACHER_MODEL_PATH \
     actor_rollout_ref.rollout.tensor_model_parallel_size=$tp_size \
+    +actor_rollout_ref.opd_teacher_cache_device=${OPD_TEACHER_CACHE_DEVICE:-cpu} \
+    +actor_rollout_ref.opd_profile=${OPD_PROFILE:-False} \
+    +actor_rollout_ref.opd_resident_teacher=${OPD_RESIDENT_TEACHER:-False} \
     actor_rollout_ref.rollout.name=sglang \
     +actor_rollout_ref.rollout.engine_kwargs.sglang.attention_backend=${SGLANG_ATTENTION_BACKEND:-fa3} \
     actor_rollout_ref.rollout.mode=async \

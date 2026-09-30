@@ -1,0 +1,6 @@
+[opsd] 2026-09-30T14:53:37Z stopping only this launch's process group 2816468
+[keep-alive] started pid=2854278 log=/volume/pt-test/users/zhaoye/gpu-workspace/keep_alive/logs/keep-alive-20260930T145403Z.log
+[b200-keepalive] active parent=(2854278, 83279081), 8 GPU workers
+[opsd] 2026-09-30T14:54:19Z overlay growth: /root=0 bytes; /tmp=0 bytes
+[opsd] 2026-09-30T14:54:19Z GPU smoke finished with exit=143; log=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T144153Z-2815368/gpu-smoke.log
+[opsd] 2026-09-30T14:54:19Z launcher exit=143; log=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T144153Z-2815368/driver.log

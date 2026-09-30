@@ -1,0 +1,9 @@
+[b200-keepalive] parent=(3189967, 85362533) GPU_workers=8
+GPU-950c37cc-cca1-4da3-97a3-c86327df00b1, 3190047, /opt/venv/bin/python, 2752 MiB
+GPU-dcb9af4c-1160-a503-0a1d-e6642ef917c3, 3190048, /opt/venv/bin/python, 2752 MiB
+GPU-5a5532ca-6037-035d-af93-9dfdf52fb1b3, 3190049, /opt/venv/bin/python, 2752 MiB
+GPU-4229eea5-a0b7-99a5-bf32-2229b9dd9a30, 3190050, /opt/venv/bin/python, 2752 MiB
+GPU-1de624d8-daeb-8588-c5b2-69080f5ca4b4, 3190051, /opt/venv/bin/python, 2752 MiB
+GPU-604dea14-98af-0212-b4c0-de8933b852cf, 3190052, /opt/venv/bin/python, 2752 MiB
+GPU-47890bb7-63bc-97bf-f8e5-683136459d93, 3190053, /opt/venv/bin/python, 2752 MiB
+GPU-3763cdc5-e842-b1d8-5438-9c0d96ae79bf, 3190054, /opt/venv/bin/python, 2752 MiB

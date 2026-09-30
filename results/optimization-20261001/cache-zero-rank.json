@@ -1,0 +1,455 @@
+{
+  "passed": true,
+  "world_size": 2,
+  "updates_per_variant": 2,
+  "vocab": 151936,
+  "chunk_size": 512,
+  "actor_master_dtype": "float32",
+  "forward_dtype": "bfloat16",
+  "loss_dtype": "float32",
+  "reduce_dtype": "float32",
+  "manual_param_offload": false,
+  "manual_optimizer_offload": false,
+  "teacher_resident": true,
+  "exact_equal": [
+    "entropy",
+    "reverse_KL",
+    "Soft_OR_scores",
+    "selected_tokens",
+    "loss",
+    "gradient",
+    "FP32_weights",
+    "AdamW_state",
+    "scheduler"
+  ],
+  "cache_lifecycle": "All observed teacher cache tensor weakrefs expired after each actual update",
+  "math_scope": "Actual OPDWorker.update_opd and TIP with synthetic FSDP embedding, real Qwen3 vocabulary; no Qwen attention, rollout or accuracy claim",
+  "zero_selected_rank_case": true,
+  "torch": "2.9.1+cu128",
+  "cuda": "12.8",
+  "verl": "0.8.0.dev0",
+  "worker_source_sha256": "e399161d43b94f8aa987b584389c690e00fe087fb53e4bd9c5e386f7b578b020",
+  "gate_source_sha256": "6afb43bb3bd4e41285e8018a8aa55c6efce98f38d0f6906fe15691152a15a7f7",
+  "ranks": [
+    {
+      "rank": 0,
+      "passed": true,
+      "GPU": "NVIDIA B200",
+      "response_lengths": [
+        1,
+        1,
+        1
+      ],
+      "zero_selected_rank": true,
+      "cpu": [
+        {
+          "update": 1,
+          "method_metrics": {
+            "opd/loss": 0.010002925893126423,
+            "opd/entropy": 0.9995811581611633,
+            "opd/grad_norm": 9.119275637203828e-05,
+            "opd/num_tokens": 0,
+            "opd/batch_size": 3,
+            "opd/valid_rows": 3,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 1041,
+            "tip/global_selected_tokens": 518,
+            "tip/selected_fraction": 0.49759846301633043,
+            "tip/global_rollouts": 6,
+            "tip/global_normalization": 1.0,
+            "opd/lr": 1e-06
+          },
+          "statistics": [
+            [
+              "dc435a5c1a640f126fe08f6644cba2b78f46c12d031b8453d58262b4a8c33966",
+              "90fd1f3184931383bd62991307a76adab28f58f41850f78217a5eb70ae157bbe"
+            ],
+            [
+              "6e007a4a7015483750d0b1f9b0e52eee709ca487cca219cda1cb8e2a490aad03",
+              "94fcb05377842b3c8acd75a91dad3e3aa650afff8322930a25e37a6932b32e86"
+            ],
+            [
+              "95c7d7973bbf06ede69eba442475870880e889afff359ac1d2e08e2ed666efa2",
+              "4da4f210eaae75cba1a2aec3283997755ffb1b5120580fd9e380bb5ef7ec2bef"
+            ]
+          ],
+          "selection": [
+            {
+              "indices": "59e7b723bb8ec680fd42b705cc9de2e69d0d9855e019764a87584543b4d08280",
+              "scores": "0f48b4a9944f94caaa2353c4d11383ff692bfce058994bea988b3bf34447af22",
+              "entropy": "593db952192a688dc6a13bf2191bc1f0786836d2bdad53368674dd25dc3f2121",
+              "KL": "37a64dbc74c49f1e2f84b0fdc69d1b00142721a6e1dcd64352dd85dd59fb31b6"
+            }
+          ],
+          "backward_tokens": [
+            0,
+            0,
+            0
+          ],
+          "cache_released": true,
+          "memory_allocated_gib": 0.04980897903442383,
+          "peak_memory_allocated_gib": 0.06793785095214844
+        },
+        {
+          "update": 2,
+          "method_metrics": {
+            "opd/loss": 0.010002838598715293,
+            "opd/entropy": 0.9995811581611633,
+            "opd/grad_norm": 9.11923052626662e-05,
+            "opd/num_tokens": 0,
+            "opd/batch_size": 3,
+            "opd/valid_rows": 3,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 1041,
+            "tip/global_selected_tokens": 518,
+            "tip/selected_fraction": 0.49759846301633043,
+            "tip/global_rollouts": 6,
+            "tip/global_normalization": 1.0,
+            "opd/lr": 5e-07
+          },
+          "statistics": [
+            [
+              "dc435a5c1a640f126fe08f6644cba2b78f46c12d031b8453d58262b4a8c33966",
+              "52754050e86b2e0c739b2b7fd7a2f163381e3f32aa9cb8cee886d861cd1048bc"
+            ],
+            [
+              "0a7ac6ec1bccd87a89589a4d551189107172d0f897d26191f6116c40c915b32b",
+              "0737cabb96552a4aa2f7c90f8a3ed5107649010aaafde5cb3552feeeeb9cfeac"
+            ],
+            [
+              "95c7d7973bbf06ede69eba442475870880e889afff359ac1d2e08e2ed666efa2",
+              "175d105338fda0eb8133fea13e2f7386af6f213e56675fcf13410d37c120e583"
+            ]
+          ],
+          "selection": [
+            {
+              "indices": "59e7b723bb8ec680fd42b705cc9de2e69d0d9855e019764a87584543b4d08280",
+              "scores": "3614980afa28dd21ac689f9628afce89ea17aebe9ee9eea87ef6bd81cc999cc7",
+              "entropy": "ba92a87ef586364fd379c90dd0127c6d6c1ba8188eaedd7f3b9f848194452083",
+              "KL": "04db0655eb30c774c8f406b633f3516a70795bc1544232ee1b7d01b7b6a6c221"
+            }
+          ],
+          "backward_tokens": [
+            0,
+            0,
+            0
+          ],
+          "cache_released": true,
+          "memory_allocated_gib": 0.04980897903442383,
+          "peak_memory_allocated_gib": 0.08605051040649414
+        }
+      ],
+      "cuda": [
+        {
+          "update": 1,
+          "method_metrics": {
+            "opd/loss": 0.010002925893126423,
+            "opd/entropy": 0.9995811581611633,
+            "opd/grad_norm": 9.119275637203828e-05,
+            "opd/num_tokens": 0,
+            "opd/batch_size": 3,
+            "opd/valid_rows": 3,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 1041,
+            "tip/global_selected_tokens": 518,
+            "tip/selected_fraction": 0.49759846301633043,
+            "tip/global_rollouts": 6,
+            "tip/global_normalization": 1.0,
+            "opd/lr": 1e-06
+          },
+          "statistics": [
+            [
+              "dc435a5c1a640f126fe08f6644cba2b78f46c12d031b8453d58262b4a8c33966",
+              "90fd1f3184931383bd62991307a76adab28f58f41850f78217a5eb70ae157bbe"
+            ],
+            [
+              "6e007a4a7015483750d0b1f9b0e52eee709ca487cca219cda1cb8e2a490aad03",
+              "94fcb05377842b3c8acd75a91dad3e3aa650afff8322930a25e37a6932b32e86"
+            ],
+            [
+              "95c7d7973bbf06ede69eba442475870880e889afff359ac1d2e08e2ed666efa2",
+              "4da4f210eaae75cba1a2aec3283997755ffb1b5120580fd9e380bb5ef7ec2bef"
+            ]
+          ],
+          "selection": [
+            {
+              "indices": "59e7b723bb8ec680fd42b705cc9de2e69d0d9855e019764a87584543b4d08280",
+              "scores": "0f48b4a9944f94caaa2353c4d11383ff692bfce058994bea988b3bf34447af22",
+              "entropy": "593db952192a688dc6a13bf2191bc1f0786836d2bdad53368674dd25dc3f2121",
+              "KL": "37a64dbc74c49f1e2f84b0fdc69d1b00142721a6e1dcd64352dd85dd59fb31b6"
+            }
+          ],
+          "backward_tokens": [
+            0,
+            0,
+            0
+          ],
+          "cache_released": true,
+          "memory_allocated_gib": 0.08150577545166016,
+          "peak_memory_allocated_gib": 0.10048437118530273
+        },
+        {
+          "update": 2,
+          "method_metrics": {
+            "opd/loss": 0.010002838598715293,
+            "opd/entropy": 0.9995811581611633,
+            "opd/grad_norm": 9.11923052626662e-05,
+            "opd/num_tokens": 0,
+            "opd/batch_size": 3,
+            "opd/valid_rows": 3,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 1041,
+            "tip/global_selected_tokens": 518,
+            "tip/selected_fraction": 0.49759846301633043,
+            "tip/global_rollouts": 6,
+            "tip/global_normalization": 1.0,
+            "opd/lr": 5e-07
+          },
+          "statistics": [
+            [
+              "dc435a5c1a640f126fe08f6644cba2b78f46c12d031b8453d58262b4a8c33966",
+              "52754050e86b2e0c739b2b7fd7a2f163381e3f32aa9cb8cee886d861cd1048bc"
+            ],
+            [
+              "0a7ac6ec1bccd87a89589a4d551189107172d0f897d26191f6116c40c915b32b",
+              "0737cabb96552a4aa2f7c90f8a3ed5107649010aaafde5cb3552feeeeb9cfeac"
+            ],
+            [
+              "95c7d7973bbf06ede69eba442475870880e889afff359ac1d2e08e2ed666efa2",
+              "175d105338fda0eb8133fea13e2f7386af6f213e56675fcf13410d37c120e583"
+            ]
+          ],
+          "selection": [
+            {
+              "indices": "59e7b723bb8ec680fd42b705cc9de2e69d0d9855e019764a87584543b4d08280",
+              "scores": "3614980afa28dd21ac689f9628afce89ea17aebe9ee9eea87ef6bd81cc999cc7",
+              "entropy": "ba92a87ef586364fd379c90dd0127c6d6c1ba8188eaedd7f3b9f848194452083",
+              "KL": "04db0655eb30c774c8f406b633f3516a70795bc1544232ee1b7d01b7b6a6c221"
+            }
+          ],
+          "backward_tokens": [
+            0,
+            0,
+            0
+          ],
+          "cache_released": true,
+          "memory_allocated_gib": 0.08150577545166016,
+          "peak_memory_allocated_gib": 0.11859703063964844
+        }
+      ],
+      "final_weight_hashes": [
+        "567e82734735d950325fd95acc9fc08026aeedf6e3f01318372c97efc5fbbe74"
+      ]
+    },
+    {
+      "rank": 1,
+      "passed": true,
+      "GPU": "NVIDIA B200",
+      "response_lengths": [
+        1027,
+        7,
+        4
+      ],
+      "zero_selected_rank": false,
+      "cpu": [
+        {
+          "update": 1,
+          "method_metrics": {
+            "opd/loss": 0.010002925893126423,
+            "opd/entropy": 0.9995811581611633,
+            "opd/grad_norm": 9.119275637203828e-05,
+            "opd/num_tokens": 518,
+            "opd/batch_size": 3,
+            "opd/valid_rows": 3,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 1041,
+            "tip/global_selected_tokens": 518,
+            "tip/selected_fraction": 0.49759846301633043,
+            "tip/global_rollouts": 6,
+            "tip/global_normalization": 1.0,
+            "opd/lr": 1e-06
+          },
+          "statistics": [
+            [
+              "325fb3cdd4e5d199305416b504af7616b36952df244c4648f08489028d11a9e9",
+              "878c518cdcbca9e4b92b6f556d7ea62bd21f38a898780212b6b25f3073463d44"
+            ],
+            [
+              "9b6a72f7af2aedbf069998ca1fbfb8477c7a1d5c837f78b51ff030f724490a69",
+              "b131dda930e0c709bbc2b60ad13bcde44adf0e0af4cbf75c31185e6372637c8c"
+            ],
+            [
+              "40a8a4d6a3e4033e10ad64911a9765d05291c8c5cfcc74d072c8546be806908f",
+              "7043f60f9760aef4b9f83206e59a65ed4e174fb4ecccd3e226bfbedd75af4443"
+            ]
+          ],
+          "selection": [
+            {
+              "indices": "59e7b723bb8ec680fd42b705cc9de2e69d0d9855e019764a87584543b4d08280",
+              "scores": "0f48b4a9944f94caaa2353c4d11383ff692bfce058994bea988b3bf34447af22",
+              "entropy": "593db952192a688dc6a13bf2191bc1f0786836d2bdad53368674dd25dc3f2121",
+              "KL": "37a64dbc74c49f1e2f84b0fdc69d1b00142721a6e1dcd64352dd85dd59fb31b6"
+            }
+          ],
+          "backward_tokens": [
+            513,
+            3,
+            2
+          ],
+          "cache_released": true,
+          "memory_allocated_gib": 0.04980897903442383,
+          "peak_memory_allocated_gib": 1.9171295166015625
+        },
+        {
+          "update": 2,
+          "method_metrics": {
+            "opd/loss": 0.010002838598715293,
+            "opd/entropy": 0.9995811581611633,
+            "opd/grad_norm": 9.11923052626662e-05,
+            "opd/num_tokens": 518,
+            "opd/batch_size": 3,
+            "opd/valid_rows": 3,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 1041,
+            "tip/global_selected_tokens": 518,
+            "tip/selected_fraction": 0.49759846301633043,
+            "tip/global_rollouts": 6,
+            "tip/global_normalization": 1.0,
+            "opd/lr": 5e-07
+          },
+          "statistics": [
+            [
+              "ec9c0ef51edaa3b59e3aba9ed73536b3e66021d070944103310877c363b85b57",
+              "97dc23447936c53ad943a909f095dd1b06a4494561aad9cb957922360e250fad"
+            ],
+            [
+              "cf7b6026482ce51737e32bd94c17d4f34c0d8ee81c272feacf74c22dfcc1a128",
+              "33fd6d8d3f5ce66a9b9028f56589f74c0ef42e635c2f774ecfdcd00b57e3a2b1"
+            ],
+            [
+              "4dbbc458f99f4e2c22bf29bd08d42b5fab94a82cfa77ea2008652b7c545b227c",
+              "f910869868b01dd1b8262ce604dec3c65500a9c637da69a6d8e182aff5456e07"
+            ]
+          ],
+          "selection": [
+            {
+              "indices": "59e7b723bb8ec680fd42b705cc9de2e69d0d9855e019764a87584543b4d08280",
+              "scores": "3614980afa28dd21ac689f9628afce89ea17aebe9ee9eea87ef6bd81cc999cc7",
+              "entropy": "ba92a87ef586364fd379c90dd0127c6d6c1ba8188eaedd7f3b9f848194452083",
+              "KL": "04db0655eb30c774c8f406b633f3516a70795bc1544232ee1b7d01b7b6a6c221"
+            }
+          ],
+          "backward_tokens": [
+            513,
+            3,
+            2
+          ],
+          "cache_released": true,
+          "memory_allocated_gib": 0.04980897903442383,
+          "peak_memory_allocated_gib": 1.9352421760559082
+        }
+      ],
+      "cuda": [
+        {
+          "update": 1,
+          "method_metrics": {
+            "opd/loss": 0.010002925893126423,
+            "opd/entropy": 0.9995811581611633,
+            "opd/grad_norm": 9.119275637203828e-05,
+            "opd/num_tokens": 518,
+            "opd/batch_size": 3,
+            "opd/valid_rows": 3,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 1041,
+            "tip/global_selected_tokens": 518,
+            "tip/selected_fraction": 0.49759846301633043,
+            "tip/global_rollouts": 6,
+            "tip/global_normalization": 1.0,
+            "opd/lr": 1e-06
+          },
+          "statistics": [
+            [
+              "325fb3cdd4e5d199305416b504af7616b36952df244c4648f08489028d11a9e9",
+              "878c518cdcbca9e4b92b6f556d7ea62bd21f38a898780212b6b25f3073463d44"
+            ],
+            [
+              "9b6a72f7af2aedbf069998ca1fbfb8477c7a1d5c837f78b51ff030f724490a69",
+              "b131dda930e0c709bbc2b60ad13bcde44adf0e0af4cbf75c31185e6372637c8c"
+            ],
+            [
+              "40a8a4d6a3e4033e10ad64911a9765d05291c8c5cfcc74d072c8546be806908f",
+              "7043f60f9760aef4b9f83206e59a65ed4e174fb4ecccd3e226bfbedd75af4443"
+            ]
+          ],
+          "selection": [
+            {
+              "indices": "59e7b723bb8ec680fd42b705cc9de2e69d0d9855e019764a87584543b4d08280",
+              "scores": "0f48b4a9944f94caaa2353c4d11383ff692bfce058994bea988b3bf34447af22",
+              "entropy": "593db952192a688dc6a13bf2191bc1f0786836d2bdad53368674dd25dc3f2121",
+              "KL": "37a64dbc74c49f1e2f84b0fdc69d1b00142721a6e1dcd64352dd85dd59fb31b6"
+            }
+          ],
+          "backward_tokens": [
+            513,
+            3,
+            2
+          ],
+          "cache_released": true,
+          "memory_allocated_gib": 0.08150577545166016,
+          "peak_memory_allocated_gib": 2.2432422637939453
+        },
+        {
+          "update": 2,
+          "method_metrics": {
+            "opd/loss": 0.010002838598715293,
+            "opd/entropy": 0.9995811581611633,
+            "opd/grad_norm": 9.11923052626662e-05,
+            "opd/num_tokens": 518,
+            "opd/batch_size": 3,
+            "opd/valid_rows": 3,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 1041,
+            "tip/global_selected_tokens": 518,
+            "tip/selected_fraction": 0.49759846301633043,
+            "tip/global_rollouts": 6,
+            "tip/global_normalization": 1.0,
+            "opd/lr": 5e-07
+          },
+          "statistics": [
+            [
+              "ec9c0ef51edaa3b59e3aba9ed73536b3e66021d070944103310877c363b85b57",
+              "97dc23447936c53ad943a909f095dd1b06a4494561aad9cb957922360e250fad"
+            ],
+            [
+              "cf7b6026482ce51737e32bd94c17d4f34c0d8ee81c272feacf74c22dfcc1a128",
+              "33fd6d8d3f5ce66a9b9028f56589f74c0ef42e635c2f774ecfdcd00b57e3a2b1"
+            ],
+            [
+              "4dbbc458f99f4e2c22bf29bd08d42b5fab94a82cfa77ea2008652b7c545b227c",
+              "f910869868b01dd1b8262ce604dec3c65500a9c637da69a6d8e182aff5456e07"
+            ]
+          ],
+          "selection": [
+            {
+              "indices": "59e7b723bb8ec680fd42b705cc9de2e69d0d9855e019764a87584543b4d08280",
+              "scores": "3614980afa28dd21ac689f9628afce89ea17aebe9ee9eea87ef6bd81cc999cc7",
+              "entropy": "ba92a87ef586364fd379c90dd0127c6d6c1ba8188eaedd7f3b9f848194452083",
+              "KL": "04db0655eb30c774c8f406b633f3516a70795bc1544232ee1b7d01b7b6a6c221"
+            }
+          ],
+          "backward_tokens": [
+            513,
+            3,
+            2
+          ],
+          "cache_released": true,
+          "memory_allocated_gib": 0.08150577545166016,
+          "peak_memory_allocated_gib": 2.261354923248291
+        }
+      ],
+      "final_weight_hashes": [
+        "afa2e8ce05ef0fd9a50b4ea44cbfd9cfc2f4646c2a2576faf78b308d13ff18e2"
+      ]
+    }
+  ]
+}

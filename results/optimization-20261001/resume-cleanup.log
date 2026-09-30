@@ -1,0 +1,16 @@
+=== OPD training completed ===
+Model: Qwen3-4B
+Loss type: reverse_kl
+Checkpoints and results saved to: /volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T203205Z-3156633/stability-resume-output/Qwen3-4B-b200-opt-stability-resume-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16
+Stability resume: eight-rank model/optimizer/RNG/scheduler restored; two updates, data/LR continuity, 32 validation outputs: PASS
+[opsd] 2026-09-30T20:41:10Z stability-resume training PASS; EXIT trap will restore keep-alive
+[keep-alive] started pid=3189967 log=/volume/pt-test/users/zhaoye/gpu-workspace/keep_alive/logs/keep-alive-20260930T204118Z.log
+[b200-keepalive] active parent=(3189967, 85362533), 8 GPU workers
+[opsd] 2026-09-30T20:41:32Z overlay growth: /root=0 bytes; /tmp=0 bytes
+[opsd] 2026-09-30T20:41:32Z GPU stability-resume finished with exit=0; log=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T203205Z-3156633/gpu-stability-resume.log
+[b200-keepalive] parent=(3189967, 85362533) GPU_workers=8
+[opsd] 2026-09-30T20:41:33Z GPU keep-alive active
+[opsd] 2026-09-30T20:41:33Z mode=stability-resume completed; outputs=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T203205Z-3156633
+[b200-keepalive] parent=(3189967, 85362533) GPU_workers=8
+[opsd] 2026-09-30T20:41:33Z driver fallback: keep-alive already active
+[opsd] 2026-09-30T20:41:33Z launcher exit=0; log=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T203205Z-3156633/driver.log

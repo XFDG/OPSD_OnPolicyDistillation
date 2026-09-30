@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "vocab": 151936,
+  "dtype": "bfloat16",
+  "exact_equal": [
+    "entropy",
+    "KL",
+    "selected_tokens",
+    "loss",
+    "gradient",
+    "weights",
+    "AdamW_state"
+  ],
+  "scope": "actual TIP method with synthetic logits/embedding; single GPU, not distributed real-model equivalence"
+}

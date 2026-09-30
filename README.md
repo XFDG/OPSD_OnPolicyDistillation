@@ -12,6 +12,52 @@ top of `verl`. It is the shared training base for three papers on token-,
 problem-, and reward-level efficiency in OPD — see **Papers & Results**
 below for what each one measures and how to cite it.
 
+## Taihua 8×B200 optimization experiment — bounded acceptance passed
+
+Branch: `experiments/taihua-b200-optimization`. The current candidate keeps
+Qwen3-8B → Qwen3-4B, BF16 forward/FP32 loss, global 128 rollouts, TIP Soft-OR
+50%, reverse KL, and the 1739-step schedule. It retains teacher logits,
+teacher/actor parameters and optimizer state on GPU. Rollout TP remains 2,
+microbatch remains 1, and production profiling is disabled.
+
+Three two-update profile smoke runs, six profile-off candidate updates, and
+the real-Qwen 128×8192-response capacity gate passed. In the controlled
+profile-off comparison, update plus weight-sync time fell from **69.538s to
+36.586s** (47.39% less); the two ordinary steps fell from **90.418s to
+66.762s** (26.16% less). A rough full-run estimate is **34–39h**, based on
+these limited samples and historical evaluation/save costs.
+
+The six-step baseline artifacts passed a CPU post-audit; its original
+wrapper/launcher **exit=1 is preserved** because a post-training observer
+expected an INFO message suppressed by default logging. The candidate and
+capacity and resume wrappers exited 0 and restored keepalive. Step-6 checkpoint
+recovery to steps 7/8 passed, including all eight ranks and the original
+1739-step LR/data schedule. The final stamp binds 37 source files and all
+proof reports. Optimized full training has not started; full-benchmark
+accuracy remains unmeasured. See
+[optimization settings, evidence and acceptance checklist](OPTIMIZATION_RESULTS.md)
+and [profile-off stability/capacity comparison](results/optimization-20261001/stability-comparison.md).
+
+The new manual entrypoint is `full.sh`, which forwards to
+`run_b200_optimized_full.sh`. On Taihua the repository lives under
+`/volume/pt-test/users/zhaoye/OPSD_B200_Optimize`.
+
+```bash
+# Inspect live progress from another terminal.
+bash /volume/pt-test/users/zhaoye/OPSD_B200_Optimize/full.sh follow
+bash /volume/pt-test/users/zhaoye/OPSD_B200_Optimize/full.sh status
+
+# User manually starts preparation, smoke and full training.
+# Changed settings/source or missing evidence are rejected by the acceptance gate.
+bash /volume/pt-test/users/zhaoye/OPSD_B200_Optimize/full.sh all
+```
+
+The launcher prints phase changes, streams Ray training progress, reports
+status every 10 seconds, and stops keepalive before GPU work and restores it
+on exit. This optimization experiment uses a separate runtime/output tree
+and shares the original GPU/full locks. Existing production checkpoints are
+preserved. Full training has not been started for this optimization candidate.
+
 ## Taihua 8×B200 full training result — 2026-09-30
 
 **Full training and launcher completed successfully (exit=0): 1739 steps, 35 evaluations.**

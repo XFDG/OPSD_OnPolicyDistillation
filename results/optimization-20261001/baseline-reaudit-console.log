@@ -1,0 +1,2 @@
+Baseline: six global TIP updates, original schedule/data, three eight-rank checkpoints, 32 validation outputs, no profiling: PASS
+Baseline CPU post-audit PASS: original launcher=1, GPU wrapper=1 retained; CPU verification=0; original evidence unchanged; known eight-worker keepalive active

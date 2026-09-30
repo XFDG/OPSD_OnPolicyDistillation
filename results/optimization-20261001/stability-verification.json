@@ -1,0 +1,671 @@
+{
+  "passed": true,
+  "profile": {
+    "profile": {
+      "teacher_cache_device": "cuda",
+      "resident_teacher": true,
+      "actor_param_offload": false,
+      "actor_optimizer_offload": false,
+      "ref_param_offload": false,
+      "micro_batch_size_per_gpu": 1,
+      "rollout_tp": 2,
+      "profile": false,
+      "world_size": 8,
+      "gradient_checkpointing": true,
+      "train_prompts": 8,
+      "rollout_n": 16,
+      "global_rollouts": 128,
+      "prompt_length": 2048,
+      "response_length": 8192,
+      "opd_max_length": 16384,
+      "opd_chunk_size": 512,
+      "loss": "reverse_kl",
+      "tip_keep_ratio": 0.5,
+      "entropy_clip_quantile": 0.98,
+      "learning_rate": 1e-06,
+      "lr_schedule": "cosine",
+      "warmup_steps": 0,
+      "weight_decay": 0.1,
+      "grad_clip": 1.0,
+      "total_training_steps": 1739,
+      "temperature": 1.0,
+      "top_p": 1.0,
+      "top_k": -1,
+      "thinking": false,
+      "precision": "BF16-forward/FP32-loss",
+      "rollout_attention": "fa4",
+      "rollout_memory_utilization": 0.6,
+      "val_n": 16,
+      "experimental_overlap": false,
+      "student_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+      "teacher_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "verl_revision": "0ddd28933f2d06fbf06d2d4b2cec7da547d596fc"
+    },
+    "source_sha256": {
+      "full.sh": "f738d0fc2c55200bd95f8e4cac5ee213fe32f0ab7ffe19a53eba98cd8369b141",
+      "run_b200_optimized_full.sh": "510369bd75a730bc6eacc8def75aa18af3404ad9eddd687a24a84412c38ac91d",
+      "run_b200_opt.sh": "21cfb8699fe6373fa5c3a5b0c8ba815de9fb9d4353fd2bdafbccef039e72897c",
+      "scripts/opd/train_opd.sh": "58d095672efb0bd526500963bd8530e7b8e1ff1585116d1edeb24434fbea6148",
+      "src/opd/__init__.py": "62b163d63ef36baf164c368db221ec9fabc1a936b1bbfc9eb822093c1878a3f3",
+      "src/opd/batch_builder.py": "82039c2ddc788764a7f9d132508fba79472e0f12f6132bc68761a636abecae28",
+      "src/opd/fa4_adapter.py": "20f5a12d5857d068b5d2b3f3f2f7ae4e2c268c21ca6c1eeabc0cf01442dd184b",
+      "src/opd/losses.py": "cd38d10ca17e1add96bca9d54889cbb3f9f01428d8e893fb91d6ba89d9c5b8f0",
+      "src/opd/main_opd.py": "e696c38374ed125341333f9c8690e9e4f7826f9fdb16987c093ef60e7b9cf1f3",
+      "src/opd/opd_trainer.py": "8fe29db173e43fd105bb29c9b648f8096246fba790c22b5e39ebed0d9cb1ed38",
+      "src/opd/opd_worker.py": "e399161d43b94f8aa987b584389c690e00fe087fb53e4bd9c5e386f7b578b020",
+      "src/opd/resident_ref.py": "7b16339c34273ea6ee1d5f9e73754afe5c7b8783f8d7ce9c82eea82eb0351d9e",
+      "src/opd/config/opd_trainer.yaml": "f49976ac5e4c3f2d1d9bcd28f14d6f15e460080c66da3981193cf7d65f801835",
+      "scripts/optimization/launcher_status.py": "f34852acd016efa5bb0a61bb058a4dc365a8dc6cd01bd50d9a384a591f6a434e",
+      "scripts/optimization/reverify_baseline.py": "9bf7fe1e51e74e8be6fb23bdc76015ee1b350e441253fbb48fcc08b5b14252f5",
+      "scripts/optimization/verify_baseline.py": "d6dfadd49e4548804aefe9aed28e7230f57d8dab8dad660fd259dd2f528f5537",
+      "scripts/optimization/verify_resume.py": "c2937d0c49085e580dc6e6c2aae8ea0544cb5609861977274b5febbbfad8586e",
+      "scripts/optimization/verify_stability.py": "47d6adb5cdf1af187bf7a4e145dd3a159f98c53d7158f3e0f88d73fa40aaf1a3",
+      "scripts/optimization/verify_stability_resume.py": "0e39fadfc6ededb931d1b1f86d75c29cf937ee3de7f19ad87bfe44cc678fe242",
+      "scripts/b200/apply_fa4.py": "00d3c88ac0e8f239fab4c5250b512dae74acfea8395c5d9512dddfdb4a9b3a0e",
+      "scripts/b200/fa4_gate.py": "ce06328c06a7360635191ae3011dbdd6f880d49569966628f88b74a23d3bd560",
+      "scripts/b200/follow_ray.py": "27f37f5a3068789093a0f75f6b5b87541dd0c33b2fd6748e9ab10b0588c051de",
+      "scripts/b200/keepalive_ctl.py": "0089a914c440bc77872adc7eb2d0e363098e7556d65f14fa0d2f87dea265f778",
+      "scripts/b200/kernel_gate.py": "c7b438d650a53ad725a30bad2f922ceb57b288cc13526f2e08750e7fdfea8da2",
+      "scripts/b200/launcher_status.py": "ee6402d255e518b86a3033756df5a346dfa8d92b609853f9612f9799c7011a88",
+      "scripts/b200/relocate_env.py": "e50f4b21062ad661aa7a956cc6b8a0e7f16517d38935887a4f566e569b1513b1",
+      "scripts/b200/verify_assets.py": "f1561b89ba22eb7625d0a7ad5d04443a4bdd353c022623f1f1e31be21b9baf24",
+      "scripts/b200/verify_resume.py": "ffd8514d8c635664ee87d338c7d304e04f580419685ad6df207c311cbf83d048",
+      "scripts/b200/verify_resume_smoke.py": "3826318101ee2b7f06a34ed5e1fbc39c3b5f43dbb25d0609c4e34acd84c71408",
+      "scripts/b200/verify_tip_smoke.py": "3f8343324f82e06f19d221a4eeb2442507acdbdfef3fc907df3362bb949d741d",
+      "scripts/b200/keepalive.sh": "c075b699703e14cf3d405f4f924ea3fd29e936e47fec9e9c2e2fea2269635a8b",
+      "src/rewards/math_dapo.py": "3d07ae28c1fd9599f1506812b4f1362fcd277496c6fd08f23140bc16e83d5c29",
+      "src/rewards/math_reward.py": "a52f6928afe61325212c50b228bb90409bbce24aa355879d174903d121123b52",
+      "tests/test_b200_cache_distributed.py": "6afb43bb3bd4e41285e8018a8aa55c6efce98f38d0f6906fe15691152a15a7f7",
+      "tests/test_b200_cache_equivalence.py": "48b82f5820362fdc866716812c04e714b5142e2cbad986a0bdf319263bb1c47d",
+      "tests/test_b200_long_sequence.py": "09fff57a24b9eefe2337d725887ae955a84dc4af36e4b8fb5e6d7cc59d9119f2",
+      "tests/test_tip.py": "a3f5519078203dd3e9b1856a595c672ad05263fe54c5e88e25f6036816ead243"
+    }
+  },
+  "steps": {
+    "1": {
+      "01": 24.0,
+      "40": 52.0,
+      "step": 1.0,
+      "rollout/prompts": 8.0,
+      "rollout/samples_per_prompt": 16.0,
+      "timing/generate_s": 44.89214730262756,
+      "rollout/generated_sequences": 128.0,
+      "opd/tool_mask/has_agent_mask": 1.0,
+      "opd/tool_mask/llm_tokens": 232730.0,
+      "opd/tool_mask/tool_tokens": 815846.0,
+      "opd/tool_mask/tool_ratio": 0.7780513763427734,
+      "opd/num_turns/min": 2.0,
+      "opd/num_turns/max": 2.0,
+      "opd/num_turns/mean": 2.0,
+      "opd/accuracy": 0.3984375,
+      "opd/batch_size": 16.0,
+      "opd/loss": 0.07224599360008314,
+      "opd/entropy": 0.023738710209727287,
+      "opd/grad_norm": 1.178587794303894,
+      "opd/num_tokens": 14541.0,
+      "opd/valid_rows": 16.0,
+      "tip/enabled": 1.0,
+      "tip/global_response_tokens": 232730.0,
+      "tip/global_selected_tokens": 116328.0,
+      "tip/selected_fraction": 0.4998410174880763,
+      "tip/global_rollouts": 128.0,
+      "tip/global_normalization": 1.0,
+      "opt/teacher_cache_cuda": 1.0,
+      "opt/resident_teacher": 1.0,
+      "opt/teacher_cache_gib": 8.232906758785248,
+      "opd/lr": 1e-06,
+      "perf/max_memory_allocated_gb": 36.628962993621826,
+      "perf/update_peak_reserved_gib": 29.51123046875,
+      "timing/train_s": 39.36493682861328,
+      "training/global_step": 1.0,
+      "training/epoch": 0.0,
+      "timing/step_s": 84.33470463752747
+    },
+    "2": {
+      "02": 38.0,
+      "37": 42.0,
+      "step": 2.0,
+      "rollout/prompts": 8.0,
+      "rollout/samples_per_prompt": 16.0,
+      "timing/generate_s": 26.698802709579468,
+      "rollout/generated_sequences": 128.0,
+      "opd/tool_mask/has_agent_mask": 1.0,
+      "opd/tool_mask/llm_tokens": 242546.0,
+      "opd/tool_mask/tool_tokens": 806030.0,
+      "opd/tool_mask/tool_ratio": 0.7686901092529297,
+      "opd/num_turns/min": 2.0,
+      "opd/num_turns/max": 2.0,
+      "opd/num_turns/mean": 2.0,
+      "opd/accuracy": 0.4453125,
+      "opd/batch_size": 16.0,
+      "opd/loss": 0.06506347120803853,
+      "opd/entropy": 0.023589810356497765,
+      "opd/grad_norm": 1.1155039072036743,
+      "opd/num_tokens": 15155.125,
+      "opd/valid_rows": 16.0,
+      "tip/enabled": 1.0,
+      "tip/global_response_tokens": 242546.0,
+      "tip/global_selected_tokens": 121241.0,
+      "tip/selected_fraction": 0.49986806626371905,
+      "tip/global_rollouts": 128.0,
+      "tip/global_normalization": 1.0,
+      "opt/teacher_cache_cuda": 1.0,
+      "opt/resident_teacher": 1.0,
+      "opt/teacher_cache_gib": 8.58015125989914,
+      "opd/lr": 9.999991840933517e-07,
+      "perf/max_memory_allocated_gb": 37.99585437774658,
+      "perf/update_peak_reserved_gib": 32.62255859375,
+      "timing/train_s": 36.519367933273315,
+      "training/global_step": 2.0,
+      "training/epoch": 0.0,
+      "timing/step_s": 73.58265781402588
+    },
+    "3": {
+      "03": 50.0,
+      "36": 21.0,
+      "step": 3.0,
+      "rollout/prompts": 8.0,
+      "rollout/samples_per_prompt": 16.0,
+      "timing/generate_s": 35.09977388381958,
+      "rollout/generated_sequences": 128.0,
+      "opd/tool_mask/has_agent_mask": 1.0,
+      "opd/tool_mask/llm_tokens": 295770.0,
+      "opd/tool_mask/tool_tokens": 752806.0,
+      "opd/tool_mask/tool_ratio": 0.7179317474365234,
+      "opd/num_turns/min": 2.0,
+      "opd/num_turns/max": 2.0,
+      "opd/num_turns/mean": 2.0,
+      "opd/accuracy": 0.359375,
+      "opd/batch_size": 16.0,
+      "opd/loss": 0.0682825694917172,
+      "opd/entropy": 0.02805507183074951,
+      "opd/grad_norm": 1.000787615776062,
+      "opd/num_tokens": 18481.5,
+      "opd/valid_rows": 16.0,
+      "tip/enabled": 1.0,
+      "tip/global_response_tokens": 295770.0,
+      "tip/global_selected_tokens": 147852.0,
+      "tip/selected_fraction": 0.4998884268181357,
+      "tip/global_rollouts": 128.0,
+      "tip/global_normalization": 1.0,
+      "opt/teacher_cache_cuda": 1.0,
+      "opt/resident_teacher": 1.0,
+      "opt/teacher_cache_gib": 10.462969243526459,
+      "opd/lr": 9.999967363760695e-07,
+      "perf/max_memory_allocated_gb": 39.95319938659668,
+      "perf/update_peak_reserved_gib": 35.170166015625,
+      "timing/train_s": 36.9383659362793,
+      "training/global_step": 3.0,
+      "training/epoch": 0.0,
+      "timing/step_s": 72.11888813972473
+    },
+    "4": {
+      "05": 12.0,
+      "37": 39.0,
+      "step": 4.0,
+      "rollout/prompts": 8.0,
+      "rollout/samples_per_prompt": 16.0,
+      "timing/generate_s": 32.687697649002075,
+      "rollout/generated_sequences": 128.0,
+      "opd/tool_mask/has_agent_mask": 1.0,
+      "opd/tool_mask/llm_tokens": 317603.0,
+      "opd/tool_mask/tool_tokens": 730973.0,
+      "opd/tool_mask/tool_ratio": 0.6971101760864258,
+      "opd/num_turns/min": 2.0,
+      "opd/num_turns/max": 2.0,
+      "opd/num_turns/mean": 2.0,
+      "opd/accuracy": 0.25,
+      "opd/batch_size": 16.0,
+      "opd/loss": 0.05925143156179296,
+      "opd/entropy": 0.026381798088550568,
+      "opd/grad_norm": 0.8891434669494629,
+      "opd/num_tokens": 19846.5,
+      "opd/valid_rows": 16.0,
+      "tip/enabled": 1.0,
+      "tip/global_response_tokens": 317603.0,
+      "tip/global_selected_tokens": 158772.0,
+      "tip/selected_fraction": 0.49990711674637833,
+      "tip/global_rollouts": 128.0,
+      "tip/global_normalization": 1.0,
+      "opt/teacher_cache_cuda": 1.0,
+      "opt/resident_teacher": 1.0,
+      "opt/teacher_cache_gib": 11.235319405794144,
+      "opd/lr": 9.99992656856142e-07,
+      "perf/max_memory_allocated_gb": 43.17714881896973,
+      "perf/update_peak_reserved_gib": 36.2685546875,
+      "timing/train_s": 39.533071756362915,
+      "training/global_step": 4.0,
+      "training/epoch": 0.0,
+      "timing/step_s": 82.32200407981873
+    },
+    "5": {
+      "06": 14.0,
+      "34": 43.0,
+      "step": 5.0,
+      "rollout/prompts": 8.0,
+      "rollout/samples_per_prompt": 16.0,
+      "timing/generate_s": 27.48989486694336,
+      "rollout/generated_sequences": 128.0,
+      "opd/tool_mask/has_agent_mask": 1.0,
+      "opd/tool_mask/llm_tokens": 163825.0,
+      "opd/tool_mask/tool_tokens": 884751.0,
+      "opd/tool_mask/tool_ratio": 0.8437643051147461,
+      "opd/num_turns/min": 2.0,
+      "opd/num_turns/max": 2.0,
+      "opd/num_turns/mean": 2.0,
+      "opd/accuracy": 0.4765625,
+      "opd/batch_size": 16.0,
+      "opd/loss": 0.08253047783360862,
+      "opd/entropy": 0.03144437074661255,
+      "opd/grad_norm": 1.1783732175827026,
+      "opd/num_tokens": 10235.5,
+      "opd/valid_rows": 16.0,
+      "tip/enabled": 1.0,
+      "tip/global_response_tokens": 163825.0,
+      "tip/global_selected_tokens": 81884.0,
+      "tip/selected_fraction": 0.4998260338776133,
+      "tip/global_rollouts": 128.0,
+      "tip/global_normalization": 1.0,
+      "opt/teacher_cache_cuda": 1.0,
+      "opt/resident_teacher": 1.0,
+      "opt/teacher_cache_gib": 5.795367807149887,
+      "opd/lr": 9.999869455468831e-07,
+      "perf/max_memory_allocated_gb": 38.94001531600952,
+      "perf/update_peak_reserved_gib": 27.989990234375,
+      "timing/train_s": 33.86622142791748,
+      "training/global_step": 5.0,
+      "training/epoch": 0.0,
+      "timing/step_s": 61.40587115287781
+    },
+    "6": {
+      "step": 6.0,
+      "rollout/prompts": 8.0,
+      "rollout/samples_per_prompt": 16.0,
+      "timing/generate_s": 29.782817602157593,
+      "rollout/generated_sequences": 128.0,
+      "opd/tool_mask/has_agent_mask": 1.0,
+      "opd/tool_mask/llm_tokens": 250163.0,
+      "opd/tool_mask/tool_tokens": 798413.0,
+      "opd/tool_mask/tool_ratio": 0.7614259719848633,
+      "opd/num_turns/min": 2.0,
+      "opd/num_turns/max": 2.0,
+      "opd/num_turns/mean": 2.0,
+      "opd/accuracy": 0.546875,
+      "opd/batch_size": 16.0,
+      "opd/loss": 0.056145967747802825,
+      "opd/entropy": 0.02653634548187256,
+      "opd/grad_norm": 0.6358436942100525,
+      "opd/num_tokens": 15631.5,
+      "opd/valid_rows": 16.0,
+      "tip/enabled": 1.0,
+      "tip/global_response_tokens": 250163.0,
+      "tip/global_selected_tokens": 125052.0,
+      "tip/selected_fraction": 0.4998820768858704,
+      "tip/global_rollouts": 128.0,
+      "tip/global_normalization": 1.0,
+      "opt/teacher_cache_cuda": 1.0,
+      "opt/resident_teacher": 1.0,
+      "opt/teacher_cache_gib": 8.849605351686478,
+      "opd/lr": 9.999796024669325e-07,
+      "perf/max_memory_allocated_gb": 38.868218421936035,
+      "perf/update_peak_reserved_gib": 32.92138671875,
+      "timing/train_s": 36.073813915252686,
+      "val-aux/math/reward/mean@16": 1.0,
+      "val-aux/math/reward/std@16": 0.0,
+      "val-aux/math/reward/best@2/mean": 1.0,
+      "val-aux/math/reward/best@2/std": 0.0,
+      "val-aux/math/reward/worst@2/mean": 1.0,
+      "val-aux/math/reward/worst@2/std": 0.0,
+      "val-aux/math/reward/maj@2/mean": 1.0,
+      "val-aux/math/reward/maj@2/std": 0.0,
+      "val-aux/math/reward/best@4/mean": 1.0,
+      "val-aux/math/reward/best@4/std": 0.0,
+      "val-aux/math/reward/worst@4/mean": 1.0,
+      "val-aux/math/reward/worst@4/std": 0.0,
+      "val-aux/math/reward/maj@4/mean": 1.0,
+      "val-aux/math/reward/maj@4/std": 0.0,
+      "val-aux/math/reward/best@8/mean": 1.0,
+      "val-aux/math/reward/best@8/std": 0.0,
+      "val-aux/math/reward/worst@8/mean": 1.0,
+      "val-aux/math/reward/worst@8/std": 0.0,
+      "val-aux/math/reward/maj@8/mean": 1.0,
+      "val-aux/math/reward/maj@8/std": 0.0,
+      "val-aux/math/reward/best@16/mean": 1.0,
+      "val-aux/math/reward/best@16/std": 0.0,
+      "val-aux/math/reward/worst@16/mean": 1.0,
+      "val-aux/math/reward/worst@16/std": 0.0,
+      "val-aux/math/reward/maj@16/mean": 1.0,
+      "val-aux/math/reward/maj@16/std": 0.0,
+      "val-core/math/acc/mean@16": 1.0,
+      "val-aux/math/acc/std@16": 0.0,
+      "val-aux/math/acc/best@2/mean": 1.0,
+      "val-aux/math/acc/best@2/std": 0.0,
+      "val-aux/math/acc/worst@2/mean": 1.0,
+      "val-aux/math/acc/worst@2/std": 0.0,
+      "val-aux/math/acc/maj@2/mean": 1.0,
+      "val-aux/math/acc/maj@2/std": 0.0,
+      "val-aux/math/acc/best@4/mean": 1.0,
+      "val-aux/math/acc/best@4/std": 0.0,
+      "val-aux/math/acc/worst@4/mean": 1.0,
+      "val-aux/math/acc/worst@4/std": 0.0,
+      "val-aux/math/acc/maj@4/mean": 1.0,
+      "val-aux/math/acc/maj@4/std": 0.0,
+      "val-aux/math/acc/best@8/mean": 1.0,
+      "val-aux/math/acc/best@8/std": 0.0,
+      "val-aux/math/acc/worst@8/mean": 1.0,
+      "val-aux/math/acc/worst@8/std": 0.0,
+      "val-aux/math/acc/maj@8/mean": 1.0,
+      "val-aux/math/acc/maj@8/std": 0.0,
+      "val-core/math/acc/best@16/mean": 1.0,
+      "val-core/math/acc/best@16/std": 0.0,
+      "val-aux/math/acc/worst@16/mean": 1.0,
+      "val-aux/math/acc/worst@16/std": 0.0,
+      "val-core/math/acc/maj@16/mean": 1.0,
+      "val-core/math/acc/maj@16/std": 0.0,
+      "training/global_step": 6.0,
+      "training/epoch": 0.0,
+      "timing/step_s": 84.68400001525879
+    }
+  },
+  "checkpoint_evidence": [
+    {
+      "checkpoint": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T201230Z-3113178/stability-output/Qwen3-4B-b200-opt-stability-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/global_step_2",
+      "global_step": 2,
+      "world_size": 8,
+      "ranks": [
+        {
+          "rank": 0,
+          "scheduler_step": 2,
+          "next_lr": 9.999967363760695e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 1,
+          "scheduler_step": 2,
+          "next_lr": 9.999967363760695e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 2,
+          "scheduler_step": 2,
+          "next_lr": 9.999967363760695e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 3,
+          "scheduler_step": 2,
+          "next_lr": 9.999967363760695e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 4,
+          "scheduler_step": 2,
+          "next_lr": 9.999967363760695e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 5,
+          "scheduler_step": 2,
+          "next_lr": 9.999967363760695e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 6,
+          "scheduler_step": 2,
+          "next_lr": 9.999967363760695e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 7,
+          "scheduler_step": 2,
+          "next_lr": 9.999967363760695e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        }
+      ],
+      "samples_yielded": 16,
+      "next_lr": 9.999967363760695e-07,
+      "passed": true
+    },
+    {
+      "checkpoint": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T201230Z-3113178/stability-output/Qwen3-4B-b200-opt-stability-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/global_step_4",
+      "global_step": 4,
+      "world_size": 8,
+      "ranks": [
+        {
+          "rank": 0,
+          "scheduler_step": 4,
+          "next_lr": 9.999869455468831e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 1,
+          "scheduler_step": 4,
+          "next_lr": 9.999869455468831e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 2,
+          "scheduler_step": 4,
+          "next_lr": 9.999869455468831e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 3,
+          "scheduler_step": 4,
+          "next_lr": 9.999869455468831e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 4,
+          "scheduler_step": 4,
+          "next_lr": 9.999869455468831e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 5,
+          "scheduler_step": 4,
+          "next_lr": 9.999869455468831e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 6,
+          "scheduler_step": 4,
+          "next_lr": 9.999869455468831e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 7,
+          "scheduler_step": 4,
+          "next_lr": 9.999869455468831e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        }
+      ],
+      "samples_yielded": 32,
+      "next_lr": 9.999869455468831e-07,
+      "passed": true
+    },
+    {
+      "checkpoint": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T201230Z-3113178/stability-output/Qwen3-4B-b200-opt-stability-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/global_step_6",
+      "global_step": 6,
+      "world_size": 8,
+      "ranks": [
+        {
+          "rank": 0,
+          "scheduler_step": 6,
+          "next_lr": 9.99970627640255e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 1,
+          "scheduler_step": 6,
+          "next_lr": 9.99970627640255e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 2,
+          "scheduler_step": 6,
+          "next_lr": 9.99970627640255e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 3,
+          "scheduler_step": 6,
+          "next_lr": 9.99970627640255e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 4,
+          "scheduler_step": 6,
+          "next_lr": 9.99970627640255e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 5,
+          "scheduler_step": 6,
+          "next_lr": 9.99970627640255e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 6,
+          "scheduler_step": 6,
+          "next_lr": 9.99970627640255e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        },
+        {
+          "rank": 7,
+          "scheduler_step": 6,
+          "next_lr": 9.99970627640255e-07,
+          "rng_components": [
+            "cpu",
+            "cuda",
+            "numpy",
+            "random"
+          ]
+        }
+      ],
+      "samples_yielded": 48,
+      "next_lr": 9.99970627640255e-07,
+      "passed": true
+    }
+  ],
+  "output": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T201230Z-3113178/stability-output/Qwen3-4B-b200-opt-stability-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16",
+  "validation_sequences": 32,
+  "dataset_rows": 13918,
+  "scheduler_total_training_steps": 1739,
+  "scope": "six real-model eight-rank updates and checkpoint/evaluation; not full-epoch accuracy"
+}

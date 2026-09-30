@@ -1,0 +1,599 @@
+{
+  "schema_version": 1,
+  "purpose": "Profile-off six-step stability comparison and real-Qwen maximum-length capacity evidence",
+  "status_snapshot": {
+    "baseline_training_artifacts": "CPU post-audit passed, original wrapper/launcher exit=1 preserved",
+    "candidate_six_step_stability": "passed, wrapper/launcher exit=0 and keepalive restored",
+    "long_sequence_capacity": "passed, wrapper/launcher exit=0 and keepalive restored",
+    "checkpoint_resume_step_6_to_7_8": "passed, eight-rank restoration, wrapper/launcher exit=0, keepalive restored",
+    "production_full_training": "not started",
+    "final_acceptance": "passed, 37 source hashes and four proof reports bound"
+  },
+  "shared_settings": {
+    "gpu_count": 8,
+    "gpu_model": "B200",
+    "dataset_rows": 13918,
+    "scheduler_total_training_steps": 1739,
+    "bounded_steps": 6,
+    "global_rollouts": 128,
+    "rollout_tp": 2,
+    "micro_batch_size_per_gpu": 1,
+    "profiling": false,
+    "forward_dtype": "BF16",
+    "loss_dtype": "FP32",
+    "method": "global TIP Soft-OR50% reverse KL",
+    "save_steps": [
+      2,
+      4,
+      6
+    ],
+    "final_validation_sequences": 32,
+    "production_save_eval_frequency": 50
+  },
+  "baseline_post_audit": {
+    "report": "baseline-reverification.json",
+    "report_sha256": "db0a76eb2adb077f062a561347ed01e5fbd43e9ecea151a234d37a13c0dc66e8",
+    "original_launcher_exit": 1,
+    "original_gpu_wrapper_exit": 1,
+    "cpu_verification_exit": 0,
+    "execution_source_count": 25,
+    "original_and_current_execution_sources_equal": true,
+    "original_log_and_profile_hashes_preserved": true,
+    "reason": "Only the post-training observer asserted a py_logger.info completion string that default logging suppressed; the original Python training shell returned successfully and six updates, all eight-rank checkpoint/LR/RNG/data states and 32 final validation outputs independently passed CPU re-verification.",
+    "scope": "CPU post-audit of an already completed six-step baseline; original GPU/launcher exit=1 remains recorded; no GPU work, checkpoint writes or keepalive mutations occurred"
+  },
+  "profiles": [
+    {
+      "profile_id": "baseline",
+      "label": "CPU cache + offload",
+      "run_id": "tip-20260930T192959Z-3030419",
+      "output": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T192959Z-3030419/baseline-output/Qwen3-4B-b200-opt-baseline-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16",
+      "selected_profile": {
+        "teacher_cache_device": "cpu",
+        "resident_teacher": false,
+        "actor_param_offload": true,
+        "actor_optimizer_offload": true,
+        "ref_param_offload": true,
+        "micro_batch_size_per_gpu": 1,
+        "rollout_tp": 2,
+        "profile": false,
+        "world_size": 8,
+        "gradient_checkpointing": true,
+        "train_prompts": 8,
+        "rollout_n": 16,
+        "global_rollouts": 128,
+        "prompt_length": 2048,
+        "response_length": 8192,
+        "opd_max_length": 16384,
+        "opd_chunk_size": 512,
+        "loss": "reverse_kl",
+        "tip_keep_ratio": 0.5,
+        "entropy_clip_quantile": 0.98,
+        "learning_rate": 1e-06,
+        "lr_schedule": "cosine",
+        "warmup_steps": 0,
+        "weight_decay": 0.1,
+        "grad_clip": 1.0,
+        "total_training_steps": 1739,
+        "temperature": 1.0,
+        "top_p": 1.0,
+        "top_k": -1,
+        "thinking": false,
+        "precision": "BF16-forward/FP32-loss",
+        "rollout_attention": "fa4",
+        "rollout_memory_utilization": 0.6,
+        "val_n": 16,
+        "experimental_overlap": false,
+        "dataset_rows": 13918,
+        "stop_after_steps": 6,
+        "save_freq": 2,
+        "test_freq": 0,
+        "final_validation_sequences": 32,
+        "student_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+        "teacher_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+        "verl_revision": "0ddd28933f2d06fbf06d2d4b2cec7da547d596fc"
+      },
+      "report": "baseline-verification.json",
+      "report_sha256": "7a673de89b1c7f639a5f8c5ca28eff5609fb5f68d3ffcc8cc77e75869bb5edca",
+      "status": {
+        "training_artifacts_verified": true,
+        "original_launcher_exit": 1,
+        "original_gpu_wrapper_exit": 1,
+        "cpu_post_audit_exit": 0,
+        "keepalive_restored": true,
+        "checkpoint_steps": [
+          2,
+          4,
+          6
+        ],
+        "checkpoint_world_size": 8,
+        "small_validation_sequences": 32
+      },
+      "steps": [
+        {
+          "step": 1,
+          "checkpoint_saved": false,
+          "small_validation": false,
+          "cold_start": true,
+          "metrics": {
+            "tip/global_response_tokens": 215350.0,
+            "timing/generate_s": 42.137590408325195,
+            "timing/train_s": 81.31988215446472,
+            "timing/step_s": 123.52853727340698,
+            "perf/max_memory_allocated_gb": 14.997989654541016,
+            "perf/update_peak_reserved_gib": 16.513916015625
+          }
+        },
+        {
+          "step": 2,
+          "checkpoint_saved": true,
+          "small_validation": false,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 257937.0,
+            "timing/generate_s": 28.658965349197388,
+            "timing/train_s": 72.23296117782593,
+            "timing/step_s": 110.63074922561646,
+            "perf/max_memory_allocated_gb": 19.54737949371338,
+            "perf/update_peak_reserved_gib": 19.491455078125
+          }
+        },
+        {
+          "step": 3,
+          "checkpoint_saved": false,
+          "small_validation": false,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 286057.0,
+            "timing/generate_s": 29.853814125061035,
+            "timing/train_s": 62.06260633468628,
+            "timing/step_s": 91.99271821975708,
+            "perf/max_memory_allocated_gb": 19.68959903717041,
+            "perf/update_peak_reserved_gib": 19.887939453125
+          }
+        },
+        {
+          "step": 4,
+          "checkpoint_saved": true,
+          "small_validation": false,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 338004.0,
+            "timing/generate_s": 40.79096841812134,
+            "timing/train_s": 86.24933815002441,
+            "timing/step_s": 136.482106924057,
+            "perf/max_memory_allocated_gb": 22.143867015838623,
+            "perf/update_peak_reserved_gib": 21.525634765625
+          }
+        },
+        {
+          "step": 5,
+          "checkpoint_saved": false,
+          "small_validation": false,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 151739.0,
+            "timing/generate_s": 23.093998670578003,
+            "timing/train_s": 65.70411491394043,
+            "timing/step_s": 88.84347653388977,
+            "perf/max_memory_allocated_gb": 17.972623825073242,
+            "perf/update_peak_reserved_gib": 17.33349609375
+          }
+        },
+        {
+          "step": 6,
+          "checkpoint_saved": true,
+          "small_validation": true,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 239653.0,
+            "timing/generate_s": 25.08289074897766,
+            "timing/train_s": 61.44010376930237,
+            "timing/step_s": 105.85975432395935,
+            "perf/max_memory_allocated_gb": 18.313031673431396,
+            "perf/update_peak_reserved_gib": 18.60107421875
+          }
+        }
+      ]
+    },
+    {
+      "profile_id": "candidate",
+      "label": "GPU cache + resident",
+      "run_id": "tip-20260930T201230Z-3113178",
+      "output": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T201230Z-3113178/stability-output/Qwen3-4B-b200-opt-stability-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16",
+      "selected_profile": {
+        "teacher_cache_device": "cuda",
+        "resident_teacher": true,
+        "actor_param_offload": false,
+        "actor_optimizer_offload": false,
+        "ref_param_offload": false,
+        "micro_batch_size_per_gpu": 1,
+        "rollout_tp": 2,
+        "profile": false,
+        "world_size": 8,
+        "gradient_checkpointing": true,
+        "train_prompts": 8,
+        "rollout_n": 16,
+        "global_rollouts": 128,
+        "prompt_length": 2048,
+        "response_length": 8192,
+        "opd_max_length": 16384,
+        "opd_chunk_size": 512,
+        "loss": "reverse_kl",
+        "tip_keep_ratio": 0.5,
+        "entropy_clip_quantile": 0.98,
+        "learning_rate": 1e-06,
+        "lr_schedule": "cosine",
+        "warmup_steps": 0,
+        "weight_decay": 0.1,
+        "grad_clip": 1.0,
+        "total_training_steps": 1739,
+        "temperature": 1.0,
+        "top_p": 1.0,
+        "top_k": -1,
+        "thinking": false,
+        "precision": "BF16-forward/FP32-loss",
+        "rollout_attention": "fa4",
+        "rollout_memory_utilization": 0.6,
+        "val_n": 16,
+        "experimental_overlap": false,
+        "student_revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+        "teacher_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+        "verl_revision": "0ddd28933f2d06fbf06d2d4b2cec7da547d596fc"
+      },
+      "report": "stability-verification.json",
+      "report_sha256": "a533a60ffa46cc74dde2b5fcd3331de35ee8e7100575e19e6e528528b03090bd",
+      "status": {
+        "training_artifacts_verified": true,
+        "original_launcher_exit": 0,
+        "original_gpu_wrapper_exit": 0,
+        "cpu_post_audit_exit": null,
+        "keepalive_restored": true,
+        "checkpoint_steps": [
+          2,
+          4,
+          6
+        ],
+        "checkpoint_world_size": 8,
+        "small_validation_sequences": 32
+      },
+      "steps": [
+        {
+          "step": 1,
+          "checkpoint_saved": false,
+          "small_validation": false,
+          "cold_start": true,
+          "metrics": {
+            "tip/global_response_tokens": 232730.0,
+            "timing/generate_s": 44.89214730262756,
+            "timing/train_s": 39.36493682861328,
+            "timing/step_s": 84.33470463752747,
+            "perf/max_memory_allocated_gb": 36.628962993621826,
+            "perf/update_peak_reserved_gib": 29.51123046875
+          }
+        },
+        {
+          "step": 2,
+          "checkpoint_saved": true,
+          "small_validation": false,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 242546.0,
+            "timing/generate_s": 26.698802709579468,
+            "timing/train_s": 36.519367933273315,
+            "timing/step_s": 73.58265781402588,
+            "perf/max_memory_allocated_gb": 37.99585437774658,
+            "perf/update_peak_reserved_gib": 32.62255859375
+          }
+        },
+        {
+          "step": 3,
+          "checkpoint_saved": false,
+          "small_validation": false,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 295770.0,
+            "timing/generate_s": 35.09977388381958,
+            "timing/train_s": 36.9383659362793,
+            "timing/step_s": 72.11888813972473,
+            "perf/max_memory_allocated_gb": 39.95319938659668,
+            "perf/update_peak_reserved_gib": 35.170166015625
+          }
+        },
+        {
+          "step": 4,
+          "checkpoint_saved": true,
+          "small_validation": false,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 317603.0,
+            "timing/generate_s": 32.687697649002075,
+            "timing/train_s": 39.533071756362915,
+            "timing/step_s": 82.32200407981873,
+            "perf/max_memory_allocated_gb": 43.17714881896973,
+            "perf/update_peak_reserved_gib": 36.2685546875
+          }
+        },
+        {
+          "step": 5,
+          "checkpoint_saved": false,
+          "small_validation": false,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 163825.0,
+            "timing/generate_s": 27.48989486694336,
+            "timing/train_s": 33.86622142791748,
+            "timing/step_s": 61.40587115287781,
+            "perf/max_memory_allocated_gb": 38.94001531600952,
+            "perf/update_peak_reserved_gib": 27.989990234375
+          }
+        },
+        {
+          "step": 6,
+          "checkpoint_saved": true,
+          "small_validation": true,
+          "cold_start": false,
+          "metrics": {
+            "tip/global_response_tokens": 250163.0,
+            "timing/generate_s": 29.782817602157593,
+            "timing/train_s": 36.073813915252686,
+            "timing/step_s": 84.68400001525879,
+            "perf/max_memory_allocated_gb": 38.868218421936035,
+            "perf/update_peak_reserved_gib": 32.92138671875
+          }
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "group_id": "post_initialization_updates",
+      "steps": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "scope": "five updates after initialization; train_s includes weight synchronization, excludes checkpoint and final validation",
+      "mean": {
+        "baseline": {
+          "tip/global_response_tokens": 254678.0,
+          "timing/generate_s": 29.496127462387086,
+          "timing/train_s": 69.53782486915588,
+          "timing/step_s": 106.76176104545593
+        },
+        "candidate": {
+          "tip/global_response_tokens": 253981.4,
+          "timing/generate_s": 30.351797342300415,
+          "timing/train_s": 36.58616819381714,
+          "timing/step_s": 74.82268424034119
+        }
+      },
+      "sum": {
+        "baseline": {
+          "tip/global_response_tokens": 1273390.0,
+          "timing/generate_s": 147.48063731193542,
+          "timing/train_s": 347.6891243457794,
+          "timing/step_s": 533.8088052272797
+        },
+        "candidate": {
+          "tip/global_response_tokens": 1269907.0,
+          "timing/generate_s": 151.75898671150208,
+          "timing/train_s": 182.9308409690857,
+          "timing/step_s": 374.11342120170593
+        }
+      },
+      "observed_time_reduction_percent": {
+        "timing/generate_s": -2.900956679836919,
+        "timing/train_s": 47.386665800003684,
+        "timing/step_s": 29.916213906883804
+      },
+      "observed_speedup_ratio": {
+        "timing/train_s": 1.9006588637753925,
+        "timing/step_s": 1.4268635525360442
+      }
+    },
+    {
+      "group_id": "ordinary_steps",
+      "steps": [
+        3,
+        5
+      ],
+      "scope": "only two steps without cold start, checkpoint or final validation",
+      "mean": {
+        "baseline": {
+          "tip/global_response_tokens": 218898.0,
+          "timing/generate_s": 26.47390639781952,
+          "timing/train_s": 63.883360624313354,
+          "timing/step_s": 90.41809737682343
+        },
+        "candidate": {
+          "tip/global_response_tokens": 229797.5,
+          "timing/generate_s": 31.29483437538147,
+          "timing/train_s": 35.40229368209839,
+          "timing/step_s": 66.76237964630127
+        }
+      },
+      "sum": {
+        "baseline": {
+          "tip/global_response_tokens": 437796.0,
+          "timing/generate_s": 52.94781279563904,
+          "timing/train_s": 127.76672124862671,
+          "timing/step_s": 180.83619475364685
+        },
+        "candidate": {
+          "tip/global_response_tokens": 459595.0,
+          "timing/generate_s": 62.58966875076294,
+          "timing/train_s": 70.80458736419678,
+          "timing/step_s": 133.52475929260254
+        }
+      },
+      "observed_time_reduction_percent": {
+        "timing/generate_s": -18.210111893267932,
+        "timing/train_s": 44.58291903224541,
+        "timing/step_s": 26.16259180055004
+      },
+      "observed_speedup_ratio": {
+        "timing/train_s": 1.8044977875717916,
+        "timing/step_s": 1.354327060476981
+      }
+    },
+    {
+      "group_id": "all_six_steps",
+      "steps": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "scope": "contains cold start, three eight-rank checkpoint saves and 32 final validation outputs",
+      "mean": {
+        "baseline": {
+          "tip/global_response_tokens": 248123.33333333334,
+          "timing/generate_s": 31.60303795337677,
+          "timing/train_s": 71.50150108337402,
+          "timing/step_s": 109.55622375011444
+        },
+        "candidate": {
+          "tip/global_response_tokens": 250439.5,
+          "timing/generate_s": 32.77518900235494,
+          "timing/train_s": 37.04929629961649,
+          "timing/step_s": 76.40802097320557
+        }
+      },
+      "sum": {
+        "baseline": {
+          "tip/global_response_tokens": 1488740.0,
+          "timing/generate_s": 189.61822772026062,
+          "timing/train_s": 429.00900650024414,
+          "timing/step_s": 657.3373425006866
+        },
+        "candidate": {
+          "tip/global_response_tokens": 1502637.0,
+          "timing/generate_s": 196.65113401412964,
+          "timing/train_s": 222.29577779769897,
+          "timing/step_s": 458.4481258392334
+        }
+      },
+      "observed_time_reduction_percent": {
+        "timing/generate_s": -3.7089821893307118,
+        "timing/train_s": 48.183890214535054,
+        "timing/step_s": 30.256795681928793
+      },
+      "observed_speedup_ratio": {
+        "timing/train_s": 1.9299017316049307,
+        "timing/step_s": 1.4338314532257437
+      }
+    }
+  ],
+  "maximum_length_capacity": {
+    "passed": true,
+    "report": "long-sequence-verification.json",
+    "report_sha256": "e20437dcddb6c2981a98f64414495600d59790250b39ed321e8e9b4c94c0f523",
+    "original_launcher_exit": 0,
+    "original_gpu_wrapper_exit": 0,
+    "keepalive_restored": true,
+    "world_size": 8,
+    "rollout_tp": 2,
+    "optimizer_primed": true,
+    "prompt_tokens": 2048,
+    "response_tokens_per_sequence": 8192,
+    "global_sequences": 128,
+    "actual_sequence_length": 10240,
+    "padded_sequence_length": 16384,
+    "teacher_cache_gib_per_rank": 37.09375,
+    "worker_update_seconds": 53.53460726502817,
+    "max_worker_allocated_gib": 63.42979574203491,
+    "max_worker_reserved_gib": 67.767578125,
+    "nvml_sample_interval_ms": 1000,
+    "nvml_max_used_gib": 119.8564453125,
+    "nvml_min_free_gib": 58.498046875,
+    "nvml_scope": "NVML device-wide sampled usage, including colocated SGLang processes; sampled extrema, not exact transient peak",
+    "scope": "Actual Qwen3-4B/Qwen3-8B eight-rank production worker initialization, colocated SGLang sleep/wake, full-vocabulary TIP scoring/reverse-KL/backward/Adam on synthetic maximum-length inputs; capacity only, no rollout quality/accuracy/long-run stability claim"
+  },
+  "eta": {
+    "status": "rough estimate, not a measured full production run or guarantee",
+    "range_hours": [
+      34,
+      39
+    ],
+    "horizon_steps": 1739,
+    "method_a": {
+      "formula": "candidate ordinary step mean * 1739 / 3600 + historical extra save/evaluation step time",
+      "candidate_normal_seconds": 66.76237964630127,
+      "normal_training_hours": 32.249938390254975,
+      "historical_extra_save_evaluation_hours": 2.19576373847147,
+      "estimate_hours": 34.445702128726445
+    },
+    "method_b": {
+      "formula": "historical summed step hours * candidate/baseline ordinary step ratio",
+      "ordinary_step_ratio": 0.7383740819944996,
+      "historical_summed_step_hours": 51.563192270861734,
+      "estimate_hours": 38.07292475770341
+    },
+    "historical_reference": "../taihua-b200-20260930/summary.json",
+    "limitations": [
+      "Only two ordinary steps support this estimate.",
+      "Independent stochastic generation and future token lengths/trajectories can change timings.",
+      "Full production evaluation differs from the 32-output bounded evaluation and its timing can change.",
+      "Hardware NVLink condition and startup/cleanup/I/O can change; no guaranteed ETA."
+    ]
+  },
+  "hardware": {
+    "gpu2_nvlink": "all links inactive in final check",
+    "topology": "GPU2 NODE/SYS; remaining seven GPUs NV18",
+    "evidence": [
+      {
+        "file": "final-gpu2-nvlink.txt",
+        "sha256": "d1d51034a0b810046fef0e6be66fb81c2ebbaa749ee04ec2b7b3b3ec239d6aec"
+      },
+      {
+        "file": "final-topology.txt",
+        "sha256": "1566e7a76a624baba43e14af2fcc859b2fa36139730ca7f605c1a7758af45fe5"
+      }
+    ],
+    "limitations": "No GPU reset; measured performance is conditional on this hardware. No proof of same state throughout prior production."
+  },
+  "caveats": [
+    "Random generation trajectories differ despite identical data and sampling settings; aggregate token counts are close but distribution/attention cost can differ.",
+    "Five post-initialization update timings include weight synchronization; only two ordinary step timings exclude saves and validation.",
+    "Six-step sums contain three checkpoints, cold start and small validation, with a much denser save rate than production; not a full-run scaling law.",
+    "Worker allocator reserved metric is rank mean; allocated is rank max; do not confuse either with NVML device-wide sampled memory.",
+    "Maximum-length inputs are synthetic repeated sequences in real Qwen workers; capacity evidence does not establish rollout quality, accuracy, arbitrary-content memory exact maxima, or long-run stability.",
+    "One-second NVML extrema may miss transient peaks.",
+    "No full-epoch optimized benchmark accuracy result is available."
+  ],
+  "resume": {
+    "run_id": "tip-20260930T203205Z-3156633",
+    "passed": true,
+    "report": "stability-resume-verification.json",
+    "report_sha256": "69761784fea3af675fdeefda758f0a4a69a4482b17425705df378fda77a276f6",
+    "steps": [
+      7,
+      8
+    ],
+    "update_seconds": [
+      39.84579014778137,
+      33.620296239852905
+    ],
+    "data_cursors": [
+      48,
+      56,
+      64
+    ],
+    "scheduler_total_training_steps": 1739,
+    "wrapper_exit": 0,
+    "launcher_exit": 0,
+    "keepalive_restored": true
+  },
+  "final_acceptance": {
+    "passed": true,
+    "report": "acceptance-verification.json",
+    "report_sha256": "f18a96f851811662045d15c3022dac888f87313b1b72e7d3752dc464d37eede4",
+    "source_files": 37,
+    "production_started": false
+  }
+}

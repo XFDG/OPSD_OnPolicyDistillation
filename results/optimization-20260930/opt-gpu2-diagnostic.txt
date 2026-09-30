@@ -1,0 +1,56 @@
+GPU 2: NVIDIA B200 (UUID: GPU-5a5532ca-6037-035d-af93-9dfdf52fb1b3)
+NVML: Unable to retrieve Nvlink information as all links are inActive
+GPU 0: NVIDIA B200 (UUID: GPU-950c37cc-cca1-4da3-97a3-c86327df00b1)
+	 Link 0: 53.125 GB/s
+	 Link 1: 53.125 GB/s
+	 Link 2: 53.125 GB/s
+	 Link 3: 53.125 GB/s
+	 Link 4: 53.125 GB/s
+	 Link 5: 53.125 GB/s
+	 Link 6: 53.125 GB/s
+	 Link 7: 53.125 GB/s
+	 Link 8: 53.125 GB/s
+	 Link 9: 53.125 GB/s
+	 Link 10: 53.125 GB/s
+	 Link 11: 53.125 GB/s
+	 Link 12: 53.125 GB/s
+	 Link 13: 53.125 GB/s
+	 Link 14: 53.125 GB/s
+	 Link 15: 53.125 GB/s
+	 Link 16: 53.125 GB/s
+	 Link 17: 53.125 GB/s
+
+==============NVSMI LOG==============
+
+Timestamp                                              : Wed Sep 30 22:47:42 2026
+Driver Version                                         : 590.48.01
+CUDA Version                                           : 13.1
+
+Attached GPUs                                          : 8
+GPU 00000000:5F:00.0
+    Product Name                                       : NVIDIA B200
+    Product Brand                                      : NVIDIA
+    Product Architecture                               : Blackwell
+    Display Mode                                       : Requested functionality has been deprecated
+    Display Attached                                   : Yes
+    Display Active                                     : Disabled
+    Persistence Mode                                   : Disabled
+    Addressing Mode                                    : None
+    MIG Mode
+        Current                                        : Disabled
+        Pending                                        : Disabled
+    Accounting Mode                                    : Disabled
+    Accounting Mode Buffer Size                        : 4000
+    Driver Model
+        Current                                        : N/A
+        Pending                                        : N/A
+    Serial Number                                      : 1655024043307
+    GPU UUID                                           : GPU-5a5532ca-6037-035d-af93-9dfdf52fb1b3
+    GPU PDI                                            : 0x29907ffe2d3eab55
+    Minor Number                                       : 2
+    VBIOS Version                                      : 97.00.D9.00.35
+    MultiGPU Board                                     : No
+    Board ID                                           : 0x5f00
+    Board Part Number                                  : 692-2G525-0220-500
+    GPU Part Number                                    : 2901-886-A1
+    FRU Part Number                                    : N/A

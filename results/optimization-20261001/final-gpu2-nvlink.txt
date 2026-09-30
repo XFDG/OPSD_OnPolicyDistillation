@@ -1,0 +1,2 @@
+GPU 2: NVIDIA B200 (UUID: GPU-5a5532ca-6037-035d-af93-9dfdf52fb1b3)
+NVML: Unable to retrieve Nvlink information as all links are inActive

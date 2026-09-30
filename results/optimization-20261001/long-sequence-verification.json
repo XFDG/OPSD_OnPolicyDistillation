@@ -1,0 +1,929 @@
+{
+  "passed": true,
+  "world_size": 8,
+  "vocab": 151936,
+  "optimizer_primed": true,
+  "updates": [
+    {
+      "step": 1,
+      "prompt_tokens": 2048,
+      "response_tokens_per_sequence": 64,
+      "actual_sequence_length": 2112,
+      "padded_sequence_length": 16384,
+      "global_sequences": 128,
+      "teacher_cache_gib_per_rank": 0.289794921875,
+      "update_seconds": 29.822569977026433,
+      "rank_metrics": {
+        "opd/loss": [
+          0.2534141286741942,
+          0.2534141286741942,
+          0.2534141286741942,
+          0.2534141286741942,
+          0.2534141286741942,
+          0.2534141286741942,
+          0.2534141286741942,
+          0.2534141286741942
+        ],
+        "opd/entropy": [
+          0.707502007484436,
+          0.707502007484436,
+          0.707502007484436,
+          0.707502007484436,
+          0.707502007484436,
+          0.707502007484436,
+          0.707502007484436,
+          0.707502007484436
+        ],
+        "opd/grad_norm": [
+          5.709291934967041,
+          5.709291934967041,
+          5.709291934967041,
+          5.709291934967041,
+          5.709291934967041,
+          5.709291934967041,
+          5.709291934967041,
+          5.709291934967041
+        ],
+        "opd/num_tokens": [
+          512,
+          512,
+          512,
+          512,
+          512,
+          512,
+          512,
+          512
+        ],
+        "opd/batch_size": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ],
+        "opd/valid_rows": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ],
+        "tip/enabled": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tip/global_response_tokens": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192
+        ],
+        "tip/global_selected_tokens": [
+          4096,
+          4096,
+          4096,
+          4096,
+          4096,
+          4096,
+          4096,
+          4096
+        ],
+        "tip/selected_fraction": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "tip/global_rollouts": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "tip/global_normalization": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "opt/teacher_cache_cuda": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "opt/resident_teacher": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "opt/teacher_cache_gib": [
+          0.289794921875,
+          0.289794921875,
+          0.289794921875,
+          0.289794921875,
+          0.289794921875,
+          0.289794921875,
+          0.289794921875,
+          0.289794921875
+        ],
+        "opd/lr": [
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06,
+          1e-06
+        ],
+        "perf/max_memory_allocated_gb": [
+          15.818231582641602,
+          15.818231582641602,
+          15.818231582641602,
+          15.818231582641602,
+          15.818231582641602,
+          15.818231582641602,
+          15.818231582641602,
+          15.818231582641602
+        ],
+        "perf/update_peak_reserved_gib": [
+          20.201171875,
+          20.365234375,
+          20.365234375,
+          20.365234375,
+          20.365234375,
+          20.365234375,
+          20.365234375,
+          20.365234375
+        ]
+      }
+    },
+    {
+      "step": 2,
+      "prompt_tokens": 2048,
+      "response_tokens_per_sequence": 8192,
+      "actual_sequence_length": 10240,
+      "padded_sequence_length": 16384,
+      "global_sequences": 128,
+      "teacher_cache_gib_per_rank": 37.09375,
+      "update_seconds": 53.53460726502817,
+      "rank_metrics": {
+        "opd/loss": [
+          0.1700665766838938,
+          0.1700665766838938,
+          0.1700665766838938,
+          0.1700665766838938,
+          0.1700665766838938,
+          0.1700665766838938,
+          0.1700665766838938,
+          0.1700665766838938
+        ],
+        "opd/entropy": [
+          0.01402928028255701,
+          0.01402928028255701,
+          0.01402928028255701,
+          0.01402928028255701,
+          0.01402928028255701,
+          0.01402928028255701,
+          0.01402928028255701,
+          0.01402928028255701
+        ],
+        "opd/grad_norm": [
+          38.045047760009766,
+          38.045047760009766,
+          38.045047760009766,
+          38.045047760009766,
+          38.045047760009766,
+          38.045047760009766,
+          38.045047760009766,
+          38.045047760009766
+        ],
+        "opd/num_tokens": [
+          65536,
+          65536,
+          65536,
+          65536,
+          65536,
+          65536,
+          65536,
+          65536
+        ],
+        "opd/batch_size": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ],
+        "opd/valid_rows": [
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16
+        ],
+        "tip/enabled": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tip/global_response_tokens": [
+          1048576,
+          1048576,
+          1048576,
+          1048576,
+          1048576,
+          1048576,
+          1048576,
+          1048576
+        ],
+        "tip/global_selected_tokens": [
+          524288,
+          524288,
+          524288,
+          524288,
+          524288,
+          524288,
+          524288,
+          524288
+        ],
+        "tip/selected_fraction": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "tip/global_rollouts": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "tip/global_normalization": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "opt/teacher_cache_cuda": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "opt/resident_teacher": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "opt/teacher_cache_gib": [
+          37.09375,
+          37.09375,
+          37.09375,
+          37.09375,
+          37.09375,
+          37.09375,
+          37.09375,
+          37.09375
+        ],
+        "opd/lr": [
+          9.999991840933517e-07,
+          9.999991840933517e-07,
+          9.999991840933517e-07,
+          9.999991840933517e-07,
+          9.999991840933517e-07,
+          9.999991840933517e-07,
+          9.999991840933517e-07,
+          9.999991840933517e-07
+        ],
+        "perf/max_memory_allocated_gb": [
+          63.42979574203491,
+          63.42979574203491,
+          63.42979574203491,
+          63.42979574203491,
+          63.42979574203491,
+          63.42979574203491,
+          63.42979574203491,
+          63.42979574203491
+        ],
+        "perf/update_peak_reserved_gib": [
+          67.388671875,
+          67.767578125,
+          67.552734375,
+          67.767578125,
+          67.552734375,
+          67.767578125,
+          67.552734375,
+          67.767578125
+        ]
+      }
+    }
+  ],
+  "memory_phases": {
+    "initialized": [
+      {
+        "index": 0,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 11019,
+        "free_mib": 171616
+      },
+      {
+        "index": 1,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 13639,
+        "free_mib": 168996
+      },
+      {
+        "index": 2,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 12959,
+        "free_mib": 169676
+      },
+      {
+        "index": 3,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 13007,
+        "free_mib": 169628
+      },
+      {
+        "index": 4,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 13687,
+        "free_mib": 168948
+      },
+      {
+        "index": 5,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 13687,
+        "free_mib": 168948
+      },
+      {
+        "index": 6,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 13687,
+        "free_mib": 168948
+      },
+      {
+        "index": 7,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 13687,
+        "free_mib": 168948
+      }
+    ],
+    "engines_awake_initial": [
+      {
+        "index": 0,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 113289,
+        "free_mib": 69346
+      },
+      {
+        "index": 1,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 117393,
+        "free_mib": 65242
+      },
+      {
+        "index": 2,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 115517,
+        "free_mib": 67118
+      },
+      {
+        "index": 3,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 117049,
+        "free_mib": 65586
+      },
+      {
+        "index": 4,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 115957,
+        "free_mib": 66678
+      },
+      {
+        "index": 5,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 117441,
+        "free_mib": 65194
+      },
+      {
+        "index": 6,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 115957,
+        "free_mib": 66678
+      },
+      {
+        "index": 7,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 117441,
+        "free_mib": 65194
+      }
+    ],
+    "step_1_engines_asleep": [
+      {
+        "index": 0,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 11019,
+        "free_mib": 171616
+      },
+      {
+        "index": 1,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 15123,
+        "free_mib": 167512
+      },
+      {
+        "index": 2,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 12959,
+        "free_mib": 169676
+      },
+      {
+        "index": 3,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 14491,
+        "free_mib": 168144
+      },
+      {
+        "index": 4,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 13687,
+        "free_mib": 168948
+      },
+      {
+        "index": 5,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 15171,
+        "free_mib": 167464
+      },
+      {
+        "index": 6,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 13687,
+        "free_mib": 168948
+      },
+      {
+        "index": 7,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 15171,
+        "free_mib": 167464
+      }
+    ],
+    "step_1_after_update": [
+      {
+        "index": 0,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 24945,
+        "free_mib": 157690
+      },
+      {
+        "index": 1,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 25065,
+        "free_mib": 157570
+      },
+      {
+        "index": 2,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 24385,
+        "free_mib": 158250
+      },
+      {
+        "index": 3,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 24433,
+        "free_mib": 158202
+      },
+      {
+        "index": 4,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 25113,
+        "free_mib": 157522
+      },
+      {
+        "index": 5,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 25113,
+        "free_mib": 157522
+      },
+      {
+        "index": 6,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 25113,
+        "free_mib": 157522
+      },
+      {
+        "index": 7,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 25113,
+        "free_mib": 157522
+      }
+    ],
+    "step_1_engines_awake": [
+      {
+        "index": 0,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 121079,
+        "free_mib": 61556
+      },
+      {
+        "index": 1,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 122663,
+        "free_mib": 59972
+      },
+      {
+        "index": 2,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 120789,
+        "free_mib": 61846
+      },
+      {
+        "index": 3,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 122321,
+        "free_mib": 60314
+      },
+      {
+        "index": 4,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 121227,
+        "free_mib": 61408
+      },
+      {
+        "index": 5,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 122711,
+        "free_mib": 59924
+      },
+      {
+        "index": 6,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 121227,
+        "free_mib": 61408
+      },
+      {
+        "index": 7,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 122711,
+        "free_mib": 59924
+      }
+    ],
+    "step_2_engines_asleep": [
+      {
+        "index": 0,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 18809,
+        "free_mib": 163826
+      },
+      {
+        "index": 1,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 20393,
+        "free_mib": 162242
+      },
+      {
+        "index": 2,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 18229,
+        "free_mib": 164406
+      },
+      {
+        "index": 3,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 19761,
+        "free_mib": 162874
+      },
+      {
+        "index": 4,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 18957,
+        "free_mib": 163678
+      },
+      {
+        "index": 5,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 20441,
+        "free_mib": 162194
+      },
+      {
+        "index": 6,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 18957,
+        "free_mib": 163678
+      },
+      {
+        "index": 7,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 20441,
+        "free_mib": 162194
+      }
+    ],
+    "step_2_after_update": [
+      {
+        "index": 0,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 73267,
+        "free_mib": 109368
+      },
+      {
+        "index": 1,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 73607,
+        "free_mib": 109028
+      },
+      {
+        "index": 2,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 72707,
+        "free_mib": 109928
+      },
+      {
+        "index": 3,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 72975,
+        "free_mib": 109660
+      },
+      {
+        "index": 4,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 73435,
+        "free_mib": 109200
+      },
+      {
+        "index": 5,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 73655,
+        "free_mib": 108980
+      },
+      {
+        "index": 6,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 73435,
+        "free_mib": 109200
+      },
+      {
+        "index": 7,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 73655,
+        "free_mib": 108980
+      }
+    ],
+    "step_2_engines_awake": [
+      {
+        "index": 0,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 121101,
+        "free_mib": 61534
+      },
+      {
+        "index": 1,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 122685,
+        "free_mib": 59950
+      },
+      {
+        "index": 2,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 120811,
+        "free_mib": 61824
+      },
+      {
+        "index": 3,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 122343,
+        "free_mib": 60292
+      },
+      {
+        "index": 4,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 121249,
+        "free_mib": 61386
+      },
+      {
+        "index": 5,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 122733,
+        "free_mib": 59902
+      },
+      {
+        "index": 6,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 121249,
+        "free_mib": 61386
+      },
+      {
+        "index": 7,
+        "name": "NVIDIA B200",
+        "total_mib": 183359,
+        "used_mib": 122733,
+        "free_mib": 59902
+      }
+    ]
+  },
+  "scope": "Actual Qwen3-4B/Qwen3-8B eight-rank production worker initialization, colocated SGLang sleep/wake, full-vocabulary TIP scoring/reverse-KL/backward/Adam on synthetic maximum-length inputs; capacity only, no rollout quality/accuracy/long-run stability claim",
+  "source_config": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T191245Z-2994569/outputs/2026-10-01/03-15-15/.hydra/config.yaml",
+  "source_config_sha256": "e139d188a95ea9edbb0c16f7dfb92408d37c6c5136e7060c4d51f45f06dc71e2",
+  "gate_source_sha256": "09fff57a24b9eefe2337d725887ae955a84dc4af36e4b8fb5e6d7cc59d9119f2",
+  "rollout_tp": 2,
+  "scheduler_total_training_steps": 1739,
+  "nvml_monitor": {
+    "csv": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T200309Z-3081555/long-sequence-nvml.csv",
+    "sample_interval_ms": 1000,
+    "scope": "NVML device-wide sampled usage, including colocated SGLang processes; sampled extrema, not exact transient peak",
+    "devices": [
+      {
+        "index": 0,
+        "total_mib": 183359,
+        "max_used_mib": 121101,
+        "min_free_mib": 61534,
+        "samples": 310
+      },
+      {
+        "index": 1,
+        "total_mib": 183359,
+        "max_used_mib": 122685,
+        "min_free_mib": 59950,
+        "samples": 310
+      },
+      {
+        "index": 2,
+        "total_mib": 183359,
+        "max_used_mib": 120811,
+        "min_free_mib": 61824,
+        "samples": 310
+      },
+      {
+        "index": 3,
+        "total_mib": 183359,
+        "max_used_mib": 122343,
+        "min_free_mib": 60292,
+        "samples": 310
+      },
+      {
+        "index": 4,
+        "total_mib": 183359,
+        "max_used_mib": 121249,
+        "min_free_mib": 61386,
+        "samples": 310
+      },
+      {
+        "index": 5,
+        "total_mib": 183359,
+        "max_used_mib": 122733,
+        "min_free_mib": 59902,
+        "samples": 310
+      },
+      {
+        "index": 6,
+        "total_mib": 183359,
+        "max_used_mib": 121249,
+        "min_free_mib": 61386,
+        "samples": 310
+      },
+      {
+        "index": 7,
+        "total_mib": 183359,
+        "max_used_mib": 122733,
+        "min_free_mib": 59902,
+        "samples": 310
+      }
+    ],
+    "max_used_mib": 122733,
+    "min_free_mib": 59902
+  }
+}

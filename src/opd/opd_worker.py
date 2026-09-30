@@ -12,6 +12,7 @@ Training step:
 """
 
 import logging
+import time
 
 import torch
 from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
@@ -33,6 +34,13 @@ from verl.workers.fsdp_workers import AsyncActorRolloutRefWorker
 from .losses import LOSS_FN_MAP, compute_teacher_token_stats, compute_tip_token_stats, select_tip_soft_or_indices
 
 logger = logging.getLogger(__name__)
+
+
+def _profile_clock(enabled):
+    if enabled:
+        torch.cuda.synchronize()
+    return time.perf_counter()
+
 
 
 def _shift_loss_mask_right_per_sequence(loss_mask_rmpad: torch.Tensor, cu_seqlens: torch.Tensor) -> torch.Tensor:
@@ -83,13 +91,21 @@ class OPDWorker(AsyncActorRolloutRefWorker):
             role = "actor_rollout_ref"
         super().__init__(config=config, role=role, **kwargs)
 
+    def _build_model_optimizer(self, *args, **kwargs):
+        if kwargs.get("role") == "ref" and self.config.get("opd_resident_teacher", False):
+            if args:
+                raise ValueError("Resident reference requires the pinned keyword builder API")
+            from .resident_ref import build_resident_ref
+            return build_resident_ref(super()._build_model_optimizer, self, kwargs)
+        return super()._build_model_optimizer(*args, **kwargs)
+
     @register(dispatch_mode=make_nd_compute_dataproto_dispatch_fn(mesh_name="actor"))
     def update_opd(self, data: DataProto) -> DataProto:
         """One OPD training step: divergence between teacher and student.
 
         Uses a two-phase approach to avoid holding both models on GPU simultaneously:
-          Phase 1: Load teacher (ref) → run all teacher forwards → cache logits on CPU → offload teacher
-          Phase 2: Load student (actor) + optimizer → train with cached teacher logits → offload
+          Phase 1: Load teacher → forward → cache BF16 logits at configured location → optional offload
+          Phase 2: Load student + optimizer → train with cached teacher logits → optional offload
 
         Input DataProto batch keys:
           teacher_input_ids, teacher_attention_mask, teacher_position_ids, teacher_loss_mask
@@ -107,6 +123,12 @@ class OPDWorker(AsyncActorRolloutRefWorker):
             reserved = torch.cuda.memory_reserved() / (1024**3)
             logger.info("[OPD-MEM] %s: allocated=%.2f GB, reserved=%.2f GB", tag, alloc, reserved)
 
+        profiling = bool(self.config.get("opd_profile", False))
+        profile_start = _profile_clock(profiling)
+        torch.cuda.reset_peak_memory_stats()
+        cache_device = self.config.get("opd_teacher_cache_device", "cpu")
+        if cache_device not in ("cpu", "cuda"):
+            raise ValueError("opd_teacher_cache_device must be cpu or cuda")
         ref_needs_offload = self.config.ref.fsdp_config.get("param_offload", False)
 
         data = data.to("cpu")
@@ -141,7 +163,9 @@ class OPDWorker(AsyncActorRolloutRefWorker):
 
             self.ref_module_fsdp.eval()
             forward_fn = self._forward_logits_unpadded if use_remove_padding else self._forward_logits_padded
-            teacher_logits_cache = []  # list of (teacher_logits_cpu, is_valid)
+            teacher_logits_cache = []  # list of (teacher_logits, is_valid)
+            teacher_loaded = _profile_clock(profiling)
+            cache_copy_seconds = 0.0
 
             for i, micro_batch in enumerate(micro_batches):
                 micro_batch = micro_batch.to(device)
@@ -175,10 +199,13 @@ class OPDWorker(AsyncActorRolloutRefWorker):
                             i, list(teacher_logits.shape))
                 _mem(f"phase1-mb{i}-after-teacher-fwd")
 
-                teacher_logits_cache.append((teacher_logits.to("cpu"), True))
+                copy_start = time.perf_counter()
+                teacher_logits_cache.append((teacher_logits.to(device if cache_device == "cuda" else "cpu"), True))
+                cache_copy_seconds += time.perf_counter() - copy_start
                 del teacher_logits
-                _mem(f"phase1-mb{i}-after-cache-to-cpu")
+                _mem(f"phase1-mb{i}-after-cache-to-{cache_device}")
 
+            teacher_done = _profile_clock(profiling)
             _mem("phase1-before-ref-offload")
             if ref_needs_offload:
                 offload_fsdp_model_to_cpu(self.ref_module_fsdp)
@@ -197,6 +224,7 @@ class OPDWorker(AsyncActorRolloutRefWorker):
                 load_fsdp_optimizer(optimizer=self.actor_optimizer, device_id=device)
             _mem("phase2-after-optimizer-load")
 
+            student_loaded = _profile_clock(profiling)
             use_sample_weights = "sample_weights" in data.batch
             train_fn = self._tip_training_step if self.config.get("tip", {}).get("enabled", False) else self._opd_training_step
             metrics = train_fn(
@@ -206,14 +234,28 @@ class OPDWorker(AsyncActorRolloutRefWorker):
                 use_sample_weights=use_sample_weights,
             )
 
+            student_done = _profile_clock(profiling)
+            metrics["opt/teacher_cache_cuda"] = float(cache_device == "cuda")
+            metrics["opt/resident_teacher"] = float(self.config.get("opd_resident_teacher", False))
+            metrics["opt/teacher_cache_gib"] = sum(t.numel()*t.element_size() for t,valid in teacher_logits_cache if valid) / 1024**3
+            # Cache has no consumer beyond this update; release before rollout resumes.
+            del teacher_logits_cache
+            if profiling:
+                metrics.update({"profile/teacher_load_s": teacher_loaded-profile_start,
+                                "profile/teacher_forward_cache_s": teacher_done-teacher_loaded,
+                                "profile/cache_copy_host_s": cache_copy_seconds,
+                                "profile/switch_models_s": student_loaded-teacher_done,
+                                "profile/student_total_s": student_done-student_loaded})
             lr = self.actor_lr_scheduler.get_last_lr()[0]
             metrics["opd/lr"] = lr.item() if torch.is_tensor(lr) else lr
-            if metrics["opd/num_tokens"] > 0:
+            if metrics.get("tip/global_selected_tokens", metrics["opd/num_tokens"]) > 0:
                 self.actor_lr_scheduler.step()
             else:
                 metrics["opd/skipped_step"] = 1.0
 
             metrics["perf/max_memory_allocated_gb"] = torch.cuda.max_memory_allocated() / (1024**3)
+            metrics["perf/update_peak_reserved_gib"] = torch.cuda.max_memory_reserved() / (1024**3)
+            print(f"[update-memory] rank={torch.distributed.get_rank() if torch.distributed.is_initialized() else 0} peak_allocated_gib={metrics['perf/max_memory_allocated_gb']:.3f} peak_reserved_gib={metrics['perf/update_peak_reserved_gib']:.3f}", flush=True)
             output = DataProto(meta_info={"metrics": metrics})
             output = output.to("cpu")
 
@@ -222,6 +264,9 @@ class OPDWorker(AsyncActorRolloutRefWorker):
         if self._is_offload_optimizer:
             offload_fsdp_optimizer(optimizer=self.actor_optimizer)
 
+        if profiling:
+            output.meta_info["metrics"]["profile/final_offload_s"] = _profile_clock(True)-student_done
+            output.meta_info["metrics"]["profile/update_total_s"] = _profile_clock(True)-profile_start
         return output
 
     def _tip_training_step(
@@ -246,6 +291,8 @@ class OPDWorker(AsyncActorRolloutRefWorker):
         # detached scoring pass and differentiated pass use different policies.
         if any(isinstance(m, torch.nn.Dropout) and m.p for m in self.actor_module_fsdp.modules()):
             raise ValueError("TIP two-pass scoring requires zero dropout")
+        profiling = bool(self.config.get("opd_profile", False))
+        scoring_start = _profile_clock(profiling)
         entropies, divergences, lengths, masks = [], [], [], []
         for micro, (teacher, valid) in zip(micro_batches, teacher_logits_cache, strict=True):
             if not valid:
@@ -263,6 +310,7 @@ class OPDWorker(AsyncActorRolloutRefWorker):
             lengths.extend(mask[:, 1:].sum(-1).long().tolist())
             masks.append(mask.cpu())
             del logits, entropy, divergence
+        scoring_done = _profile_clock(profiling)
         local_h, local_d = torch.cat(entropies), torch.cat(divergences)
         world = dist.get_world_size() if dist.is_initialized() else 1
         rank = dist.get_rank() if dist.is_initialized() else 0
@@ -286,6 +334,7 @@ class OPDWorker(AsyncActorRolloutRefWorker):
         if denominator == 0:
             raise ValueError("TIP selected no tokens in the global batch")
         self.actor_optimizer.zero_grad()
+        selection_done = _profile_clock(profiling)
         offset, loss_sum, selected_count = 0, 0.0, 0
         for micro, (teacher, _), mask in zip(micro_batches, teacher_logits_cache, masks, strict=True):
             n_response = int(mask[:, 1:].sum())
@@ -317,6 +366,7 @@ class OPDWorker(AsyncActorRolloutRefWorker):
                 scaled_loss = logits.sum() * 0.0
             scaled_loss.backward()
             del logits, scaled_loss
+        backward_done = _profile_clock(profiling)
         if isinstance(self.actor_module_fsdp, FSDP):
             norm = self.actor_module_fsdp.clip_grad_norm_(self.config.actor.get("grad_clip", 1.0))
         else:
@@ -330,7 +380,7 @@ class OPDWorker(AsyncActorRolloutRefWorker):
         totals = torch.tensor([loss_sum, selected_count], dtype=torch.float64, device=device)
         if world > 1:
             dist.all_reduce(totals)
-        return {
+        result = {
             "opd/loss": float(totals[0] / totals[1]),
             "opd/entropy": float(all_h.mean()),
             "opd/grad_norm": float(norm),
@@ -344,6 +394,13 @@ class OPDWorker(AsyncActorRolloutRefWorker):
             "tip/global_rollouts": len(all_lengths),
             "tip/global_normalization": 1.0,
         }
+
+        if profiling:
+            result.update({"profile/tip_scoring_s": scoring_done-scoring_start,
+                           "profile/tip_global_selection_s": selection_done-scoring_done,
+                           "profile/student_forward_backward_s": backward_done-selection_done,
+                           "profile/optimizer_s": _profile_clock(True)-backward_done})
+        return result
 
     def _opd_training_step(
         self,

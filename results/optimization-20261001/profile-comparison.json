@@ -1,0 +1,691 @@
+{
+  "schema_version": 1,
+  "purpose": "Deduplicated evidence for three bounded two-update B200 smoke runs",
+  "experiment_directory_label": "20261001",
+  "recorded_server_utc_date": "2026-09-30",
+  "same_settings": {
+    "gpu_count": 8,
+    "gpu_model": "B200",
+    "student": "Qwen/Qwen3-4B",
+    "teacher": "Qwen/Qwen3-8B",
+    "forward_dtype": "BF16",
+    "loss_dtype": "FP32",
+    "loss": "reverse_kl",
+    "selection": "global TIP Soft-OR50%",
+    "rollout_prompts": 8,
+    "rollouts_per_prompt": 16,
+    "global_rollouts_per_update": 128,
+    "micro_batch_size_per_gpu": 1,
+    "rollout_tp": 2,
+    "training_attention": "FA2 2.8.3",
+    "rollout_attention": "official FA4",
+    "profiling": true,
+    "profile_timer": "CUDA-synchronized stage boundaries, profile metrics averaged across ranks",
+    "smoke_total_training_steps": 2,
+    "learning_rate": 1e-06,
+    "lr_schedule": "cosine over this two-step smoke",
+    "train_data_rows": 16,
+    "validation_prompt_rows": 2,
+    "max_response_length": 8192,
+    "checkpoint_frequency": 1
+  },
+  "caveats": [
+    "Independent stochastic rollouts produced different tokens and trajectories; these are not fixed-input end-to-end equivalence comparisons.",
+    "Step 1 includes cold-start costs; one subsequent step does not establish steady state.",
+    "Profiling synchronizes CUDA at boundaries and can change overlap/timing; production performance needs profile-off measurements.",
+    "timing/train_s includes trainer update and actor-to-rollout weight synchronization; worker profile metrics are rank means.",
+    "cache_copy_host_s includes waiting on preceding asynchronous teacher forward, not pure D2H transfer time.",
+    "timing/step_s includes saving checkpoints; step 2 also includes small validation. No full-run ETA is inferred.",
+    "Two-prompt/32-output validation passed, but does not establish benchmark accuracy preservation.",
+    "Resident resets peak counters each update; prior two runs use lifetime peaks. All exclude other processes/device total usage and untested worst-case long-response allocation.",
+    "GPU2 NVLink inactive in diagnostics; these measurements are conditional on current hardware state, without proof of the same state throughout prior full runs."
+  ],
+  "hardware": {
+    "gpu2_nvlink_status": "NVML: Unable to retrieve Nvlink information as all links are inActive",
+    "topology": "GPU2-to-other-GPUs NODE/SYS; other seven GPUs NV18",
+    "source": "OPTIMIZATION_PROGRESS.md:53 and results/optimization-20260930/opt-gpu2-diagnostic.txt",
+    "attribution_limit": "No proof this state persisted throughout prior production, no attribution of all performance differences, no GPU/NVSwitch reset performed"
+  },
+  "profiles": [
+    {
+      "profile_id": "baseline",
+      "label": "CPU 缓存 + offload",
+      "run_id": "tip-20260930T183746Z-2887574",
+      "remote_run_root": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T183746Z-2887574",
+      "config_changes": {
+        "teacher_cache_device": "cpu",
+        "resident_teacher": false,
+        "actor_param_offload": true,
+        "actor_optimizer_offload": true,
+        "ref_param_offload": true
+      },
+      "source_log": {
+        "relative_to_workspace": "OPSD-B200-migration/opt-baseline-20261001.log",
+        "sha256": "b2a4f91f529e239ae8fbd091b855af44d173b3c8a700016e3e366d448dc6cea1"
+      },
+      "smoke_status": {
+        "passed": true,
+        "launcher_exit": 0,
+        "gpu_wrapper_exit": 0,
+        "checkpoint_steps": [
+          1,
+          2
+        ],
+        "checkpoint_world_size": 8,
+        "validation_sequences": 32,
+        "keepalive_restored": true,
+        "verification_json": "results/optimization-20261001/baseline-smoke-verification.json",
+        "verification_provenance": "verification JSON and launcher log"
+      },
+      "peak_semantics": {
+        "allocated": "maximum across ranks of lifetime worker CUDA allocator peaks; counters not reset per update",
+        "reserved": "not reported",
+        "coverage": "worker allocator only; excludes other processes, total GPU memory and an 8192-response-token worst-case guarantee"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "metrics": {
+            "step": 1.0,
+            "rollout/prompts": 8.0,
+            "rollout/samples_per_prompt": 16.0,
+            "timing/generate_s": 43.331770181655884,
+            "rollout/generated_sequences": 128.0,
+            "opd/tool_mask/has_agent_mask": 1.0,
+            "opd/tool_mask/llm_tokens": 232831.0,
+            "opd/tool_mask/tool_tokens": 815745.0,
+            "opd/tool_mask/tool_ratio": 0.7779550552368164,
+            "opd/num_turns/min": 2.0,
+            "opd/num_turns/max": 2.0,
+            "opd/num_turns/mean": 2.0,
+            "opd/accuracy": 0.59375,
+            "opd/batch_size": 16.0,
+            "opd/loss": 0.06156812717812597,
+            "opd/entropy": 0.02312680333852768,
+            "opd/grad_norm": 1.0373550653457642,
+            "opd/num_tokens": 14547.75,
+            "opd/valid_rows": 16.0,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 232831.0,
+            "tip/global_selected_tokens": 116382.0,
+            "tip/selected_fraction": 0.49985611881579345,
+            "tip/global_rollouts": 128.0,
+            "tip/global_normalization": 1.0,
+            "profile/tip_scoring_s": 9.65290508637554,
+            "profile/tip_global_selection_s": 0.14742865700100083,
+            "profile/student_forward_backward_s": 26.964775387896225,
+            "profile/optimizer_s": 0.5695737211353844,
+            "opt/teacher_cache_cuda": 0.0,
+            "opt/teacher_cache_gib": 8.236479669809341,
+            "profile/teacher_load_s": 9.077998588531045,
+            "profile/teacher_forward_cache_s": 20.963367394491797,
+            "profile/cache_copy_host_s": 5.404021696886048,
+            "profile/switch_models_s": 0.2942701313440921,
+            "profile/student_total_s": 37.34126005927101,
+            "opd/lr": 1e-06,
+            "perf/max_memory_allocated_gb": 14.524587631225586,
+            "profile/final_offload_s": 2.7087618267687503,
+            "profile/update_total_s": 70.38569415162783,
+            "timing/train_s": 76.26420164108276,
+            "training/global_step": 1.0,
+            "training/epoch": 0.0,
+            "timing/step_s": 129.57787418365479
+          },
+          "source_line": 1906,
+          "duplicate_line_count": 1
+        },
+        {
+          "step": 2,
+          "metrics": {
+            "step": 2.0,
+            "rollout/prompts": 8.0,
+            "rollout/samples_per_prompt": 16.0,
+            "timing/generate_s": 38.624226570129395,
+            "rollout/generated_sequences": 128.0,
+            "opd/tool_mask/has_agent_mask": 1.0,
+            "opd/tool_mask/llm_tokens": 239236.0,
+            "opd/tool_mask/tool_tokens": 809340.0,
+            "opd/tool_mask/tool_ratio": 0.7718467712402344,
+            "opd/num_turns/min": 2.0,
+            "opd/num_turns/max": 2.0,
+            "opd/num_turns/mean": 2.0,
+            "opd/accuracy": 0.703125,
+            "opd/batch_size": 16.0,
+            "opd/loss": 0.06078887292689646,
+            "opd/entropy": 0.023879142478108406,
+            "opd/grad_norm": 1.1016017198562622,
+            "opd/num_tokens": 14948.125,
+            "opd/valid_rows": 16.0,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 239236.0,
+            "tip/global_selected_tokens": 119585.0,
+            "tip/selected_fraction": 0.4998620608938454,
+            "tip/global_rollouts": 128.0,
+            "tip/global_normalization": 1.0,
+            "profile/tip_scoring_s": 16.007675927132368,
+            "profile/tip_global_selection_s": 0.9638145627541235,
+            "profile/student_forward_backward_s": 30.362366574103362,
+            "profile/optimizer_s": 0.018490320158889517,
+            "opt/teacher_cache_cuda": 0.0,
+            "opt/teacher_cache_gib": 8.463058829307556,
+            "profile/teacher_load_s": 0.005594960501184687,
+            "profile/teacher_forward_cache_s": 25.95556014763133,
+            "profile/cache_copy_host_s": 6.331271550836391,
+            "profile/switch_models_s": 0.23824089075787924,
+            "profile/student_total_s": 47.35872901548282,
+            "opd/lr": 5e-07,
+            "perf/max_memory_allocated_gb": 22.147117137908936,
+            "profile/final_offload_s": 2.237493945256574,
+            "profile/update_total_s": 75.79564815490448,
+            "timing/train_s": 87.6259446144104,
+            "training/global_step": 2.0,
+            "training/epoch": 0.0,
+            "timing/step_s": 148.7900674343109
+          },
+          "source_line": 2281,
+          "duplicate_line_count": 1
+        }
+      ],
+      "two_step_mean": {
+        "timing/generate_s": 40.97799837589264,
+        "timing/train_s": 81.94507312774658,
+        "timing/step_s": 139.18397080898285,
+        "profile/update_total_s": 73.09067115326616,
+        "profile/teacher_forward_cache_s": 23.459463771061564,
+        "profile/tip_scoring_s": 12.830290506753954,
+        "profile/student_forward_backward_s": 28.663570980999793,
+        "generate_plus_train_s": 122.92307150363922,
+        "response_tokens": 236033.5
+      }
+    },
+    {
+      "profile_id": "gpu-cache",
+      "label": "GPU 缓存 + offload",
+      "run_id": "tip-20260930T184911Z-2924752",
+      "remote_run_root": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T184911Z-2924752",
+      "config_changes": {
+        "teacher_cache_device": "cuda",
+        "resident_teacher": false,
+        "actor_param_offload": true,
+        "actor_optimizer_offload": true,
+        "ref_param_offload": true
+      },
+      "source_log": {
+        "relative_to_workspace": "OPSD-B200-migration/opt-gpu-cache-20261001.log",
+        "sha256": "383532454ee4905ce2ffd465959bbc875db7e3ba480eeb41b037bac7a0b13b1f"
+      },
+      "smoke_status": {
+        "passed": true,
+        "launcher_exit": 0,
+        "gpu_wrapper_exit": 0,
+        "checkpoint_steps": [
+          1,
+          2
+        ],
+        "checkpoint_world_size": 8,
+        "validation_sequences": 32,
+        "keepalive_restored": true,
+        "verification_json": "results/optimization-20261001/gpu-cache-smoke-verification.json",
+        "verification_provenance": "verification JSON and launcher log"
+      },
+      "peak_semantics": {
+        "allocated": "maximum across ranks of lifetime worker CUDA allocator peaks; counters not reset per update",
+        "reserved": "not reported",
+        "coverage": "worker allocator only; excludes other processes, total GPU memory and an 8192-response-token worst-case guarantee"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "metrics": {
+            "step": 1.0,
+            "rollout/prompts": 8.0,
+            "rollout/samples_per_prompt": 16.0,
+            "timing/generate_s": 55.1556601524353,
+            "rollout/generated_sequences": 128.0,
+            "opd/tool_mask/has_agent_mask": 1.0,
+            "opd/tool_mask/llm_tokens": 232407.0,
+            "opd/tool_mask/tool_tokens": 816169.0,
+            "opd/tool_mask/tool_ratio": 0.7783594131469727,
+            "opd/num_turns/min": 2.0,
+            "opd/num_turns/max": 2.0,
+            "opd/num_turns/mean": 2.0,
+            "opd/accuracy": 0.5859375,
+            "opd/batch_size": 16.0,
+            "opd/loss": 0.061251079015474004,
+            "opd/entropy": 0.023069217801094055,
+            "opd/grad_norm": 1.1692378520965576,
+            "opd/num_tokens": 14521.375,
+            "opd/valid_rows": 16.0,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 232407.0,
+            "tip/global_selected_tokens": 116171.0,
+            "tip/selected_fraction": 0.4998601591174104,
+            "tip/global_rollouts": 128.0,
+            "tip/global_normalization": 1.0,
+            "profile/tip_scoring_s": 4.971662730225944,
+            "profile/tip_global_selection_s": 0.07053266938601155,
+            "profile/student_forward_backward_s": 17.02589788849582,
+            "profile/optimizer_s": 0.34702366312558297,
+            "opt/teacher_cache_cuda": 1.0,
+            "opt/teacher_cache_gib": 8.221480518579483,
+            "profile/teacher_load_s": 8.714869048024411,
+            "profile/teacher_forward_cache_s": 10.495209614760824,
+            "profile/cache_copy_host_s": 0.00011406165140215307,
+            "profile/switch_models_s": 0.4518465215951437,
+            "profile/student_total_s": 22.42244966213184,
+            "opd/lr": 1e-06,
+            "perf/max_memory_allocated_gb": 30.31199073791504,
+            "profile/final_offload_s": 3.3659176109940745,
+            "profile/update_total_s": 45.45032075374911,
+            "timing/train_s": 50.85132169723511,
+            "training/global_step": 1.0,
+            "training/epoch": 0.0,
+            "timing/step_s": 117.36353921890259
+          },
+          "source_line": 1877,
+          "duplicate_line_count": 1
+        },
+        {
+          "step": 2,
+          "metrics": {
+            "step": 2.0,
+            "rollout/prompts": 8.0,
+            "rollout/samples_per_prompt": 16.0,
+            "timing/generate_s": 39.453524589538574,
+            "rollout/generated_sequences": 128.0,
+            "opd/tool_mask/has_agent_mask": 1.0,
+            "opd/tool_mask/llm_tokens": 248236.0,
+            "opd/tool_mask/tool_tokens": 800340.0,
+            "opd/tool_mask/tool_ratio": 0.7632637023925781,
+            "opd/num_turns/min": 2.0,
+            "opd/num_turns/max": 2.0,
+            "opd/num_turns/mean": 2.0,
+            "opd/accuracy": 0.6875,
+            "opd/batch_size": 16.0,
+            "opd/loss": 0.058174323170362065,
+            "opd/entropy": 0.023523390293121338,
+            "opd/grad_norm": 0.971703290939331,
+            "opd/num_tokens": 15510.5,
+            "opd/valid_rows": 16.0,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 248236.0,
+            "tip/global_selected_tokens": 124084.0,
+            "tip/selected_fraction": 0.49986303356483347,
+            "tip/global_rollouts": 128.0,
+            "tip/global_normalization": 1.0,
+            "profile/tip_scoring_s": 5.295005575011601,
+            "profile/tip_global_selection_s": 0.10533405498426873,
+            "profile/student_forward_backward_s": 19.422253597527742,
+            "profile/optimizer_s": 0.02275666024070233,
+            "opt/teacher_cache_cuda": 1.0,
+            "opt/teacher_cache_gib": 8.781437039375305,
+            "profile/teacher_load_s": 0.005737044615671039,
+            "profile/teacher_forward_cache_s": 8.729868401656859,
+            "profile/cache_copy_host_s": 0.00013410144310910255,
+            "profile/switch_models_s": 0.7116907638410339,
+            "profile/student_total_s": 24.851755950876395,
+            "opd/lr": 5e-07,
+            "perf/max_memory_allocated_gb": 41.944583892822266,
+            "profile/final_offload_s": 1.8584069351345534,
+            "profile/update_total_s": 36.15749009497813,
+            "timing/train_s": 42.33413481712341,
+            "training/global_step": 2.0,
+            "training/epoch": 0.0,
+            "timing/step_s": 104.32250142097473
+          },
+          "source_line": 2203,
+          "duplicate_line_count": 1
+        }
+      ],
+      "two_step_mean": {
+        "timing/generate_s": 47.30459237098694,
+        "timing/train_s": 46.59272825717926,
+        "timing/step_s": 110.84302031993866,
+        "profile/update_total_s": 40.80390542436362,
+        "profile/teacher_forward_cache_s": 9.612539008208842,
+        "profile/tip_scoring_s": 5.133334152618772,
+        "profile/student_forward_backward_s": 18.22407574301178,
+        "generate_plus_train_s": 93.8973206281662,
+        "response_tokens": 240321.5
+      }
+    },
+    {
+      "profile_id": "resident",
+      "label": "GPU 缓存 + 参数/优化器驻留",
+      "run_id": "tip-20260930T185936Z-2959773",
+      "remote_run_root": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20260930T185936Z-2959773",
+      "config_changes": {
+        "teacher_cache_device": "cuda",
+        "resident_teacher": true,
+        "actor_param_offload": false,
+        "actor_optimizer_offload": false,
+        "ref_param_offload": false
+      },
+      "source_log": {
+        "relative_to_workspace": "OPSD-B200-migration/opt-resident-20261001.log",
+        "sha256": "421e822834d2bbf4903ebfe62478afafaca25fcfbf3433e74252a868e3211f30"
+      },
+      "smoke_status": {
+        "passed": true,
+        "launcher_exit": 0,
+        "gpu_wrapper_exit": 0,
+        "checkpoint_steps": [
+          1,
+          2
+        ],
+        "checkpoint_world_size": 8,
+        "validation_sequences": 32,
+        "keepalive_restored": true,
+        "verification_json": "results/optimization-20261001/resident-smoke-verification.json",
+        "verification_provenance": "verification JSON and launcher log"
+      },
+      "peak_semantics": {
+        "allocated": "maximum across ranks of per-update worker CUDA allocator peaks",
+        "reserved": "per-update rank mean in metric; rank maximum recovered from individual rank logs",
+        "coverage": "worker allocator only; excludes other processes, total GPU memory and an 8192-response-token worst-case guarantee"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "metrics": {
+            "step": 1.0,
+            "rollout/prompts": 8.0,
+            "rollout/samples_per_prompt": 16.0,
+            "timing/generate_s": 36.62502837181091,
+            "rollout/generated_sequences": 128.0,
+            "opd/tool_mask/has_agent_mask": 1.0,
+            "opd/tool_mask/llm_tokens": 232011.0,
+            "opd/tool_mask/tool_tokens": 816565.0,
+            "opd/tool_mask/tool_ratio": 0.7787370681762695,
+            "opd/num_turns/min": 2.0,
+            "opd/num_turns/max": 2.0,
+            "opd/num_turns/mean": 2.0,
+            "opd/accuracy": 0.5546875,
+            "opd/batch_size": 16.0,
+            "opd/loss": 0.06298738019186352,
+            "opd/entropy": 0.02411123365163803,
+            "opd/grad_norm": 1.0774234533309937,
+            "opd/num_tokens": 14496.375,
+            "opd/valid_rows": 16.0,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 232011.0,
+            "tip/global_selected_tokens": 115971.0,
+            "tip/selected_fraction": 0.499851300153872,
+            "tip/global_rollouts": 128.0,
+            "tip/global_normalization": 1.0,
+            "profile/tip_scoring_s": 4.8887458075914765,
+            "profile/tip_global_selection_s": 0.06732347587239929,
+            "profile/student_forward_backward_s": 16.012091981145204,
+            "profile/optimizer_s": 0.4343868545984151,
+            "opt/teacher_cache_cuda": 1.0,
+            "opt/resident_teacher": 1.0,
+            "opt/teacher_cache_gib": 8.207471877336502,
+            "profile/teacher_load_s": 0.004940976374200545,
+            "profile/teacher_forward_cache_s": 9.021228560886811,
+            "profile/cache_copy_host_s": 0.00016322881856467575,
+            "profile/switch_models_s": 0.3860304513655137,
+            "profile/student_total_s": 21.409892495750682,
+            "opd/lr": 1e-06,
+            "perf/max_memory_allocated_gb": 33.267165184020996,
+            "perf/update_peak_reserved_gib": 29.098876953125,
+            "profile/final_offload_s": 0.0029801912314724177,
+            "profile/update_total_s": 30.825084609881742,
+            "timing/train_s": 37.901800870895386,
+            "training/global_step": 1.0,
+            "training/epoch": 0.0,
+            "timing/step_s": 84.7724232673645
+          },
+          "source_line": 1930,
+          "duplicate_line_count": 1,
+          "worker_memory_by_rank": {
+            "0": {
+              "allocated_gib": 27.108,
+              "reserved_gib": 31.043,
+              "source_line": 1872
+            },
+            "1": {
+              "allocated_gib": 19.757,
+              "reserved_gib": 24.473,
+              "source_line": 1877
+            },
+            "2": {
+              "allocated_gib": 24.439,
+              "reserved_gib": 29.197,
+              "source_line": 1870
+            },
+            "3": {
+              "allocated_gib": 20.868,
+              "reserved_gib": 25.664,
+              "source_line": 1873
+            },
+            "4": {
+              "allocated_gib": 20.32,
+              "reserved_gib": 25.074,
+              "source_line": 1871
+            },
+            "5": {
+              "allocated_gib": 19.213,
+              "reserved_gib": 24.021,
+              "source_line": 1874
+            },
+            "6": {
+              "allocated_gib": 33.267,
+              "reserved_gib": 37.945,
+              "source_line": 1875
+            },
+            "7": {
+              "allocated_gib": 30.901,
+              "reserved_gib": 35.373,
+              "source_line": 1876
+            }
+          },
+          "max_worker_update_allocated_gib_from_rank_logs": 33.267,
+          "max_worker_update_reserved_gib_from_rank_logs": 37.945
+        },
+        {
+          "step": 2,
+          "metrics": {
+            "step": 2.0,
+            "rollout/prompts": 8.0,
+            "rollout/samples_per_prompt": 16.0,
+            "timing/generate_s": 39.83964776992798,
+            "rollout/generated_sequences": 128.0,
+            "opd/tool_mask/has_agent_mask": 1.0,
+            "opd/tool_mask/llm_tokens": 242776.0,
+            "opd/tool_mask/tool_tokens": 805800.0,
+            "opd/tool_mask/tool_ratio": 0.7684707641601562,
+            "opd/num_turns/min": 2.0,
+            "opd/num_turns/max": 2.0,
+            "opd/num_turns/mean": 2.0,
+            "opd/accuracy": 0.703125,
+            "opd/batch_size": 16.0,
+            "opd/loss": 0.061790886892720415,
+            "opd/entropy": 0.02427242323756218,
+            "opd/grad_norm": 1.1551519632339478,
+            "opd/num_tokens": 15170.125,
+            "opd/valid_rows": 16.0,
+            "tip/enabled": 1.0,
+            "tip/global_response_tokens": 242776.0,
+            "tip/global_selected_tokens": 121361.0,
+            "tip/selected_fraction": 0.4998887863709757,
+            "tip/global_rollouts": 128.0,
+            "tip/global_normalization": 1.0,
+            "profile/tip_scoring_s": 5.359552245601662,
+            "profile/tip_global_selection_s": 0.07664474450575653,
+            "profile/student_forward_backward_s": 16.932336038036738,
+            "profile/optimizer_s": 0.016032596729928628,
+            "opt/teacher_cache_cuda": 1.0,
+            "opt/resident_teacher": 1.0,
+            "opt/teacher_cache_gib": 8.588287591934204,
+            "profile/teacher_load_s": 0.004438563133589923,
+            "profile/teacher_forward_cache_s": 8.100358699753997,
+            "profile/cache_copy_host_s": 0.0001661201531533152,
+            "profile/switch_models_s": 0.32825923002383206,
+            "profile/student_total_s": 22.390609254827723,
+            "opd/lr": 5e-07,
+            "perf/max_memory_allocated_gb": 46.156588554382324,
+            "perf/update_peak_reserved_gib": 32.455078125,
+            "profile/final_offload_s": 0.002285443028085865,
+            "profile/update_total_s": 30.825960413494613,
+            "timing/train_s": 37.609622955322266,
+            "training/global_step": 2.0,
+            "training/epoch": 0.0,
+            "timing/step_s": 97.56585621833801
+          },
+          "source_line": 2252,
+          "duplicate_line_count": 1,
+          "worker_memory_by_rank": {
+            "0": {
+              "allocated_gib": 29.035,
+              "reserved_gib": 32.82,
+              "source_line": 2156
+            },
+            "1": {
+              "allocated_gib": 20.563,
+              "reserved_gib": 25.393,
+              "source_line": 2161
+            },
+            "2": {
+              "allocated_gib": 27.306,
+              "reserved_gib": 31.305,
+              "source_line": 2154
+            },
+            "3": {
+              "allocated_gib": 46.157,
+              "reserved_gib": 50.961,
+              "source_line": 2157
+            },
+            "4": {
+              "allocated_gib": 28.694,
+              "reserved_gib": 33.162,
+              "source_line": 2155
+            },
+            "5": {
+              "allocated_gib": 32.432,
+              "reserved_gib": 36.373,
+              "source_line": 2158
+            },
+            "6": {
+              "allocated_gib": 21.236,
+              "reserved_gib": 25.289,
+              "source_line": 2159
+            },
+            "7": {
+              "allocated_gib": 19.968,
+              "reserved_gib": 24.338,
+              "source_line": 2160
+            }
+          },
+          "max_worker_update_allocated_gib_from_rank_logs": 46.157,
+          "max_worker_update_reserved_gib_from_rank_logs": 50.961
+        }
+      ],
+      "two_step_mean": {
+        "timing/generate_s": 38.232338070869446,
+        "timing/train_s": 37.755711913108826,
+        "timing/step_s": 91.16913974285126,
+        "profile/update_total_s": 30.825522511688177,
+        "profile/teacher_forward_cache_s": 8.560793630320404,
+        "profile/tip_scoring_s": 5.1241490265965695,
+        "profile/student_forward_backward_s": 16.47221400959097,
+        "generate_plus_train_s": 75.98804998397827,
+        "response_tokens": 237393.5
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "reference": "baseline",
+      "candidate": "gpu-cache",
+      "two_step_observations": {
+        "timing/train_s": {
+          "reference_seconds": 81.94507312774658,
+          "candidate_seconds": 46.59272825717926,
+          "observed_time_reduction_percent": 43.14151360321018,
+          "observed_speedup_ratio": 1.7587524103639507
+        },
+        "profile/update_total_s": {
+          "reference_seconds": 73.09067115326616,
+          "candidate_seconds": 40.80390542436362,
+          "observed_time_reduction_percent": 44.17357949990552,
+          "observed_speedup_ratio": 1.7912665563042998
+        },
+        "timing/step_s": {
+          "reference_seconds": 139.18397080898285,
+          "candidate_seconds": 110.84302031993866,
+          "observed_time_reduction_percent": 20.362222980359945,
+          "observed_speedup_ratio": 1.2556854766970489
+        },
+        "generate_plus_train_s": {
+          "reference_seconds": 122.92307150363922,
+          "candidate_seconds": 93.8973206281662,
+          "observed_time_reduction_percent": 23.61293980081981,
+          "observed_speedup_ratio": 1.3091222484442886
+        }
+      },
+      "scope": "descriptive profile-on smoke timings, not steady-state or full-training estimate"
+    },
+    {
+      "reference": "baseline",
+      "candidate": "resident",
+      "two_step_observations": {
+        "timing/train_s": {
+          "reference_seconds": 81.94507312774658,
+          "candidate_seconds": 37.755711913108826,
+          "observed_time_reduction_percent": 53.925586405603255,
+          "observed_speedup_ratio": 2.1704020127162575
+        },
+        "profile/update_total_s": {
+          "reference_seconds": 73.09067115326616,
+          "candidate_seconds": 30.825522511688177,
+          "observed_time_reduction_percent": 57.82564036517171,
+          "observed_speedup_ratio": 2.371108912283716
+        },
+        "timing/step_s": {
+          "reference_seconds": 139.18397080898285,
+          "candidate_seconds": 91.16913974285126,
+          "observed_time_reduction_percent": 34.49738557324788,
+          "observed_speedup_ratio": 1.5266566208868557
+        },
+        "generate_plus_train_s": {
+          "reference_seconds": 122.92307150363922,
+          "candidate_seconds": 75.98804998397827,
+          "observed_time_reduction_percent": 38.18243470939579,
+          "observed_speedup_ratio": 1.6176631921671498
+        }
+      },
+      "scope": "descriptive profile-on smoke timings, not steady-state or full-training estimate"
+    },
+    {
+      "reference": "gpu-cache",
+      "candidate": "resident",
+      "two_step_observations": {
+        "timing/train_s": {
+          "reference_seconds": 46.59272825717926,
+          "candidate_seconds": 37.755711913108826,
+          "observed_time_reduction_percent": 18.96651403474915,
+          "observed_speedup_ratio": 1.2340577331559257
+        },
+        "profile/update_total_s": {
+          "reference_seconds": 40.80390542436362,
+          "candidate_seconds": 30.825522511688177,
+          "observed_time_reduction_percent": 24.45448005258204,
+          "observed_speedup_ratio": 1.3237052318867237
+        },
+        "timing/step_s": {
+          "reference_seconds": 110.84302031993866,
+          "candidate_seconds": 91.16913974285126,
+          "observed_time_reduction_percent": 17.749318378640776,
+          "observed_speedup_ratio": 1.2157953955974459
+        },
+        "generate_plus_train_s": {
+          "reference_seconds": 93.8973206281662,
+          "candidate_seconds": 75.98804998397827,
+          "observed_time_reduction_percent": 19.073249933412605,
+          "observed_speedup_ratio": 1.2356853564207007
+        }
+      },
+      "scope": "descriptive profile-on smoke timings, not steady-state or full-training estimate"
+    }
+  ]
+}
