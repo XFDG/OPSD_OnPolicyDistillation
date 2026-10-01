@@ -12,6 +12,16 @@ top of `verl`. It is the shared training base for three papers on token-,
 problem-, and reward-level efficiency in OPD — see **Papers & Results**
 below for what each one measures and how to cite it.
 
+## Optimization design and technical sharing
+
+- [Optimization decisions, implementation and validation](OPD_OPTIMIZATION_DESIGN.md)
+- [Standalone technical sharing: less data movement with on-policy semantics](TECHNICAL_SHARE_ON_POLICY_DISTILLATION.md)
+
+The sharing article uses normalized short-run timings and anonymous figures.
+Its attachments contain software concepts and measurement scope without
+deployment or hardware identifiers. Full-run performance and accuracy need
+separate analysis of the complete experiment.
+
 ## Taihua 8×B200 optimization experiment — bounded acceptance passed
 
 Branch: `experiments/taihua-b200-optimization`. The current candidate keeps
@@ -29,12 +39,14 @@ these limited samples and historical evaluation/save costs.
 
 The six-step baseline artifacts passed a CPU post-audit; its original
 wrapper/launcher **exit=1 is preserved** because a post-training observer
-expected an INFO message suppressed by default logging. The candidate and
+expected an INFO message suppressed by default logging. The candidate,
 capacity and resume wrappers exited 0 and restored keepalive. Step-6 checkpoint
 recovery to steps 7/8 passed, including all eight ranks and the original
 1739-step LR/data schedule. The final stamp binds 37 source files and all
-proof reports. Optimized full training has not started; full-benchmark
-accuracy remains unmeasured. See
+proof reports. At acceptance time, optimized full training had not started;
+full-benchmark accuracy remains unmeasured in this record. The user later
+reported faster operation; the technical sharing keeps the measured claims
+limited to the controlled short runs. See
 [optimization settings, evidence and acceptance checklist](OPTIMIZATION_RESULTS.md)
 and [profile-off stability/capacity comparison](results/optimization-20261001/stability-comparison.md).
 
@@ -56,7 +68,7 @@ The launcher prints phase changes, streams Ray training progress, reports
 status every 10 seconds, and stops keepalive before GPU work and restores it
 on exit. This optimization experiment uses a separate runtime/output tree
 and shares the original GPU/full locks. Existing production checkpoints are
-preserved. Full training has not been started for this optimization candidate.
+preserved. This section records the state at bounded acceptance.
 
 ## Taihua 8×B200 full training result — 2026-09-30
 

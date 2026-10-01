@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "unit": "baseline mean = 100 within each metric",
+  "scope": "Limited-step controlled comparison; full-run speed and accuracy are not established",
+  "comparison": "Same software method and distributed environment; stage profiling disabled; stochastic response trajectories differ",
+  "metrics": [
+    {
+      "id": "update_stage",
+      "label": "Update stage (incl. batch construction and weight sync)",
+      "baseline": 100.0,
+      "optimized": 52.61333419999632,
+      "time_reduction_percent": 47.38666580000368,
+      "samples_per_variant": 5,
+      "sampling": "Five updates after excluding the first update; save and evaluation outside this timing range"
+    },
+    {
+      "id": "ordinary_step",
+      "label": "Ordinary step (no save or evaluation)",
+      "baseline": 100.0,
+      "optimized": 73.84,
+      "time_reduction_percent": 26.16,
+      "samples_per_variant": 2,
+      "sampling": "Two steps without cold-start, checkpoint save or validation; ratios rounded to two decimals"
+    }
+  ]
+}

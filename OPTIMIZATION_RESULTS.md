@@ -1,5 +1,7 @@
 # Taihua 8×B200 OPSD/TIP 优化实验
 
+本文保留 `2026-09-30T20:42:02Z` 的有界验收快照；文中的“全量尚未启动”指验收时状态。用户后续反馈运行明显更快，本次文档整理未重新采集完整生产日志。新增 [优化思路与验证记录](OPD_OPTIMIZATION_DESIGN.md) 和 [独立技术分享](TECHNICAL_SHARE_ON_POLICY_DISTILLATION.md)，量化结论仍以已核验短测试为准。
+
 **状态：B200 有界优化验收通过，手动总启动器已部署；优化全量训练尚未启动。**
 
 分支：`experiments/taihua-b200-optimization`。本实验从已完成的 B200 基线继续优化执行方式；目标是交付经过稳定性、最长序列和恢复验证的手动启动脚本。三个配置的两步 profile smoke、关闭 profile 的候选六步和真实 Qwen 最长序列容量 gate 已通过；关闭 profile 的基线六步训练产物通过 CPU 事后审计，原观察器导致的 launcher/GPU wrapper exit=1 保留。step6→7/8 恢复 run `tip-20260930T203205Z-3156633` 已通过，八 rank model/optimizer/scheduler/RNG 与数据进度连续；37份源码及四类证据已通过最终验收。本分支的优化候选没有启动全量生产训练。
