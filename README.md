@@ -19,10 +19,34 @@ below for what each one measures and how to cite it.
 
 The sharing article uses normalized short-run timings and anonymous figures.
 Its attachments contain software concepts and measurement scope without
-deployment or hardware identifiers. Full-run performance and accuracy need
-separate analysis of the complete experiment.
+deployment or hardware identifiers. The completed full-run result is recorded
+separately below; the anonymous sharing article retains its short-run scope.
 
-## Taihua 8×B200 optimization experiment — bounded acceptance passed
+## Taihua 8×B200 optimized full training result — 2026-10-03
+
+**Optimized full training and launcher succeeded (exit=0): 1739 steps,
+35 full evaluations, and 35 eight-rank checkpoints.** The complete `all` run,
+including preparation, smoke and cleanup, took **37.6353h**, versus **51.8386h**
+for the original B200 run: **27.40% less time, saving 14.20h**.
+Ordinary steps averaged **72.7804s** (28.79% less); update plus weight sync
+averaged **41.4186s** (41.89% less). Rollout generation did not get faster.
+
+Final mean@16: **MATH-500 79.4125%, AIME24 13.7500%, AIME25 18.1250%**.
+Relative to the original B200 run, changes were −0.1250/−0.4167/+0.2083
+percentage points; the equal-benchmark macro mean was 0.1111 points lower.
+One stochastic run does not establish statistical accuracy preservation.
+The model, TIP/loss, precision, rollout and 1739-step schedule were retained;
+GPU cache/residency and the documented scheduler boundary repair were used.
+
+Keepalive was restored automatically; the existing controller confirmed
+**8 active GPU keepalive workers** at 2026-10-03 02:06:23 UTC.
+See [full results and CPU audit](results/taihua-b200-optimized-20261003/RESULTS.md),
+[optimized B200 vs original B200 and H200](results/taihua-b200-optimized-20261003/B200_OPT_VS_BASELINE_AND_H200.md),
+and the [overview figure](results/taihua-b200-optimized-20261003/summary.png).
+This remains an original-teacher reproduction with the existing paper
+differences and historical GPU2 interconnect limitation.
+
+## Taihua 8×B200 optimization experiment — historical bounded acceptance
 
 Branch: `experiments/taihua-b200-optimization`. The current candidate keeps
 Qwen3-8B → Qwen3-4B, BF16 forward/FP32 loss, global 128 rollouts, TIP Soft-OR
@@ -34,7 +58,7 @@ Three two-update profile smoke runs, six profile-off candidate updates, and
 the real-Qwen 128×8192-response capacity gate passed. In the controlled
 profile-off comparison, update plus weight-sync time fell from **69.538s to
 36.586s** (47.39% less); the two ordinary steps fell from **90.418s to
-66.762s** (26.16% less). A rough full-run estimate is **34–39h**, based on
+66.762s** (26.16% less). The acceptance-time full-run estimate was **34–39h**, based on
 these limited samples and historical evaluation/save costs.
 
 The six-step baseline artifacts passed a CPU post-audit; its original
@@ -44,8 +68,8 @@ capacity and resume wrappers exited 0 and restored keepalive. Step-6 checkpoint
 recovery to steps 7/8 passed, including all eight ranks and the original
 1739-step LR/data schedule. The final stamp binds 37 source files and all
 proof reports. At acceptance time, optimized full training had not started;
-full-benchmark accuracy remains unmeasured in this record. The user later
-reported faster operation; the technical sharing keeps the measured claims
+full-benchmark accuracy was unmeasured in that bounded record. The completed
+full result is reported above; the technical sharing keeps its measured claims
 limited to the controlled short runs. See
 [optimization settings, evidence and acceptance checklist](OPTIMIZATION_RESULTS.md)
 and [profile-off stability/capacity comparison](results/optimization-20261001/stability-comparison.md).

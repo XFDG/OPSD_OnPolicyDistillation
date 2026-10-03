@@ -1,0 +1,119 @@
+{
+  "ranks": [
+    {
+      "rank": 0,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true,
+      "rng_keys": [
+        "cpu",
+        "cuda",
+        "numpy",
+        "random"
+      ]
+    },
+    {
+      "rank": 1,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true,
+      "rng_keys": [
+        "cpu",
+        "cuda",
+        "numpy",
+        "random"
+      ]
+    },
+    {
+      "rank": 2,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true,
+      "rng_keys": [
+        "cpu",
+        "cuda",
+        "numpy",
+        "random"
+      ]
+    },
+    {
+      "rank": 3,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true,
+      "rng_keys": [
+        "cpu",
+        "cuda",
+        "numpy",
+        "random"
+      ]
+    },
+    {
+      "rank": 4,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true,
+      "rng_keys": [
+        "cpu",
+        "cuda",
+        "numpy",
+        "random"
+      ]
+    },
+    {
+      "rank": 5,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true,
+      "rng_keys": [
+        "cpu",
+        "cuda",
+        "numpy",
+        "random"
+      ]
+    },
+    {
+      "rank": 6,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true,
+      "rng_keys": [
+        "cpu",
+        "cuda",
+        "numpy",
+        "random"
+      ]
+    },
+    {
+      "rank": 7,
+      "scheduler_step": 1739,
+      "next_lr": [
+        0.0
+      ],
+      "rng_present": true,
+      "rng_keys": [
+        "cpu",
+        "cuda",
+        "numpy",
+        "random"
+      ]
+    }
+  ],
+  "data_cursor": 1739,
+  "prompts_yielded": 13912,
+  "passed": true
+}

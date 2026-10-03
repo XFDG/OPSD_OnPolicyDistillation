@@ -1,0 +1,54 @@
+{
+  "collected_utc": "2026-10-03T02:00:25.598150+00:00",
+  "keepalive_parents": [
+    3391000
+  ],
+  "keepalive_children": [
+    {
+      "pid": 3391222,
+      "comm": "python",
+      "ppid": 3391000
+    },
+    {
+      "pid": 3391223,
+      "comm": "python",
+      "ppid": 3391000
+    },
+    {
+      "pid": 3391224,
+      "comm": "python",
+      "ppid": 3391000
+    },
+    {
+      "pid": 3391225,
+      "comm": "python",
+      "ppid": 3391000
+    },
+    {
+      "pid": 3391226,
+      "comm": "python",
+      "ppid": 3391000
+    },
+    {
+      "pid": 3391227,
+      "comm": "python",
+      "ppid": 3391000
+    },
+    {
+      "pid": 3391228,
+      "comm": "python",
+      "ppid": 3391000
+    },
+    {
+      "pid": 3391229,
+      "comm": "python",
+      "ppid": 3391000
+    },
+    {
+      "pid": 3391230,
+      "comm": "python",
+      "ppid": 3391000
+    }
+  ],
+  "visible_training_workers": []
+}

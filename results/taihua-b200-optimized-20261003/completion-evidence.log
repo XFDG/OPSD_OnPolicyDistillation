@@ -1,0 +1,17 @@
+[opsd] 2026-10-01T00:36:30Z mode=all; run root=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352; host=zhaoye-taihua-gpu-0; rollout TP=2
+[opsd] 2026-10-01T00:36:31Z GPU keep-alive active
+[opsd] 2026-10-01T00:36:32Z GPU keep-alive active
+[opsd] 2026-10-01T00:37:02Z GPU keep-alive active
+[opsd] 2026-10-01T00:37:13Z GPU keep-alive active
+[opsd] 2026-10-01T00:39:12Z [4/4] starting smoke; training log=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/smoke-train.log
+[opsd] 2026-10-01T00:45:51Z smoke training PASS; EXIT trap will restore keep-alive
+[opsd] 2026-10-01T00:46:19Z overlay growth: /root=283 bytes; /tmp=0 bytes
+[opsd] 2026-10-01T00:46:19Z GPU smoke finished with exit=0; log=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/gpu-smoke.log
+[opsd] 2026-10-01T00:46:20Z GPU keep-alive active
+[opsd] 2026-10-01T00:48:32Z [4/4] starting train; training log=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-train.log
+[opsd] 2026-10-02T14:13:40Z train training PASS; EXIT trap will restore keep-alive
+[opsd] 2026-10-02T14:14:36Z overlay growth: /root=39963 bytes; /tmp=0 bytes
+[opsd] 2026-10-02T14:14:36Z GPU train finished with exit=0; log=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/gpu-train.log
+[opsd] 2026-10-02T14:14:36Z GPU keep-alive active
+[opsd] 2026-10-02T14:14:36Z mode=all completed; outputs=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352
+[opsd] 2026-10-02T14:14:37Z launcher exit=0; log=/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/driver.log

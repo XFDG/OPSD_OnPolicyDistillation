@@ -1,0 +1,177 @@
+[
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/50.jsonl",
+    "bytes": 30190268,
+    "sha256": "fe880003b8269a8a6a017c1e49c50196892031dc4d439e7fb46fee25b2e9e870"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/100.jsonl",
+    "bytes": 30346567,
+    "sha256": "755b25d418d3e5861675a90a0daf4a8a7f99c19329d8f2e74242ff0b31ab10e0"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/150.jsonl",
+    "bytes": 30234409,
+    "sha256": "a9f277a2dfbb81984c1c2801e54aef24b2c1f7b85cc256b2b2f66aa81c23afc5"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/200.jsonl",
+    "bytes": 29944114,
+    "sha256": "049bb3ef57a66a16c77e9269149d7d56d285ddac6f1a7749f70dc1f69ad20968"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/250.jsonl",
+    "bytes": 29832650,
+    "sha256": "d2bf129e5dd166f043bc1fc03a661718b1915029503303880a8055682395acdf"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/300.jsonl",
+    "bytes": 30347063,
+    "sha256": "9d63ee1367c03e2119b6bc41b3f09efb62cd78a92152c4384096d25498085abc"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/350.jsonl",
+    "bytes": 30040684,
+    "sha256": "bb59d2653bdc443090028b8cb28df821ccae6f34a12b161035f7e26b9e5d2826"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/400.jsonl",
+    "bytes": 29987285,
+    "sha256": "1fa892ee65f6831a13c397b4de30afc412386dd762f3a2b2af4da5171633af76"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/450.jsonl",
+    "bytes": 29725180,
+    "sha256": "b7eba075f1b3b3b21a01e0e9f2ec75260f1edd26e3338e40b95e8a5a6a5688c7"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/500.jsonl",
+    "bytes": 29789094,
+    "sha256": "2f7b0ddad3c8c024f9c5ec3969d502a3b82a20a0fbba723728897d9c33ac5a4a"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/550.jsonl",
+    "bytes": 30325704,
+    "sha256": "0e475938142b55659a6b66a8362bcde066e7a8a1d70cc2108d858ad4a8d6b396"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/600.jsonl",
+    "bytes": 30301858,
+    "sha256": "0efe14b1e40573e73c72def7338bbc1617450b96b9638432a265a9b36ea53e2a"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/650.jsonl",
+    "bytes": 29951958,
+    "sha256": "e8eabedbe241d89b5d12a1406103d62820f4a463b7de64b48de2d211841d2ee9"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/700.jsonl",
+    "bytes": 29972234,
+    "sha256": "bde14634ff51182bb76230b1a378a22f6febc953938a154381ca23d9e3fccb76"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/750.jsonl",
+    "bytes": 29659104,
+    "sha256": "3f87844efe13eb6fe4b34072774d33ca226d4712e4339809930ba9228b1f3b6d"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/800.jsonl",
+    "bytes": 30312022,
+    "sha256": "03631533c84f11a90945127a0db8fbd0ec4fc19124c5fef9556174390b52709e"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/850.jsonl",
+    "bytes": 29764207,
+    "sha256": "303078674827c2754615f9a03c4cd67c8f4178f3479434b5e4be1f7b14093157"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/900.jsonl",
+    "bytes": 29793285,
+    "sha256": "5c0f9ed36fc2e34b5c32bb4ea73e896812c18c9126d210bdff2375020cbf9b6f"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/950.jsonl",
+    "bytes": 29452441,
+    "sha256": "e75199effb3628fdb9a7b1893422d8fa29757c11e43483825d8835c4b1552021"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1000.jsonl",
+    "bytes": 29870896,
+    "sha256": "04df88dc0e790038da721dd14ce08183927ce2a95ee7c7bb8f7ddad32a8cb181"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1050.jsonl",
+    "bytes": 29873932,
+    "sha256": "bf5004ac07908188d856cb14dbe17033a44d5b52cb42cf4c81a72db4faff5512"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1100.jsonl",
+    "bytes": 29870555,
+    "sha256": "1d567d130b9caea816496c6ab9178a04f7ce17ac9f9bd5edda40dbdfd698c643"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1150.jsonl",
+    "bytes": 29650272,
+    "sha256": "cd093c9575df4ad16f1d9763c5837ab19959e5b7f403d7d119a716802e01b0f1"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1200.jsonl",
+    "bytes": 29792521,
+    "sha256": "c5497c39a9db8a4e8d603ea8209a368e2cc783c9909782a691d425bd44089601"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1250.jsonl",
+    "bytes": 30012047,
+    "sha256": "5ffa3b3a71dacf590312b0f8dcacfdeec9b0b0508e99a49d60beda94ff893e53"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1300.jsonl",
+    "bytes": 30072609,
+    "sha256": "126542d2a96d966abbd67800031789c04f5c9cd50d65a08914804c528170ab3b"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1350.jsonl",
+    "bytes": 29804847,
+    "sha256": "fab511e883ac1125c831eeb4ad8b9d482bcf29ad6cdea7549270992b39c9bca8"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1400.jsonl",
+    "bytes": 30009023,
+    "sha256": "6b638a336bd2bacf435833e1c045d3a2e21490b4aed5e0e4d444f8328bf4fb80"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1450.jsonl",
+    "bytes": 29955044,
+    "sha256": "fc62ef33f528702a76957a07a55fc4c761553c4656ba9d73b97f7452085706c5"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1500.jsonl",
+    "bytes": 29940482,
+    "sha256": "e31481c47496bff5c210fd6d12aabed0755c61159bbd5afb89d0486e63504d5b"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1550.jsonl",
+    "bytes": 30118814,
+    "sha256": "70988dcd67f8398f3905d7ad75b6a4a62a06a3335d1c63cfec1138791ad03a4f"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1600.jsonl",
+    "bytes": 30034513,
+    "sha256": "e1d93bfa3edd886ef448a86ea9b97ecdcb1fd1c3dd5ba09ca31d6384b85ab804"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1650.jsonl",
+    "bytes": 29843032,
+    "sha256": "1a829cb1b4c6d9e6d2d6a1fa6cb7336a23580b2b85a9f69629f339ff37bc79e5"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1700.jsonl",
+    "bytes": 30005883,
+    "sha256": "8d0f3ceecf6b1e2582d872bd2739596a803df540391fdff6a342d9f07a89c3db"
+  },
+  {
+    "file": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352/train-output/Qwen3-4B-b200-opt-full-TIP-rho0.5-reverse_kl-teacher-Qwen3-8B-nothink-lr1e-6-bs8-n16/1739.jsonl",
+    "bytes": 29973785,
+    "sha256": "2ba3007e1d16bc08f4b4bbb2afa91ee5115d5889bc636688a38194128e6da504"
+  }
+]

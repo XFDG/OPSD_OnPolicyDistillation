@@ -1,0 +1,648 @@
+{
+  "schema_version": 1,
+  "scope": "Independent arithmetic comparison of final-step accuracy and CSV-derived performance for three completed training chains",
+  "status": "No new training/inference/evaluation and no added confidence intervals",
+  "metric_definitions": {
+    "absolute_delta": "candidate minus reference, in the metric unit",
+    "relative_change_percent": "(candidate/reference - 1) *100",
+    "time_reduction_percent": "(1-candidate/reference)*100; positive means less elapsed time",
+    "speedup_ratio": "reference elapsed time / candidate elapsed time",
+    "accuracy_delta_percentage_points": "(candidate fraction-reference fraction)*100",
+    "normal_step_filter": "global_step %50 !=0 and global_step !=1739; initialization step1 included",
+    "normal_step_count": 1704,
+    "retained_step_gpu_hours": "summed retained step hours * GPU count",
+    "launcher_allocated_gpu_hours": "all-mode launcher wall hours including smoke * GPU count; unavailable for H200",
+    "macro_mean": "unweighted arithmetic mean of MATH-500,AIME24,AIME25 mean@16 fractions"
+  },
+  "runs": {
+    "optimized_b200": {
+      "label": "8xB200 optimized",
+      "gpu_count": 8,
+      "sources": [
+        {
+          "file": "results/taihua-b200-optimized-20261003/summary.json",
+          "sha256": "68f7248d8479a87e537fc721d53d33c86c681e18c903f24497d2d4d62533192a"
+        },
+        {
+          "file": "results/taihua-b200-optimized-20261003/training_metrics.csv",
+          "sha256": "f9f13719c1cae8350431442d8f088f132d116eb2f597cc4341408cf07ef4be93"
+        },
+        {
+          "file": "results/taihua-b200-optimized-20261003/eval_curve.csv",
+          "sha256": "0bd8acd9f8bae5e56351fbe15e65218fd1c81dd1f4cf14fa847974e8127c2099"
+        }
+      ],
+      "run_paths": {
+        "run": "/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/runs/tip-20261001T003630Z-3211352"
+      },
+      "final_step": 1739,
+      "normal_step_count": 1704,
+      "evaluation_count": 35,
+      "outputs_per_evaluation": 8960,
+      "rollouts_per_step": 128,
+      "total_training_rollouts": 222592,
+      "training_completed": true,
+      "full_launcher_success": true,
+      "gpu_wrapper_exit_code": 0,
+      "keepalive_restored_in_log": true,
+      "performance": {
+        "normal_step_mean_s": 72.78042110101158,
+        "normal_generate_mean_s": 31.2929350453923,
+        "normal_update_mean_s": 41.418579546218744,
+        "normal_step_median_s": 72.65334177017212,
+        "summed_retained_step_hours": 37.35257239712609,
+        "total_training_response_tokens": 436303728,
+        "mean_training_response_tokens": 250893.46060954573,
+        "total_normal_response_tokens": 427319876,
+        "mean_normal_response_tokens": 250774.5751173709,
+        "retained_step_gpu_hours": 298.8205791770087,
+        "launcher_wall_hours_including_smoke": 37.63527777777778,
+        "launcher_allocated_gpu_hours": 301.08222222222224
+      },
+      "final_evaluation_fraction": {
+        "math_mean_at_16": 0.794125,
+        "aime24_mean_at_16": 0.1375,
+        "aime25_mean_at_16": 0.18125,
+        "macro_mean": 0.37095833333333333
+      },
+      "final_evaluation_percent": {
+        "math_mean_at_16": 79.4125,
+        "aime24_mean_at_16": 13.750000000000002,
+        "aime25_mean_at_16": 18.125,
+        "macro_mean": 37.09583333333333
+      },
+      "peak_reported_worker_allocated_gib": 60.60230731964111,
+      "reported_limitations": [
+        "Original non-GRPO teacher differs from paper",
+        "No step-0 evaluation or teacher evaluation",
+        "One run only; best checkpoint selection uses the reported evaluation benchmarks",
+        "Torch allocated-memory metric excludes SGLang and total device reservation",
+        "Checkpoint weights checked for existence/size; no final inference reload performed",
+        "GPU2 NVLink was abnormal in prior read-only snapshots; no repair or final port-state recheck in this audit",
+        "Reported microcode equality does not establish hardware health or firmware fix applicability",
+        "Only extra-state and dataloader CPU reload; model/optimizer weights checked by inventory, not final inference reload"
+      ]
+    },
+    "baseline_b200": {
+      "label": "8xB200 original",
+      "gpu_count": 8,
+      "sources": [
+        {
+          "file": "results/taihua-b200-20260930/summary.json",
+          "sha256": "5ee431007496c4a3c559f88b6d09c1833974e997f03fbc68d125bd3e51d24bd4"
+        },
+        {
+          "file": "results/taihua-b200-20260930/training_metrics.csv",
+          "sha256": "5d0754eb662c494cf43d62f934957ac7e4a593d1d579f041647dcc9075a22e65"
+        },
+        {
+          "file": "results/taihua-b200-20260930/eval_curve.csv",
+          "sha256": "589e9dd3f709ec7a090fb261fd86a3b1f0f0130c2e41cc567f5a10c86c71c9cc"
+        }
+      ],
+      "run_paths": {
+        "run": "/volume/pt-test/users/zhaoye/OPSD-B200-runtime/runs/tip-20260928T061500Z-1228422"
+      },
+      "final_step": 1739,
+      "normal_step_count": 1704,
+      "evaluation_count": 35,
+      "outputs_per_evaluation": 8960,
+      "rollouts_per_step": 128,
+      "total_training_rollouts": 222592,
+      "training_completed": true,
+      "full_launcher_success": true,
+      "gpu_wrapper_exit_code": 0,
+      "keepalive_restored_in_log": true,
+      "performance": {
+        "normal_step_mean_s": 102.19824193019262,
+        "normal_generate_mean_s": 30.84741199688173,
+        "normal_update_mean_s": 71.27990239900602,
+        "normal_step_median_s": 102.28733503818512,
+        "summed_retained_step_hours": 51.563192270861734,
+        "total_training_response_tokens": 436568929,
+        "mean_training_response_tokens": 251045.96262219668,
+        "total_normal_response_tokens": 427366085,
+        "mean_normal_response_tokens": 250801.69307511736,
+        "retained_step_gpu_hours": 412.50553816689387,
+        "launcher_wall_hours_including_smoke": 51.83861111111111,
+        "launcher_allocated_gpu_hours": 414.7088888888889
+      },
+      "final_evaluation_fraction": {
+        "math_mean_at_16": 0.795375,
+        "aime24_mean_at_16": 0.14166666666666666,
+        "aime25_mean_at_16": 0.17916666666666667,
+        "macro_mean": 0.37206944444444445
+      },
+      "final_evaluation_percent": {
+        "math_mean_at_16": 79.53750000000001,
+        "aime24_mean_at_16": 14.166666666666666,
+        "aime25_mean_at_16": 17.916666666666668,
+        "macro_mean": 37.206944444444446
+      },
+      "peak_reported_worker_allocated_gib": 22.215771198272705,
+      "reported_limitations": [
+        "Original non-GRPO teacher differs from paper",
+        "No step-0 evaluation or teacher evaluation",
+        "One run only; best checkpoint selection uses the reported evaluation benchmarks",
+        "Torch allocated-memory metric excludes SGLang and total device reservation",
+        "Checkpoint weights checked for existence/size; no final inference reload performed"
+      ]
+    },
+    "h200": {
+      "label": "4xH200 original",
+      "gpu_count": 4,
+      "sources": [
+        {
+          "file": "results/beijing-h200-20260927/summary.json",
+          "sha256": "d675e70355dd1b3e568dacb2464ffa464f6008c54d4e500a32eb9942c3793b60"
+        },
+        {
+          "file": "results/beijing-h200-20260927/training_metrics.csv",
+          "sha256": "02257e57af2501122699089cadae83cfc19797101be21146008592dc07ee9a85"
+        },
+        {
+          "file": "results/beijing-h200-20260927/eval_curve.csv",
+          "sha256": "f14de0019b98d9003978be8c732fecce54479ad3908490c91c3d37e93a889ffd"
+        }
+      ],
+      "run_paths": {
+        "original_run": "/volume/pt-train/users/zhaoye/OPSD-runtime/runs/tip-20260924T153731Z-542930",
+        "resumed_run": "/volume/pt-train/users/zhaoye/OPSD-runtime/runs/tip-20260924T174814Z-1211426"
+      },
+      "final_step": 1739,
+      "normal_step_count": 1704,
+      "evaluation_count": 35,
+      "outputs_per_evaluation": 8960,
+      "rollouts_per_step": 128,
+      "total_training_rollouts": 222592,
+      "training_completed": true,
+      "full_launcher_success": false,
+      "gpu_wrapper_exit_code": 5,
+      "keepalive_restored_in_log": true,
+      "performance": {
+        "normal_step_mean_s": 105.5753931936244,
+        "normal_generate_mean_s": 27.884004952482215,
+        "normal_update_mean_s": 77.62640015871872,
+        "normal_step_median_s": 104.97268974781036,
+        "summed_retained_step_hours": 54.139575250082544,
+        "total_training_response_tokens": 436936505,
+        "mean_training_response_tokens": 251257.33467510063,
+        "total_normal_response_tokens": 427717195,
+        "mean_normal_response_tokens": 251007.74354460093,
+        "retained_step_gpu_hours": 216.55830100033018,
+        "launcher_wall_hours_including_smoke": null,
+        "launcher_allocated_gpu_hours": null
+      },
+      "final_evaluation_fraction": {
+        "math_mean_at_16": 0.790375,
+        "aime24_mean_at_16": 0.13125,
+        "aime25_mean_at_16": 0.19166666666666668,
+        "macro_mean": 0.37109722222222224
+      },
+      "final_evaluation_percent": {
+        "math_mean_at_16": 79.03750000000001,
+        "aime24_mean_at_16": 13.125,
+        "aime25_mean_at_16": 19.166666666666668,
+        "macro_mean": 37.109722222222224
+      },
+      "peak_reported_worker_allocated_gib": 29.911922931671143,
+      "reported_limitations": [
+        "Original non-GRPO teacher differs from paper",
+        "No step-0 evaluation or teacher evaluation",
+        "One run only; best checkpoint selection uses the reported evaluation benchmarks",
+        "Torch allocated-memory metric excludes SGLang and total device reservation",
+        "Checkpoint weights checked for existence/size; no final inference reload performed"
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "candidate": "optimized_b200",
+      "reference": "baseline_b200",
+      "performance": {
+        "normal_step_mean_s": {
+          "candidate": 72.78042110101158,
+          "reference": 102.19824193019262,
+          "absolute_delta": -29.41782082918104,
+          "relative_change_percent": -28.785055665903858,
+          "time_reduction_percent": 28.785055665903858,
+          "speedup_ratio": 1.404199651281932
+        },
+        "normal_generate_mean_s": {
+          "candidate": 31.2929350453923,
+          "reference": 30.84741199688173,
+          "absolute_delta": 0.445523048510573,
+          "relative_change_percent": 1.4442801508133263,
+          "time_reduction_percent": -1.4442801508133263,
+          "speedup_ratio": 0.9857628232102769
+        },
+        "normal_update_mean_s": {
+          "candidate": 41.418579546218744,
+          "reference": 71.27990239900602,
+          "absolute_delta": -29.861322852787275,
+          "relative_change_percent": -41.89304677443509,
+          "time_reduction_percent": 41.89304677443509,
+          "speedup_ratio": 1.7209644362493215
+        },
+        "normal_step_median_s": {
+          "candidate": 72.65334177017212,
+          "reference": 102.28733503818512,
+          "absolute_delta": -29.633993268013,
+          "relative_change_percent": -28.971322067341244,
+          "time_reduction_percent": 28.971322067341244,
+          "speedup_ratio": 1.4078820401923928
+        },
+        "summed_retained_step_hours": {
+          "candidate": 37.35257239712609,
+          "reference": 51.563192270861734,
+          "absolute_delta": -14.210619873735645,
+          "relative_change_percent": -27.559620046577372,
+          "time_reduction_percent": 27.559620046577372,
+          "speedup_ratio": 1.3804455479705866
+        },
+        "total_training_response_tokens": {
+          "candidate": 436303728,
+          "reference": 436568929,
+          "absolute_delta": -265201,
+          "relative_change_percent": -0.060746650158427506,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "mean_training_response_tokens": {
+          "candidate": 250893.46060954573,
+          "reference": 251045.96262219668,
+          "absolute_delta": -152.50201265094802,
+          "relative_change_percent": -0.060746650158416404,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "total_normal_response_tokens": {
+          "candidate": 427319876,
+          "reference": 427366085,
+          "absolute_delta": -46209,
+          "relative_change_percent": -0.010812509841529039,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "mean_normal_response_tokens": {
+          "candidate": 250774.5751173709,
+          "reference": 250801.69307511736,
+          "absolute_delta": -27.117957746464526,
+          "relative_change_percent": -0.010812509841529039,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "retained_step_gpu_hours": {
+          "candidate": 298.8205791770087,
+          "reference": 412.50553816689387,
+          "absolute_delta": -113.68495898988516,
+          "relative_change_percent": -27.559620046577372,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "launcher_wall_hours_including_smoke": {
+          "candidate": 37.63527777777778,
+          "reference": 51.83861111111111,
+          "absolute_delta": -14.203333333333333,
+          "relative_change_percent": -27.39913942310268,
+          "time_reduction_percent": 27.39913942310268,
+          "speedup_ratio": 1.377394141135312
+        },
+        "launcher_allocated_gpu_hours": {
+          "candidate": 301.08222222222224,
+          "reference": 414.7088888888889,
+          "absolute_delta": -113.62666666666667,
+          "relative_change_percent": -27.39913942310268,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        }
+      },
+      "final_accuracy": {
+        "math_mean_at_16": {
+          "candidate_fraction": 0.794125,
+          "reference_fraction": 0.795375,
+          "candidate_percent": 79.4125,
+          "reference_percent": 79.53750000000001,
+          "delta_percentage_points": -0.12500000000000844,
+          "relative_change_percent": -0.15715857300017122
+        },
+        "aime24_mean_at_16": {
+          "candidate_fraction": 0.1375,
+          "reference_fraction": 0.14166666666666666,
+          "candidate_percent": 13.750000000000002,
+          "reference_percent": 14.166666666666666,
+          "delta_percentage_points": -0.4166666666666652,
+          "relative_change_percent": -2.941176470588225
+        },
+        "aime25_mean_at_16": {
+          "candidate_fraction": 0.18125,
+          "reference_fraction": 0.17916666666666667,
+          "candidate_percent": 18.125,
+          "reference_percent": 17.916666666666668,
+          "delta_percentage_points": 0.2083333333333326,
+          "relative_change_percent": 1.1627906976744207
+        },
+        "macro_mean": {
+          "candidate_fraction": 0.37095833333333333,
+          "reference_fraction": 0.37206944444444445,
+          "candidate_percent": 37.09583333333333,
+          "reference_percent": 37.206944444444446,
+          "delta_percentage_points": -0.11111111111111183,
+          "relative_change_percent": -0.2986300347157411
+        }
+      }
+    },
+    {
+      "candidate": "optimized_b200",
+      "reference": "h200",
+      "performance": {
+        "normal_step_mean_s": {
+          "candidate": 72.78042110101158,
+          "reference": 105.5753931936244,
+          "absolute_delta": -32.79497209261281,
+          "relative_change_percent": -31.06308307321869,
+          "time_reduction_percent": 31.06308307321869,
+          "speedup_ratio": 1.4506015710886975
+        },
+        "normal_generate_mean_s": {
+          "candidate": 31.2929350453923,
+          "reference": 27.884004952482215,
+          "absolute_delta": 3.4089300929100865,
+          "relative_change_percent": 12.22539623959802,
+          "time_reduction_percent": -12.22539623959802,
+          "speedup_ratio": 0.891063906662471
+        },
+        "normal_update_mean_s": {
+          "candidate": 41.418579546218744,
+          "reference": 77.62640015871872,
+          "absolute_delta": -36.20782061249998,
+          "relative_change_percent": -46.643694076329325,
+          "time_reduction_percent": 46.643694076329325,
+          "speedup_ratio": 1.8741927175966016
+        },
+        "normal_step_median_s": {
+          "candidate": 72.65334177017212,
+          "reference": 104.97268974781036,
+          "absolute_delta": -32.319347977638245,
+          "relative_change_percent": -30.78833938168417,
+          "time_reduction_percent": 30.78833938168417,
+          "speedup_ratio": 1.4448432403821923
+        },
+        "summed_retained_step_hours": {
+          "candidate": 37.35257239712609,
+          "reference": 54.139575250082544,
+          "absolute_delta": -16.787002852956455,
+          "relative_change_percent": -31.00689795849638,
+          "time_reduction_percent": 31.00689795849638,
+          "speedup_ratio": 1.4494202614609764
+        },
+        "total_training_response_tokens": {
+          "candidate": 436303728,
+          "reference": 436936505,
+          "absolute_delta": -632777,
+          "relative_change_percent": -0.14482127099908482,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "mean_training_response_tokens": {
+          "candidate": 250893.46060954573,
+          "reference": 251257.33467510063,
+          "absolute_delta": -363.8740655549045,
+          "relative_change_percent": -0.14482127099908482,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "total_normal_response_tokens": {
+          "candidate": 427319876,
+          "reference": 427717195,
+          "absolute_delta": -397319,
+          "relative_change_percent": -0.09289292192239396,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "mean_normal_response_tokens": {
+          "candidate": 250774.5751173709,
+          "reference": 251007.74354460093,
+          "absolute_delta": -233.16842723003356,
+          "relative_change_percent": -0.09289292192238285,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "retained_step_gpu_hours": {
+          "candidate": 298.8205791770087,
+          "reference": 216.55830100033018,
+          "absolute_delta": 82.26227817667854,
+          "relative_change_percent": 37.98620408300724,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "launcher_wall_hours_including_smoke": {
+          "candidate": 37.63527777777778,
+          "reference": null,
+          "absolute_delta": null,
+          "relative_change_percent": null,
+          "time_reduction_percent": null,
+          "speedup_ratio": null,
+          "reason": "reference full launcher wall time is not available in the retained H200 summary"
+        },
+        "launcher_allocated_gpu_hours": {
+          "candidate": 301.08222222222224,
+          "reference": null,
+          "absolute_delta": null,
+          "relative_change_percent": null,
+          "time_reduction_percent": null,
+          "speedup_ratio": null,
+          "reason": "reference full launcher wall time is not available in the retained H200 summary"
+        }
+      },
+      "final_accuracy": {
+        "math_mean_at_16": {
+          "candidate_fraction": 0.794125,
+          "reference_fraction": 0.790375,
+          "candidate_percent": 79.4125,
+          "reference_percent": 79.03750000000001,
+          "delta_percentage_points": 0.374999999999992,
+          "relative_change_percent": 0.4744583267436209
+        },
+        "aime24_mean_at_16": {
+          "candidate_fraction": 0.1375,
+          "reference_fraction": 0.13125,
+          "candidate_percent": 13.750000000000002,
+          "reference_percent": 13.125,
+          "delta_percentage_points": 0.6250000000000006,
+          "relative_change_percent": 4.761904761904767
+        },
+        "aime25_mean_at_16": {
+          "candidate_fraction": 0.18125,
+          "reference_fraction": 0.19166666666666668,
+          "candidate_percent": 18.125,
+          "reference_percent": 19.166666666666668,
+          "delta_percentage_points": -1.0416666666666685,
+          "relative_change_percent": -5.434782608695665
+        },
+        "macro_mean": {
+          "candidate_fraction": 0.37095833333333333,
+          "reference_fraction": 0.37109722222222224,
+          "candidate_percent": 37.09583333333333,
+          "reference_percent": 37.109722222222224,
+          "delta_percentage_points": -0.01388888888889106,
+          "relative_change_percent": -0.03742655039485898
+        }
+      }
+    },
+    {
+      "candidate": "baseline_b200",
+      "reference": "h200",
+      "performance": {
+        "normal_step_mean_s": {
+          "candidate": 102.19824193019262,
+          "reference": 105.5753931936244,
+          "absolute_delta": -3.37715126343177,
+          "relative_change_percent": -3.19880529096217,
+          "time_reduction_percent": 3.19880529096217,
+          "speedup_ratio": 1.0330451013603401
+        },
+        "normal_generate_mean_s": {
+          "candidate": 30.84741199688173,
+          "reference": 27.884004952482215,
+          "absolute_delta": 2.9634070443995135,
+          "relative_change_percent": 10.627623433038135,
+          "time_reduction_percent": -10.627623433038135,
+          "speedup_ratio": 0.903933365797459
+        },
+        "normal_update_mean_s": {
+          "candidate": 71.27990239900602,
+          "reference": 77.62640015871872,
+          "absolute_delta": -6.346497759712705,
+          "relative_change_percent": -8.175695055723754,
+          "time_reduction_percent": 8.175695055723754,
+          "speedup_ratio": 1.089036285770801
+        },
+        "normal_step_median_s": {
+          "candidate": 102.28733503818512,
+          "reference": 104.97268974781036,
+          "absolute_delta": -2.685354709625244,
+          "relative_change_percent": -2.5581460435820214,
+          "time_reduction_percent": 2.5581460435820214,
+          "speedup_ratio": 1.0262530518428579
+        },
+        "summed_retained_step_hours": {
+          "candidate": 51.563192270861734,
+          "reference": 54.139575250082544,
+          "absolute_delta": -2.57638297922081,
+          "relative_change_percent": -4.758779446125927,
+          "time_reduction_percent": 4.758779446125927,
+          "speedup_ratio": 1.0499655445242229
+        },
+        "total_training_response_tokens": {
+          "candidate": 436568929,
+          "reference": 436936505,
+          "absolute_delta": -367576,
+          "relative_change_percent": -0.08412572440016364,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "mean_training_response_tokens": {
+          "candidate": 251045.96262219668,
+          "reference": 251257.33467510063,
+          "absolute_delta": -211.3720529039565,
+          "relative_change_percent": -0.08412572440015254,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "total_normal_response_tokens": {
+          "candidate": 427366085,
+          "reference": 427717195,
+          "absolute_delta": -351110,
+          "relative_change_percent": -0.08208928799320336,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "mean_normal_response_tokens": {
+          "candidate": 250801.69307511736,
+          "reference": 251007.74354460093,
+          "absolute_delta": -206.05046948356903,
+          "relative_change_percent": -0.08208928799320336,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "retained_step_gpu_hours": {
+          "candidate": 412.50553816689387,
+          "reference": 216.55830100033018,
+          "absolute_delta": 195.9472371665637,
+          "relative_change_percent": 90.48244110774814,
+          "time_reduction_percent": null,
+          "speedup_ratio": null
+        },
+        "launcher_wall_hours_including_smoke": {
+          "candidate": 51.83861111111111,
+          "reference": null,
+          "absolute_delta": null,
+          "relative_change_percent": null,
+          "time_reduction_percent": null,
+          "speedup_ratio": null,
+          "reason": "reference full launcher wall time is not available in the retained H200 summary"
+        },
+        "launcher_allocated_gpu_hours": {
+          "candidate": 414.7088888888889,
+          "reference": null,
+          "absolute_delta": null,
+          "relative_change_percent": null,
+          "time_reduction_percent": null,
+          "speedup_ratio": null,
+          "reason": "reference full launcher wall time is not available in the retained H200 summary"
+        }
+      },
+      "final_accuracy": {
+        "math_mean_at_16": {
+          "candidate_fraction": 0.795375,
+          "reference_fraction": 0.790375,
+          "candidate_percent": 79.53750000000001,
+          "reference_percent": 79.03750000000001,
+          "delta_percentage_points": 0.5000000000000004,
+          "relative_change_percent": 0.6326111023248426
+        },
+        "aime24_mean_at_16": {
+          "candidate_fraction": 0.14166666666666666,
+          "reference_fraction": 0.13125,
+          "candidate_percent": 14.166666666666666,
+          "reference_percent": 13.125,
+          "delta_percentage_points": 1.0416666666666656,
+          "relative_change_percent": 7.9365079365079305
+        },
+        "aime25_mean_at_16": {
+          "candidate_fraction": 0.17916666666666667,
+          "reference_fraction": 0.19166666666666668,
+          "candidate_percent": 17.916666666666668,
+          "reference_percent": 19.166666666666668,
+          "delta_percentage_points": -1.250000000000001,
+          "relative_change_percent": -6.521739130434789
+        },
+        "macro_mean": {
+          "candidate_fraction": 0.37206944444444445,
+          "reference_fraction": 0.37109722222222224,
+          "candidate_percent": 37.206944444444446,
+          "reference_percent": 37.109722222222224,
+          "delta_percentage_points": 0.09722222222222077,
+          "relative_change_percent": 0.26198585276395736
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "These are independent stochastic on-policy trajectories, not paired fixed-input trials; token totals/means are close but per-step length distributions and later policies differ.",
+    "Normal-step statistics exclude steps 50,100,...,1700 and1739, include initialization step1, and use1704steps in all three runs; H200 resumed initialization step51 remains included.",
+    "timing/train_s includes update and actor-to-rollout weight sync; summed step hours include checkpoints/evaluation but exclude launcher preparation/smoke/model loading/interruption gaps.",
+    "Only old/new B200 have complete all-mode launcher wall times; H200 retained summaries do not provide comparable whole-launcher wall duration.",
+    "H200 uses4GPUs and FA3 rollout while B200 uses8GPUs and official FA4 rollout; no strict same-GPU-count hardware causal comparison.",
+    "GPU-hours equal visible GPU count multiplied by duration, are not active-compute GPU-hours or billed cost.",
+    "Final step1739 mean@16 uses500 MATH and30+30 AIME questions with16outputs each, not pass@16;480 AIME outputs are not480 independent questions.",
+    "One run per profile without seed repetitions or step0/teacher evaluation; no confidence interval, statistical non-inferiority, accuracy preservation or improvement claim.",
+    "Teacher is original non-GRPO Qwen3-8B; these results do not establish complete paper-accuracy reproduction.",
+    "Historical best checkpoints are selected on reported benchmarks and must not be merged across benchmarks; comparisons here use the preplanned final step1739.",
+    "Worker PyTorch allocated peaks exclude SGLang/device totals; old cumulative peaks versus new per-update-reset peaks have different semantics and are not a strict memory-usage comparison.",
+    "GPU2 NVLink was abnormal in prior snapshots; no proof of identical hardware health throughout the three full runs or repair/firmware causality.",
+    "Final weight files were inventoried but not reloaded for inference; extra-state and dataloader CPU checks do not constitute weight-content numerical validation.",
+    "H200 training completed but wrapper exit5 from post-training overlay guard is retained, not rewritten as launcher success."
+  ]
+}

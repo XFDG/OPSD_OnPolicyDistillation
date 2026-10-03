@@ -1,10 +1,12 @@
 # Taihua 8×B200 OPSD/TIP 优化实验
 
-本文保留 `2026-09-30T20:42:02Z` 的有界验收快照；文中的“全量尚未启动”指验收时状态。用户后续反馈运行明显更快，本次文档整理未重新采集完整生产日志。新增 [优化思路与验证记录](OPD_OPTIMIZATION_DESIGN.md) 和 [独立技术分享](TECHNICAL_SHARE_ON_POLICY_DISTILLATION.md)，量化结论仍以已核验短测试为准。
+更新于2026-10-03。本页保留 `2026-09-30T20:42:02Z` 的有界验收证据，并补入已完成的优化全量结果。短测试和全量计时分别报告；[独立技术分享](TECHNICAL_SHARE_ON_POLICY_DISTILLATION.md)继续保留匿名、短测试的测量范围。
 
-**状态：B200 有界优化验收通过，手动总启动器已部署；优化全量训练尚未启动。**
+**当前状态：优化全量成功完成1739步、35次完整评测和35套checkpoint，GPU wrapper/launcher均exit=0；八卡保活已自动恢复并通过最新只读检查。**
 
-分支：`experiments/taihua-b200-optimization`。本实验从已完成的 B200 基线继续优化执行方式；目标是交付经过稳定性、最长序列和恢复验证的手动启动脚本。三个配置的两步 profile smoke、关闭 profile 的候选六步和真实 Qwen 最长序列容量 gate 已通过；关闭 profile 的基线六步训练产物通过 CPU 事后审计，原观察器导致的 launcher/GPU wrapper exit=1 保留。step6→7/8 恢复 run `tip-20260930T203205Z-3156633` 已通过，八 rank model/optimizer/scheduler/RNG 与数据进度连续；37份源码及四类证据已通过最终验收。本分支的优化候选没有启动全量生产训练。
+完整`all`耗时**37.6353小时**，比原B200的51.8386小时少**27.3991% / 14.2033小时**；普通步72.7804秒，更新加权重同步41.4186秒。最终mean@16为**79.4125% / 13.7500% / 18.1250%**（MATH-500/AIME24/AIME25）；相对原B200为−0.1250/−0.4167/+0.2083个百分点，单次运行不能证明严格无损。详见 [全量审计](results/taihua-b200-optimized-20261003/RESULTS.md) 和 [新B200 / 原B200 / H200对照](results/taihua-b200-optimized-20261003/B200_OPT_VS_BASELINE_AND_H200.md)。
+
+分支：`experiments/taihua-b200-optimization`。本实验从已完成的 B200 基线继续优化执行方式。此前三个配置的两步 profile smoke、关闭 profile 的候选六步和真实 Qwen 最长序列容量 gate 已通过；关闭 profile 的基线六步训练产物通过 CPU 事后审计，原观察器导致的 launcher/GPU wrapper exit=1 保留。step6→7/8 恢复 run `tip-20260930T203205Z-3156633` 已通过，八 rank model/optimizer/scheduler/RNG 与数据进度连续；37份源码及四类证据已通过最终验收。用户随后手动启动全量run `tip-20261001T003630Z-3211352`，于2026-10-02 14:14:37 UTC正常结束。
 
 本记录的结果目录标签为 20261001，已完成 smoke 的服务器日志日期为 2026-09-30 UTC。以每个 run 的日志时间和 run ID 为审计依据。
 
@@ -108,19 +110,19 @@ resident smoke 的前置 gate 已覆盖：八卡 BF16 FA2 前向/反向，官方
 | 长序列容量 | 真实 Qwen；八 rank；预先初始化 Adam 状态；128×8192 response；NVML 整卡监测 | 已通过；wrapper/launcher exit=0，保活恢复 | cache37.094GiB/rank；worker max allocated63.430/reserved67.768GiB；NVML sampled minfree58.498GiB |
 | checkpoint 恢复 | 从已验证的候选 step6 恢复到 step7/8；完整 model/optimizer/scheduler/RNG/dataloader | 已通过；wrapper/launcher exit=0，保活恢复 | 更新39.846/33.620秒；数据cursor48→56→64；cosine仍1739步 |
 | 统一证据/source/profile 校验与 stamp | 验证日志退出/保活、配置和源码 hashes；完整证据绑定 | 已通过；CPU核验，无生产启动 | 37份源码与报告SHA绑定；TP1/失败stamp/源码变更均拒绝 |
-| 优化生产全量训练 | 用户验收后手动启动 | 未启动 | 没有优化候选完整 benchmark 结果 |
+| 优化生产全量训练 | 用户手动启动；1739步；每50步/最终保存及完整验证 | 已完成；wrapper/launcher exit=0，保活恢复 | all37.6353h；最终MATH/AIME24/AIME25=79.4125%/13.7500%/18.1250% |
 
 目前生产 gate 要求：stability/resume/long-sequence 的独立报告通过、GPU wrapper/launcher exit=0、保活恢复；profile 和源码匹配；从指定 step6 恢复出 step7/8；8192 response 的 cache 超过 37 GiB/rank 且实测最小空闲显存大于 4096 MiB；候选 step2–6 的平均更新+同步时间相对基线至少减少 15%。六步稳定性测试仅提前结束运行，不把 cosine horizon 缩短为六步。
 
 基线原包装器 exit=1 的唯一错误是观察器要求的 INFO 结束文字被默认日志级别过滤；Python训练本身成功，六步、checkpoint和验证输出均已完成。没有重新运行训练或改写日志；修复观察器后仅进行 CPU 事后核验，验证状态、原证据未变化、25份实际执行源码相同、已知8卡保活正常。生产 gate 对该基线单独绑定 [事后核验报告](results/optimization-20261001/baseline-reverification.json) 的 SHA256；原始 exit=1 仍保留，候选与恢复不适用这个例外。
 
-验收由 `/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/accepted-profile.json` 绑定所选配置、源码 SHA256 和证据报告 SHA256。缺少必需证据、不符合上述明确基线 CPU 审计例外的失败结果、源码或配置变化都会阻止 `all/train/resume`。最终核验在 `2026-09-30T20:42:02Z` 通过；记录见 [acceptance-verification.json](results/optimization-20261001/acceptance-verification.json) 和 [accepted-profile.json](results/optimization-20261001/accepted-profile.json)。验收只证明已测有界条件下的正确性、容量、恢复和速度，完整1739步与benchmark精度仍待手动生产运行。
+验收由 `/volume/pt-test/users/zhaoye/OPSD-B200-opt-runtime/accepted-profile.json` 绑定所选配置、源码 SHA256 和证据报告 SHA256。缺少必需证据、不符合上述明确基线 CPU 审计例外的失败结果、源码或配置变化都会阻止 `all/train/resume`。最终有界核验在 `2026-09-30T20:42:02Z` 通过；记录见 [acceptance-verification.json](results/optimization-20261001/acceptance-verification.json) 和 [accepted-profile.json](results/optimization-20261001/accepted-profile.json)。有界验收证明其已测条件；后续完整1739步与benchmark结果另见本页开头全量报告。
 
-**全量时间粗估：34–39小时。** 当前普通步66.762秒×1739/3600约32.25小时，加历史 B200 保存/评估额外约2.20小时得到34.4小时；用本次普通步比0.7384缩放历史51.56小时得到38.1小时。依据是关闭 profile 的六步对照，计算见 [稳定性对照](results/optimization-20261001/stability-comparison.md)。普通步仅step3/5两条样本，未来 trajectory、长度、完整 MATH/AIME 验证和 I/O 可能变化，不能承诺 ETA。优化候选的实际全量时长和完整精度仍未测得。
+**历史全量粗估为34–39小时，实际all为37.6353小时。** 当时用普通步66.762秒×1739/3600约32.25小时，加历史 B200 保存/评估额外约2.20小时得到34.4小时；用普通步比0.7384缩放历史51.56小时得到38.1小时。依据是关闭 profile 的六步对照，计算见 [稳定性对照](results/optimization-20261001/stability-comparison.md)。该估算仅有step3/5两条普通步，不作为新的时间承诺；实际完整step求和37.3526小时，train-shell37.4189小时，all37.6353小时，三个口径分别记录。
 
 ## 4. 硬件事实与性能判断
 
-当前诊断中 GPU2 到其他卡的拓扑为 NODE/SYS，其他七卡互联为 NV18；`nvidia-smi nvlink --status -i 2` 报告所有链路 inactive。最终复查仍一致，见 [NVLink 复查](results/optimization-20261001/final-gpu2-nvlink.txt)、[拓扑复查](results/optimization-20261001/final-topology.txt)；此前记录见 [OPTIMIZATION_PROGRESS.md](OPTIMIZATION_PROGRESS.md)。没有执行 GPU、驱动或 NVSwitch reset。
+2026-09-30有界验收诊断中，GPU2 到其他卡的拓扑为 NODE/SYS，其他七卡互联为 NV18；`nvidia-smi nvlink --status -i 2` 报告所有链路 inactive。该次最终复查仍一致，见 [NVLink 复查](results/optimization-20261001/final-gpu2-nvlink.txt)、[拓扑复查](results/optimization-20261001/final-topology.txt)；此前记录见 [OPTIMIZATION_PROGRESS.md](OPTIMIZATION_PROGRESS.md)。后续只读采样仍见异常，本次结果整理未重查端口，没有执行 GPU、驱动或 NVSwitch reset，不能视为已修复。
 
 NVLink 缺失可能影响 FSDP 通信和 TP2 rollout 的物理传输路径，因此本实验速度与机器当时状态有关。没有证据证明此前完整 B200 基线全程处于同样状态，也不能把所有差距归因于此。恢复互联后的速度应重新测量。
 
@@ -169,7 +171,7 @@ bash /volume/pt-test/users/zhaoye/OPSD_B200_Optimize/full.sh status
 
 ### 5.4 生产启动命令：仅验收通过后由用户手动执行
 
-**所选配置已通过验收，下面命令可由用户手动执行。当前优化全量训练未启动。**
+**所选配置已通过验收，并已由用户手动完成一次全量。下面命令保留供后续手动运行；`all/train`会创建新的训练run，本次结果整理未再次启动。**
 
 推荐总命令：检查环境/模型/数据并做两步 smoke，然后启动完整1739步训练：
 
@@ -193,6 +195,9 @@ bash /volume/pt-test/users/zhaoye/OPSD_B200_Optimize/full.sh resume
 
 ## 6. 结果索引
 
+- [最新优化全量：1739步/35评测/35checkpoint审计](results/taihua-b200-optimized-20261003/RESULTS.md)
+- [优化B200、原B200、H200完整性能与精度对比](results/taihua-b200-optimized-20261003/B200_OPT_VS_BASELINE_AND_H200.md)
+- [全量图表](results/taihua-b200-optimized-20261003/summary.png)
 - [关闭 profile 的六步稳定性/容量对照](results/optimization-20261001/stability-comparison.md)
 - [精确稳定性指标、汇总公式和证据 hashes](results/optimization-20261001/stability-comparison.json)
 - [六步候选状态验证](results/optimization-20261001/stability-verification.json)

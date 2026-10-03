@@ -1,0 +1,7 @@
+{
+  "sampled_utc": "2026-10-03T02:06:23.222910+00:00",
+  "action": "existing_controller_status_read_only",
+  "exit_code": 0,
+  "stdout": "[b200-keepalive] parent=(3391000, 100320861) GPU_workers=8",
+  "stderr": ""
+}

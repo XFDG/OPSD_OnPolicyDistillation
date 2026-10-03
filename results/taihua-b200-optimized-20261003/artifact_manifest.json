@@ -1,0 +1,136 @@
+{
+  "created_utc": "2026-10-03T02:16:31.016347+00:00",
+  "scope": "Published aggregates, documentation and CPU audit/plot/comparison sources; manifest excludes itself. Raw run hashes are in source_manifest.json and evaluation_evidence.json.",
+  "files": [
+    {
+      "file": "results/taihua-b200-optimized-20261003/B200_OPT_VS_BASELINE_AND_H200.md",
+      "bytes": 9886,
+      "sha256": "080883d6db72dd34ee0356a64e7f5278060debeb812610dc90dedee69cbdcbe7"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/RESULTS.md",
+      "bytes": 15295,
+      "sha256": "3f610899ffb0990b38b8f8164404a511c5a88bc70ba112e5e64035285460939f"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/checkpoint_inventory.json",
+      "bytes": 2819,
+      "sha256": "8ed7e027650c202609afa7d7a46eb6b2e79db863d99173287e9572e36781123b"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/checkpoint_state_verification.json",
+      "bytes": 1849,
+      "sha256": "3ee37cd285430d02b6a4b5cf1fea22a3fac759c786b51748e1782de3f59d0aeb"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/compare_runs.py",
+      "bytes": 14890,
+      "sha256": "80642a2d1d2eb80d0b374c8842e587818dae53603109d98308242de7f4f39e68"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/comparison.json",
+      "bytes": 28419,
+      "sha256": "9ea517d1cc87b5ae9204764ea1b19b11128e7288c55c011524649982e1978ab5"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/comparison_metrics.csv",
+      "bytes": 3526,
+      "sha256": "fb5c0498b9c1c8e8c7c5cdb36d680b57fbd012eafa58cf39512e73764a2c1154"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/completion-evidence.log",
+      "bytes": 1728,
+      "sha256": "8f3f4f04c80878c51b369019e79e94ca864749b01f4f347ff37f131a2a8b4f57"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/completion_events.json",
+      "bytes": 2717,
+      "sha256": "7101bbef689487e7b5d12d174359d697c4eab621bf5750ae3e89b9801f76eb9a"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/eval_curve.csv",
+      "bytes": 2275,
+      "sha256": "0bd8acd9f8bae5e56351fbe15e65218fd1c81dd1f4cf14fa847974e8127c2099"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/evaluation_evidence.json",
+      "bytes": 11253,
+      "sha256": "3f158da92fedf744ee12a282ef6f9cf1a653ecc6fbf4f25b51d3a734e449df46"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/final_question_scores.csv",
+      "bytes": 48517,
+      "sha256": "5e121a12f1a023221a895ab58912f0190f2ab911308c42a298eb141a625c7244"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/keepalive_status.json",
+      "bytes": 216,
+      "sha256": "ced65e2ef98e4e83dd539045904bed82591b1cbd3def82dc3853fae17851372a"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/plot_results.py",
+      "bytes": 8800,
+      "sha256": "45b53d2e8b990e33dc38cd0339fc21e48a9e76cc272c5447f63111fa5f82f9f8"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/process_state.json",
+      "bytes": 893,
+      "sha256": "dd9eb54837ad5d9ab76bd76e76b9bf3848178e9040589c4a64940c2ce10063ce"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/run_profile.json",
+      "bytes": 5071,
+      "sha256": "7d2f93054affa12cf550307837c9f8279dafc098533cd3f2dc7c43f9976dbf6a"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/source_manifest.json",
+      "bytes": 2589,
+      "sha256": "8d8c9c68f32f16a8f4fbfc192f92c9874a8286e91f15bf202733352f308cf9b2"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/summary.json",
+      "bytes": 6457,
+      "sha256": "68f7248d8479a87e537fc721d53d33c86c681e18c903f24497d2d4d62533192a"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/summary.png",
+      "bytes": 503506,
+      "sha256": "5ef701d3e3399cd31745a97bcb790e86b60e30861133e4111080a47ea4440be3"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/summary.svg",
+      "bytes": 78661,
+      "sha256": "178e11f8ae55fef456412f0a5d625c954a658992e8a9372efc4d38a4af8a97fa"
+    },
+    {
+      "file": "results/taihua-b200-optimized-20261003/training_metrics.csv",
+      "bytes": 663816,
+      "sha256": "f9f13719c1cae8350431442d8f088f132d116eb2f597cc4341408cf07ef4be93"
+    },
+    {
+      "file": "scripts/summarize_b200_optimized_run.py",
+      "bytes": 7887,
+      "sha256": "75894af4382d1e10714fe678a12243a1f6cd7d156d8ca7f6e9962efb639023e6"
+    },
+    {
+      "file": "scripts/summarize_b200_run.py",
+      "bytes": 8443,
+      "sha256": "46ce86f3181316b9ac11f0fbb62a7417e88d2f9a0704e87236a4b483699d7ec1"
+    },
+    {
+      "file": "README.md",
+      "bytes": 22098,
+      "sha256": "c7efa42f6f9daa978b2de4ede123c4fc0a1de520b0b2527bc2aae86e4548c6fb"
+    },
+    {
+      "file": "OPTIMIZATION_RESULTS.md",
+      "bytes": 22569,
+      "sha256": "a087430d9a5d65e1461e27220fffa80dc302426251f713a0a47df55d011ba0c3"
+    },
+    {
+      "file": "OPTIMIZATION_PROGRESS.md",
+      "bytes": 11311,
+      "sha256": "98ad192a28b7ea67ef65e533459fea53d6d0b54f665fda31d916f6d0da25dbcd"
+    }
+  ]
+}
